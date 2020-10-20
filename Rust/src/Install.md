@@ -1,0 +1,33 @@
+# Install 
+
+## Install
+
+```shell
+$ scoop install rust # Windows
+$ brew install rust  # MacOS
+```
+
+## Hello,World
+
+```rust
+fn main() { 
+        println!("Hello, World!");
+}
+```
+
+## Compile
+
+```shell
+$ rustc [file.rs]
+./[file]
+```
+
+## Cargo
+
+```shell
+$ cargo new [project] --bin # cargoプロジェクトの作成
+$ cargo build               # コンパイル、実行ファイルの作成
+$ cargo build --release     # リリース用実行ファイルの作成
+$ cargo check               # コンパイル
+$ cargo run                 # 実行
+```
