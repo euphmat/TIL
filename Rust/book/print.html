@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="ja" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Summary</a></li><li class="chapter-item expanded "><a href="01.Install.html"><strong aria-hidden="true">2.</strong> Install</a></li><li class="chapter-item expanded "><a href="02.Variable.html"><strong aria-hidden="true">3.</strong> Variable</a></li><li class="chapter-item expanded "><a href="03.Datatype.html"><strong aria-hidden="true">4.</strong> DataType</a></li><li class="chapter-item expanded "><a href="04.Function.html"><strong aria-hidden="true">5.</strong> Function</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Summary</a></li><li class="chapter-item expanded "><a href="01.Install.html"><strong aria-hidden="true">2.</strong> Install</a></li><li class="chapter-item expanded "><a href="02.Variable.html"><strong aria-hidden="true">3.</strong> Variable</a></li><li class="chapter-item expanded "><a href="03.Datatype.html"><strong aria-hidden="true">4.</strong> DataType</a></li><li class="chapter-item expanded "><a href="04.Function.html"><strong aria-hidden="true">5.</strong> Function</a></li><li class="chapter-item expanded "><a href="05.Flow_Control.html"><strong aria-hidden="true">6.</strong> Flow_Control</a></li><li class="chapter-item expanded "><a href="06.What_is_OwnerShip.html"><strong aria-hidden="true">7.</strong> What is OwnerShip</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -161,13 +161,21 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#summary" id="summary">Summary</a></h1>
+                        <h1><a class="header" href="#toc" id="toc">TOC</a></h1>
 <ol>
 <li><a href="./SUMMARY.html">Summary</a></li>
+</ol>
+<h2><a class="header" href="#getting-started" id="getting-started">Getting Started</a></h2>
+<ol start="2">
 <li><a href="./01.Install.html">Install</a></li>
 <li><a href="./02.Variable.html">Variable</a></li>
 <li><a href="./03.Datatype.html">DataType</a></li>
 <li><a href="./04.Function.html">Function</a></li>
+<li><a href="./05.Flow_Control.html">Flow_Control</a></li>
+</ol>
+<h2><a class="header" href="#owner-ship" id="owner-ship">Owner Ship</a></h2>
+<ol start="7">
+<li><a href="./06.What_is_OwnerShip.html">What is OwnerShip</a></li>
 </ol>
 <h1><a class="header" href="#install" id="install">Install</a></h1>
 <h2><a class="header" href="#install-1" id="install-1">Install</a></h2>
@@ -380,6 +388,166 @@ println!(&quot;element = {}&quot;, element);
 <span class="boring">}
 </span></code></pre></pre>
 <h1><a class="header" href="#function" id="function">Function</a></h1>
+<ul>
+<li><code>main</code>関数は基本的にプログラム実行時、最初に走る関数となる</li>
+<li><code>fn</code>キーワードによって新しい関数を宣言することができる</li>
+<li>Rustの関数と変数の命名規則は、スネークケース（単語区切りにアンダースコア、全小文字）を使うのが慣習</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        println!(&quot;Hello, World!&quot;);
+        another_function();
+}
+
+fn another_function() {
+        println!(&quot;Another function.&quot;);
+}
+</code></pre></pre>
+<h2><a class="header" href="#関数の引数" id="関数の引数">関数の引数</a></h2>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        another_function(5,7);
+}
+
+fn another_function(x: i32, y:i32) {
+        println!(&quot;x + y = {}&quot;,x + y);
+}
+</code></pre></pre>
+<h2><a class="header" href="#文と式" id="文と式">文と式</a></h2>
+<ul>
+<li>文はなんらかの動作をして、値を返さない命令</li>
+<li>式は結果式に評価される</li>
+<li>下記のようなコードはRuby言語では動作するが、Rustでは<code>()</code>内のコードは文とされるため、エラーとなる</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
+</span>let x = (let y = 6);
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#戻り値のある関数" id="戻り値のある関数">戻り値のある関数</a></h2>
+<ul>
+<li>関数は、呼び出したコードに値を返すことができる</li>
+<li>戻り値に名前を付けなくても、矢印<code>-&gt;</code>の後に型を書いて宣言することができる</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn five() -&gt; i32 {
+        5
+}
+
+fn main() {
+        let x = five();
+        println!(&quot;x = {}&quot;,x);
+}
+</code></pre></pre>
+<h1><a class="header" href="#flow_control" id="flow_control">Flow_Control</a></h1>
+<h2><a class="header" href="#if式" id="if式"><code>if</code>式</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
+</span>let number = 3;
+if number &lt; 5 {
+    println!(&quot;true&quot;);
+} else {
+    println!(&quot;false&quot;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li>Rustの<code>if式</code>は<code>bool</code>型でなければならない</li>
+<li>下記コードはRubyやJavaScriptといった言語とは異なり、Rustでは、論理値を与えなければならない</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main()
+</span>let number = 3;
+if number {
+    println!(&quot;true&quot;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#else-ifで複数の条件を扱う" id="else-ifで複数の条件を扱う"><code>else if</code>で複数の条件を扱う</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
+</span>let number = 6;
+if number % 4 == 0 {
+        println!(&quot;number % 4 == 0&quot;);
+}else if number % 3 == 0 {
+        println!(&quot;number % 3 == 0&quot;);
+}else if number % 2 == 0 {
+        println!(&quot;number % 2 == 0&quot;);
+} else {
+        println!(&quot;number (!= number % 2,3,4 == 0)&quot;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#let内でif式を使う" id="let内でif式を使う"><code>let</code>内で<code>if</code>式を使う</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
+</span>let condition = true;
+let number = if condition {
+        5
+} else {
+        6
+};
+
+println!(&quot;number = {}&quot;, number);
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#loopでコードを繰り返す" id="loopでコードを繰り返す"><code>loop</code>でコードを繰り返す</a></h2>
+<ul>
+<li><code>break</code>でループを抜けることができる</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
+</span>loop {
+        println!(&quot;again&quot;); // 無限ループ
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#whileで条件付きループ" id="whileで条件付きループ"><code>while</code>で条件付きループ</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
+</span>let mut number = 3;
+
+while number != 0 {
+        println!(&quot;{}!&quot;, number);
+
+        number = number - 1;
+}
+
+println!(&quot;LIFTOFF!!!&quot;);
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#forループ" id="forループ"><code>for</code>ループ</a></h2>
+<ul>
+<li>下記のようなコードの場合、<code>While</code>でループを回すよりも安全</li>
+<li>Rustでは<code>for</code>ループがよく使われる</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
+</span>let a = [10, 20, 30, 40, 50];
+
+for element in a.iter() {
+        println!(&quot;element = {}&quot;,element);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#forループでrange型を使う" id="forループでrange型を使う"><code>for</code>ループでRange型を使う</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
+</span>for number in (1..4).rev() {
+        println!(&quot;{}&quot;,number);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h1><a class="header" href="#what-is-ownership" id="what-is-ownership">What is OwnerShip</a></h1>
+<ul>
+<li>所有権とは、Rustの中心的な機能である</li>
+</ul>
+<h2><a class="header" href="#所有権規則" id="所有権規則">所有権規則</a></h2>
+<ul>
+<li>Rustの各値は、<code>所有者</code>と呼ばれる変数と対応している</li>
+<li>いかなる時も<code>所有者</code>はひとつである</li>
+<li><code>所有者</code>がスコープから外れたら、値は破棄される</li>
+</ul>
+<h2><a class="header" href="#変数スコープ" id="変数スコープ">変数スコープ</a></h2>
+<ul>
+<li>変数スコープとは、要素が有効になるプログラム内の範囲のこと</li>
+<li>例としては以下のような形</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
+</span>{                              // 変数sは有効になっていない
+        let s = &quot;hello&quot;;       // 変数sはここから有効になる
+        println!(&quot;s = {}&quot;,s);  // 変数sで作業
+}
+<span class="boring">}                             // 変数sは無効
+</span></code></pre></pre>
 
                     </main>
 
