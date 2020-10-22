@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Variable - RustBook</title>
+        <title>References And Borrowing - RustBook</title>
         
         
 
@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Summary</a></li><li class="chapter-item expanded "><a href="01.Install.html"><strong aria-hidden="true">2.</strong> Install</a></li><li class="chapter-item expanded "><a href="02.Variable.html" class="active"><strong aria-hidden="true">3.</strong> Variable</a></li><li class="chapter-item expanded "><a href="03.Datatype.html"><strong aria-hidden="true">4.</strong> DataType</a></li><li class="chapter-item expanded "><a href="04.Function.html"><strong aria-hidden="true">5.</strong> Function</a></li><li class="chapter-item expanded "><a href="05.Flow_Control.html"><strong aria-hidden="true">6.</strong> Flow Control</a></li><li class="chapter-item expanded "><a href="06.What_is_OwnerShip.html"><strong aria-hidden="true">7.</strong> What is OwnerShip</a></li><li class="chapter-item expanded "><a href="07.References_And_Borrowing.html"><strong aria-hidden="true">8.</strong> References And Borrowing</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Summary</a></li><li class="chapter-item expanded "><a href="01.Install.html"><strong aria-hidden="true">2.</strong> Install</a></li><li class="chapter-item expanded "><a href="02.Variable.html"><strong aria-hidden="true">3.</strong> Variable</a></li><li class="chapter-item expanded "><a href="03.Datatype.html"><strong aria-hidden="true">4.</strong> DataType</a></li><li class="chapter-item expanded "><a href="04.Function.html"><strong aria-hidden="true">5.</strong> Function</a></li><li class="chapter-item expanded "><a href="05.Flow_Control.html"><strong aria-hidden="true">6.</strong> Flow Control</a></li><li class="chapter-item expanded "><a href="06.What_is_OwnerShip.html"><strong aria-hidden="true">7.</strong> What is OwnerShip</a></li><li class="chapter-item expanded "><a href="07.References_And_Borrowing.html" class="active"><strong aria-hidden="true">8.</strong> References And Borrowing</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -159,83 +159,18 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#variable" id="variable">Variable</a></h1>
-<h2><a class="header" href="#不変変数" id="不変変数">不変変数</a></h2>
-<ul>
-<li>Rustの変数は標準で不変である</li>
-<li>下記コードは変数<code>x</code>に値を再度代入しようとしているため、コンパイルエラーが発生する</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let x = 5;
-println!(&quot;x = {}&quot;, x);
-x = 6;
-println!(&quot;x = {}&quot;, x);
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#可変変数" id="可変変数">可変変数</a></h2>
-<ul>
-<li>変数宣言時、変数名の前に<code>mut</code>というキーワードを付けることで可変にすることが可能</li>
-<li>下記コードはコンパイルエラーにならず、実行することができる</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let mut x = 5;
-println!(&quot;x = {}&quot;, x);
-x = 6;
-println!(&quot;x = {}&quot;, x);
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#定数" id="定数">定数</a></h2>
-<ul>
-<li>不変定数とは違い、<code>const</code>キーワードで宣言し、値の型を記載しなければらならない</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main(){
-</span>const MAX_POINTS: u32 = 100_000;
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#シャドーイング" id="シャドーイング">シャドーイング</a></h2>
-<ul>
-<li>既に宣言されている変数名に対して、再度<code>let</code>を使用した場合、新しい変数を生成することになる</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let x = 5;
-let x = x + 1;
-let x = x * 2;
-println!(&quot;x = {}&quot;,x);
-<span class="boring">}
-</span></code></pre></pre>
-<ul>
-<li>再生成する場合、型が変わっても良い</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let spaces = &quot;       &quot;;    // str
-let spaces = spaces.len(); // int
-println!(&quot;spaces = {}&quot;, spaces);
-<span class="boring">}
-</span></code></pre></pre>
-<ul>
-<li>可変変数の場合、型が変わってしまうとコンパイルエラーとなる</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let mut spaces = &quot;       &quot;;    // str
-spaces = spaces.len(); // int
-println!(&quot;spaces = {}&quot;, spaces);
-<span class="boring">}
-</span></code></pre></pre>
+                        <h1><a class="header" href="#references_and_borrowing" id="references_and_borrowing">References_And_Borrowing</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="01.Install.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="06.What_is_OwnerShip.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
-                        
-                            <a rel="next" href="03.Datatype.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -245,15 +180,11 @@ println!(&quot;spaces = {}&quot;, spaces);
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="01.Install.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="06.What_is_OwnerShip.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
-                
-                    <a rel="next" href="03.Datatype.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             </nav>
 

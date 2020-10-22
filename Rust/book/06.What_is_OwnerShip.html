@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Summary</a></li><li class="chapter-item expanded "><a href="01.Install.html"><strong aria-hidden="true">2.</strong> Install</a></li><li class="chapter-item expanded "><a href="02.Variable.html"><strong aria-hidden="true">3.</strong> Variable</a></li><li class="chapter-item expanded "><a href="03.Datatype.html"><strong aria-hidden="true">4.</strong> DataType</a></li><li class="chapter-item expanded "><a href="04.Function.html"><strong aria-hidden="true">5.</strong> Function</a></li><li class="chapter-item expanded "><a href="05.Flow_Control.html"><strong aria-hidden="true">6.</strong> Flow_Control</a></li><li class="chapter-item expanded "><a href="06.What_is_OwnerShip.html" class="active"><strong aria-hidden="true">7.</strong> What is OwnerShip</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Summary</a></li><li class="chapter-item expanded "><a href="01.Install.html"><strong aria-hidden="true">2.</strong> Install</a></li><li class="chapter-item expanded "><a href="02.Variable.html"><strong aria-hidden="true">3.</strong> Variable</a></li><li class="chapter-item expanded "><a href="03.Datatype.html"><strong aria-hidden="true">4.</strong> DataType</a></li><li class="chapter-item expanded "><a href="04.Function.html"><strong aria-hidden="true">5.</strong> Function</a></li><li class="chapter-item expanded "><a href="05.Flow_Control.html"><strong aria-hidden="true">6.</strong> Flow Control</a></li><li class="chapter-item expanded "><a href="06.What_is_OwnerShip.html" class="active"><strong aria-hidden="true">7.</strong> What is OwnerShip</a></li><li class="chapter-item expanded "><a href="07.References_And_Borrowing.html"><strong aria-hidden="true">8.</strong> References And Borrowing</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -181,6 +181,208 @@
 }                              // 変数sは無効
 <span class="boring">}
 </span></code></pre></pre>
+<h2><a class="header" href="#string型で理解する所有権" id="string型で理解する所有権">String型で理解する所有権</a></h2>
+<ul>
+<li><code>String::from</code>はString型のfrom関数を使用して、文字リテラルから<code>String</code>型を生成している</li>
+<li><code>String</code>型はヒープにメモリを確保するため、コンパイル時にサイズが不明なテキストも保持することができる</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut s = String::from(&quot;String&quot;);
+let mut c = &quot;Char&quot;;
+
+s.push_str(&quot; World&quot;); // リテラルをsに付け加える
+c.push_str(&quot; World&quot;); // リテラルには付け加えられない、コンパイルエラー
+
+println!(&quot;s = {}&quot;, s);
+println!(&quot;c = {}&quot;, c);
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#メモリと確保" id="メモリと確保">メモリと確保</a></h2>
+<ul>
+<li>
+<p>文字列リテラルの場合、中身はコンパイル時に判明している</p>
+<ul>
+<li>最終的にバイナルファイルにいハードコードされる</li>
+<li>文字列リテラルは高速で効率的になる</li>
+</ul>
+</li>
+<li>
+<p><code>String</code>型では、伸縮可能なテキストをサポートするために、コンパイル時には不明な量のヒープを確保します。</p>
+<ul>
+<li>メモリは、実行時にOSに要求される</li>
+<li><code>String</code>型を使用し終わったら、OSniメモリを返還する方法が必要</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>メモリは実行時にOSに要求される</p>
+</blockquote>
+<p>この部分は<code>String::from</code>関数を呼ぶことで解決しています</p>
+<blockquote>
+<p><code>String</code>型を使用し終わったら、OSniメモリを返還する方法が必要</p>
+</blockquote>
+<p>この部分は少し異なります。</p>
+<ul>
+<li>
+<p><code>GC</code>付きの言語では、<code>GC</code>がこれ以上使用されないメモリを検知して片づけるため、プログラマがそのことを考慮する必要はない</p>
+</li>
+<li>
+<p><code>GC</code>がない言語では、プログラマが明示的に返還するコードを呼び出す必要があります</p>
+</li>
+<li>
+<p>Rustは上記２つとは異なった道を歩んでいます</p>
+<ul>
+<li>メモリを所有している変数がスコープを抜けたら、メモリは自動的に返還されます</li>
+<li>変数がスコープを抜けるとき、Rustは特別な関数を呼びます</li>
+<li>その関数は<code>drop</code>とよばれ、Rustは<code>}</code>で自動的に<code>drop</code>関数を呼び出します</li>
+<li>これらはRustコードの書き方に甚大な影響をもたらします</li>
+</ul>
+</li>
+</ul>
+<h2><a class="header" href="#変数とデータの相互作用" id="変数とデータの相互作用">変数とデータの相互作用</a></h2>
+<ul>
+<li>以下のコードは値<code>5</code>を変数<code>x</code>に束縛する。</li>
+<li>それから変数<code>x</code>の値をコピーし、<code>y</code>に束縛する</li>
+<li>これらの値は既知の固定サイズのため、スタックに積まれる</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x = 5;
+let y = x;
+
+println!(&quot;x = {}&quot;, x);
+println!(&quot;y = {}&quot;, y);
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li>下記コードは、上記の<code>String</code>バージョンです</li>
+<li><code>s1</code>を<code>s2</code>に代入すると、<code>String型</code>のデータがコピーされます</li>
+<li>つまり、String型はヒープに確保されるため、<code>pointer</code>,<code>length</code>,<code>capacity</code>のデータをコピーすることになります。</li>
+<li>&quot;hello&quot;というリテラルはコピーされません</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s1 = String::from(&quot;hello&quot;);
+let s2 = s1;
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#二重開放エラー" id="二重開放エラー">二重開放エラー</a></h2>
+<ul>
+<li>変数がスコープを抜けた場合、Rustは自動的に<code>drop</code>関数を呼びだし、その変数が使っていたヒープメモリを片付けると記載しました</li>
+<li>しかし、上記のようなコードの場合、<code>s1</code>と<code>s2</code>はポインタが同じ場所を指しています</li>
+<li>この場合、<code>s1</code>と<code>s2</code>がスコープを抜けたら、両方とも同じヒープメモリを解放しようとします。</li>
+<li>このことを、<code>二重開放エラー</code>と呼びます</li>
+<li>Rustにおいては、二重開放エラーを事前に防ぐため、確保されたメモリをコピーしようとする代わりに、コンパイラはもはや‘<code>s1</code>は有効ではないと考えます</li>
+<li>つまり、所有権が<code>s2</code>に移った辞典でs1ののデータは無効になり、<code>drop</code>が呼ばれたとき、<code>s2</code>だけがメモリを解放することになります</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s1 = String::from(&quot;hello&quot;); // String型のデータ、ヒープメモリのデータの所有権:s1
+let s2 = s1;                    // 所有権がs2に移る
+
+println!(&quot;{}, world!&quot;, s1);     // s1に所有権がないため、コンパイルエラー
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#cloneメソッド" id="cloneメソッド"><code>clone</code>メソッド</a></h2>
+<ul>
+<li>もし、本当にヒープメモリ上のデータをコピーしたい場合、<code>clone</code>メソッドを使用します</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s1 = String::from(&quot;hello&quot;); 
+let s2 = s1.clone();
+
+println!(&quot;{}, world s1!&quot;, s1);
+println!(&quot;{}, world s2!&quot;, s2);
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#スタックの場合" id="スタックの場合">スタックの場合</a></h2>
+<ul>
+<li><code>clone</code>メソッドは無いですが、うまく動作します</li>
+<li>理由として、整数のようなコンパイル時に既知のサイズを持つ型はスタックに保持され、コピー動作も高速だからです
+<ul>
+<li>これは、変数<code>y</code>を生成した後も、<code>x</code>を無効化する理由が特にないことを示します</li>
+</ul>
+</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x = 5;
+let y = x;
+
+println!(&quot;x = {}&quot;, x);
+println!(&quot;y = {}&quot;, y);
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#copyトレイトに適合する型" id="copyトレイトに適合する型"><code>copy</code>トレイトに適合する型</a></h2>
+<ul>
+<li>上記コードのように、<code>clone</code>を使わずにコピーできる型は、<code>copy</code>トレイトに適合する型です</li>
+<li>下記コード<code>char</code>型も、<code>copy</code>トレイトに適合するため、うまく動作します</li>
+<li>適合する型の特徴としては、スカラー値の集合<code>u32</code>,<code>bool</code>,<code>f64</code>,<code>char</code>など</li>
+<li>適合しない型の特徴としては、メモリの確保が必要であったり何らかの形態のリソースだったりするものは<code>copy</code>ではない</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = &quot;HELLO&quot;;
+let d = s;
+
+println!(&quot;s = {}&quot;,s);
+println!(&quot;d = {}&quot;,d);
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#所有権と関数" id="所有権と関数">所有権と関数</a></h2>
+<ul>
+<li>関数に値を渡すことと、値を変数に代入することは意味論的に似ている</li>
+<li>関数に変数を渡すと、代入のようにムーブ、コピーされます。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let s = String::from(&quot;hello&quot;);  // sがString型とヒープメモリデータの所有権を持つ
+        takes_ownership(s);             // sを引数として関数を呼ぶ、所有権が移り、sは無効となる
+        let x = 5;                      // xがスタックに保持される
+        makes_copy(x);                  // xをスタック方取り出して、それを引数として関数を呼ぶ
+        println!(&quot;x = {}&quot;, x);          // xはムーブされていないため、使用可能
+}
+
+fn takes_ownership(some_string: String) { // some_Stringが変数sのデータを受け取り、所有権を持つ
+        println!(&quot;{}&quot;, some_string);
+} // dropが呼ばれ、ヒープに確保されていたメモリが解放される
+
+fn makes_copy(some_integer: i32) {
+        println!(&quot;{}&quot;,some_integer);
+}
+</code></pre></pre>
+<h2><a class="header" href="#戻り値とスコープ" id="戻り値とスコープ">戻り値とスコープ</a></h2>
+<ul>
+<li>値を返すことでも所有権は移動します</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let s1 = gives_ownership();        // 関数を呼び出し、戻り値をs1にムーブする
+        let s2 = String::from(&quot;s2&quot;);       // s2がスコープに入る。ヒープメモリ上にデータを格納する 
+        println!(&quot;s2 = {}&quot;, s2);           // 所有権はここまで
+        let s3 = takes_and_gives_back(s2); // s2のデータを引数として関数を呼び出す 戻り値をs3にムーブする s2は所有権を失う 
+        println!(&quot;s3 = {}&quot;, s3);
+        println!(&quot;s1 = {}&quot;, s1);
+} // s1:drop, s3:drop s2:所有権がないため、何も起きない
+
+fn gives_ownership() -&gt; String {
+        let some_string = String::from(&quot;gives_ownership&quot;);
+        some_string                        // 呼び出し元関数にデータの所有権をムーブし、所有権を失う
+}
+
+
+// s2のデータをa_stringとして受け取り、すぐに呼び出し元へ返す
+fn takes_and_gives_back(a_string: String) -&gt; String {
+        a_string
+}
+</code></pre></pre>
 
                     </main>
 
@@ -192,6 +394,10 @@
                             </a>
                         
 
+                        
+                            <a rel="next" href="07.References_And_Borrowing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -206,6 +412,10 @@
                     </a>
                 
 
+                
+                    <a rel="next" href="07.References_And_Borrowing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             </nav>
 
