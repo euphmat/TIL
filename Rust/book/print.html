@@ -199,6 +199,15 @@ $ cargo build --release     # リリース用実行ファイルの作成
 $ cargo check               # コンパイル
 $ cargo run                 # 実行
 </code></pre>
+<h2><a class="header" href="#alias" id="alias">Alias</a></h2>
+<table><thead><tr><th align="left">Alias</th><th align="left">Command</th></tr></thead><tbody>
+<tr><td align="left"><code>cn</code></td><td align="left"><code>$ cargo new [Project] --bin</code></td></tr>
+<tr><td align="left"><code>cc</code></td><td align="left"><code>$ cargo check</code></td></tr>
+<tr><td align="left"><code>cb</code></td><td align="left"><code>$ cargo build</code></td></tr>
+<tr><td align="left"><code>cu</code></td><td align="left"><code>$ cargo update</code></td></tr>
+<tr><td align="left"><code>cbr</code></td><td align="left"><code>$ cargo build --release</code></td></tr>
+<tr><td align="left"><code>cr</code></td><td align="left"><code>$ cargo run</code></td></tr>
+</tbody></table>
 <h1><a class="header" href="#variable" id="variable">Variable</a></h1>
 <h2><a class="header" href="#不変変数" id="不変変数">不変変数</a></h2>
 <ul>
@@ -752,6 +761,78 @@ fn takes_and_gives_back(a_string: String) -&gt; String {
 }
 </code></pre></pre>
 <h1><a class="header" href="#references_and_borrowing" id="references_and_borrowing">References_And_Borrowing</a></h1>
+<h2><a class="header" href="#参照" id="参照">参照</a></h2>
+<ul>
+<li>
+<p>所有権をより、またその所有権を戻す。ということをすべて関数でしていたら、面倒です。</p>
+</li>
+<li>
+<p>関数に値を使わせたいけど、所有権を渡したくない</p>
+</li>
+<li>
+<p>Rustには、この問題を解決するために、<code>参照</code>という機能があります。</p>
+</li>
+<li>
+<p>以下のコードは、タプルを使って複数の所有権を移すコードです</p>
+</li>
+<li>
+<p>文字列の長さを調べる関数がありますが、この関数に所有権を渡してしまうと、再度返さなければなりません</p>
+</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let s1 = String::from(&quot;hello&quot;);       // s1を生成
+        let (s2, len) = calculate_length(s1); // s1の所有権をcaluculate_length()に渡し、s1の所有権と文字列長を取得
+
+        println!(&quot;The length of '{}' is {}.&quot;, s2, len);
+}
+
+fn calculate_length(s: String) -&gt; (String, usize) {
+        let length = s.len();
+        
+        (s, length)
+}
+</code></pre></pre>
+<ul>
+<li>そこで、所有権をもらう代わりに、引数としてオブジェクトへの参照をとる方法を見てみましょう</li>
+<li>以下の、<code>s1</code>という記法により、値を参照することができますが、これを所有することはありません</li>
+<li>caluculate_lengthの変数<code>s</code>に参照をとることを<code>借用</code>と呼びます</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let s1 = String::from(&quot;hello&quot;);
+        let len = calculate_length(&amp;s1); // 参照を渡すことで、所有権を渡さずに実現できる
+        println!(&quot;The length of '{}' is {}.&quot;, s1, len);
+}
+
+fn calculate_length(s: &amp;String) -&gt; usize { // 借用 
+  s.len()
+}
+</code></pre></pre>
+<ul>
+<li>借用した値を変更しようとすると、コンパイルエラーになります。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let s = String::from(&quot;hello&quot;); // string型sを生成
+        change(&amp;s);                    // change関数へ参照渡し
+}
+
+fn change(some_string: &amp;String) {      // 借用
+        some_string.push_str(&quot;,world&quot;);
+}
+</code></pre></pre>
+<ul>
+<li>上記のコードに一ひねり加えると、実行可能なコードとなります</li>
+<li>可変な参照コードにすることが可能です。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let mut s = String::from(&quot;hello&quot;);
+        change(&amp;mut s);
+        println!(&quot;s = {}&quot;,s);
+} 
+
+fn change(some_string: &amp;mut String) {
+        some_string.push_str(&quot;, world&quot;);
+}
+</code></pre></pre>
 
                     </main>
 
