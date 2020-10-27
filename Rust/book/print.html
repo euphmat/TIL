@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Summary</a></li><li class="chapter-item expanded "><a href="01.Install.html"><strong aria-hidden="true">2.</strong> Install</a></li><li class="chapter-item expanded "><a href="02.Variable.html"><strong aria-hidden="true">3.</strong> Variable</a></li><li class="chapter-item expanded "><a href="03.Datatype.html"><strong aria-hidden="true">4.</strong> DataType</a></li><li class="chapter-item expanded "><a href="04.Function.html"><strong aria-hidden="true">5.</strong> Function</a></li><li class="chapter-item expanded "><a href="05.Flow_Control.html"><strong aria-hidden="true">6.</strong> Flow Control</a></li><li class="chapter-item expanded "><a href="06.What_is_OwnerShip.html"><strong aria-hidden="true">7.</strong> What is OwnerShip</a></li><li class="chapter-item expanded "><a href="07.References_And_Borrowing.html"><strong aria-hidden="true">8.</strong> References And Borrowing</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="summary.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="common-programming-concepts.html"><strong aria-hidden="true">4.</strong> 基本的な文法と概念</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -161,678 +161,156 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#toc" id="toc">TOC</a></h1>
-<ol>
-<li><a href="./SUMMARY.html">Summary</a></li>
-</ol>
-<h2><a class="header" href="#getting-started" id="getting-started">Getting Started</a></h2>
-<ol start="2">
-<li><a href="./01.Install.html">Install</a></li>
-<li><a href="./02.Variable.html">Variable</a></li>
-<li><a href="./03.Datatype.html">DataType</a></li>
-<li><a href="./04.Function.html">Function</a></li>
-<li><a href="./05.Flow_Control.html">Flow Control</a></li>
-</ol>
-<h2><a class="header" href="#owner-ship" id="owner-ship">Owner Ship</a></h2>
-<ol start="7">
-<li><a href="./06.What_is_OwnerShip.html">What is OwnerShip</a></li>
-<li><a href="./07.References_And_Borrowing.html">References And Borrowing</a></li>
-</ol>
-<h1><a class="header" href="#install" id="install">Install</a></h1>
-<h2><a class="header" href="#install-1" id="install-1">Install</a></h2>
+                        <h1><a class="header" href="#rust言語-研修記録" id="rust言語-研修記録">Rust言語 研修記録</a></h1>
+<h1><a class="header" href="#summary" id="summary">Summary</a></h1>
+<ul>
+<li><a href="index.html">Rust言語 研修記録</a></li>
+<li><a href="summary.html">目次</a></li>
+<li><a href="setup.html">セットアップ</a></li>
+<li><a href="common-programming-concepts.html">基本的な文法と概念</a></li>
+</ul>
+<h1><a class="header" href="#セットアップ" id="セットアップ">セットアップ</a></h1>
+<h2><a class="header" href="#インストール" id="インストール">インストール</a></h2>
 <pre><code class="language-shell">$ scoop install rust # Windows
 $ brew install rust  # MacOS
+$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh # Linux
 </code></pre>
-<h2><a class="header" href="#helloworld" id="helloworld">Hello,World</a></h2>
-<pre><pre class="playground"><code class="language-rust">fn main() { 
-        println!(&quot;Hello, World!&quot;);
-}
-</code></pre></pre>
-<h2><a class="header" href="#compile" id="compile">Compile</a></h2>
-<pre><code class="language-shell">$ rustc [file.rs]
-./[file]
+<h2><a class="header" href="#アンインストール" id="アンインストール">アンインストール</a></h2>
+<pre><code class="language-shell">$ scoop uninstall rust  # Windows
+$ brew uninstall rust   # MacOS
+$ rustup self uninstall # Linux
 </code></pre>
+<h2><a class="header" href="#rustcのインストールが成功したかどうかを確認" id="rustcのインストールが成功したかどうかを確認"><code>rustc</code>のインストールが成功したかどうかを確認</a></h2>
+<pre><code class="language-shell">$ rustc --version
+</code></pre>
+<blockquote>
+<p><strong>実行結果</strong></p>
+<pre><code class="language-shell">rustc 1.46.0 (04488afe3 2020-08-24)
+</code></pre>
+</blockquote>
 <h2><a class="header" href="#cargo" id="cargo">Cargo</a></h2>
-<pre><code class="language-shell">$ cargo new [project] --bin # cargoプロジェクトの作成
-$ cargo build               # コンパイル、実行ファイルの作成
-$ cargo build --release     # リリース用実行ファイルの作成
-$ cargo check               # コンパイル
-$ cargo run                 # 実行
+<h2><a class="header" href="#cargoのインストールが成功したかどうかを確認" id="cargoのインストールが成功したかどうかを確認"><code>Cargo</code>のインストールが成功したかどうかを確認</a></h2>
+<pre><code class="language-shell">$ cargo --version
 </code></pre>
-<h2><a class="header" href="#alias" id="alias">Alias</a></h2>
-<table><thead><tr><th align="left">Alias</th><th align="left">Command</th></tr></thead><tbody>
-<tr><td align="left"><code>cn</code></td><td align="left"><code>$ cargo new [Project] --bin</code></td></tr>
-<tr><td align="left"><code>cc</code></td><td align="left"><code>$ cargo check</code></td></tr>
-<tr><td align="left"><code>cb</code></td><td align="left"><code>$ cargo build</code></td></tr>
-<tr><td align="left"><code>cu</code></td><td align="left"><code>$ cargo update</code></td></tr>
-<tr><td align="left"><code>cbr</code></td><td align="left"><code>$ cargo build --release</code></td></tr>
-<tr><td align="left"><code>cr</code></td><td align="left"><code>$ cargo run</code></td></tr>
-</tbody></table>
-<h1><a class="header" href="#variable" id="variable">Variable</a></h1>
-<h2><a class="header" href="#不変変数" id="不変変数">不変変数</a></h2>
-<ul>
-<li>Rustの変数は標準で不変である</li>
-<li>下記コードは変数<code>x</code>に値を再度代入しようとしているため、コンパイルエラーが発生する</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let x = 5;
-println!(&quot;x = {}&quot;, x);
-x = 6;
-println!(&quot;x = {}&quot;, x);
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#可変変数" id="可変変数">可変変数</a></h2>
-<ul>
-<li>変数宣言時、変数名の前に<code>mut</code>というキーワードを付けることで可変にすることが可能</li>
-<li>下記コードはコンパイルエラーにならず、実行することができる</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let mut x = 5;
-println!(&quot;x = {}&quot;, x);
-x = 6;
-println!(&quot;x = {}&quot;, x);
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#定数" id="定数">定数</a></h2>
-<ul>
-<li>不変定数とは違い、<code>const</code>キーワードで宣言し、値の型を記載しなければらならない</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main(){
-</span>const MAX_POINTS: u32 = 100_000;
-<span class="boring">}
+<blockquote>
+<p><strong>実行結果</strong></p>
+<pre><code class="language-shell">$ cargo 1.46.0 (149022b1d 2020-07-17)
+</code></pre>
+</blockquote>
+<h2><a class="header" href="#ビルド" id="ビルド">ビルド</a></h2>
+<pre><code class="language-shell">$ cargo build           # ビルド
+$ cargo run             # 実行
+$ cargo check           # コンパイルが通るか確認
+$ cargo build --releace # リリース用実行ファイルの作成
+</code></pre>
+<h1><a class="header" href="#基本的な文法と概念" id="基本的な文法と概念">基本的な文法と概念</a></h1>
+<h2><a class="header" href="#変数宣言" id="変数宣言">変数宣言</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 不変変数の宣言
+let x = 5;
+<span class="boring">println!(&quot;x = {}&quot;,x);
+</span>
+// 可変変数の宣言
+let mut y = 5;
+<span class="boring">println!(&quot;y = {}&quot;,y);
+</span>
+// 定数の宣言
+const Z: u32 = 100_000; // 型注釈が必要
+<span class="boring">println!(&quot;Z = {}&quot;,Z);
+</span><span class="boring">}
 </span></code></pre></pre>
 <h2><a class="header" href="#シャドーイング" id="シャドーイング">シャドーイング</a></h2>
 <ul>
-<li>既に宣言されている変数名に対して、再度<code>let</code>を使用した場合、新しい変数を生成することになる</li>
+<li><code>mut</code>との違いは、新しい変数を生成しているか、そうでないか。</li>
+<li>変数を生成しなおすことで、値の加工や値の型を変えつつ、変数名を使いまわすことができる</li>
 </ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let x = 5;
-let x = x + 1;
-let x = x * 2;
-println!(&quot;x = {}&quot;,x);
-<span class="boring">}
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x = 5;      // 5
+let x = x + 1;  // 6 
+let x = x * 2;  // 12
+<span class="boring">println!(&quot;x = {}&quot;,x);
+</span>
+let space = &quot;   &quot;;       // 文字列型
+let space = space.len(); // 整数型 3
+<span class="boring">println!(&quot;space = {}&quot;,space);
+</span><span class="boring">}
 </span></code></pre></pre>
-<ul>
-<li>再生成する場合、型が変わっても良い</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let spaces = &quot;       &quot;;    // str
-let spaces = spaces.len(); // int
-println!(&quot;spaces = {}&quot;, spaces);
-<span class="boring">}
-</span></code></pre></pre>
-<ul>
-<li>可変変数の場合、型が変わってしまうとコンパイルエラーとなる</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let mut spaces = &quot;       &quot;;    // str
-spaces = spaces.len(); // int
-println!(&quot;spaces = {}&quot;, spaces);
-<span class="boring">}
-</span></code></pre></pre>
-<h1><a class="header" href="#datatype" id="datatype">DataType</a></h1>
-<ul>
-<li>Rustは静的型付き言語である
-<ul>
-<li>コンパイル時にすべての変数の型が判明している必要がある</li>
-</ul>
-</li>
-</ul>
-<h2><a class="header" href="#スカラー型" id="スカラー型">スカラー型</a></h2>
-<ul>
-<li>スカラー型は単独の値を表す</li>
-<li>主に4つのスカラー型が存在する</li>
-<li><code>整数</code>,<code>浮動小数点数</code>,<code>論理値</code>,<code>文字</code></li>
-</ul>
-<h3><a class="header" href="#整数型" id="整数型">整数型</a></h3>
-<ul>
-<li>小数部分のない数値</li>
-<li>符号付きの整数には<code>i</code>が付き、符号なしの整数には<code>u</code>が付く。</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let a: u8;
-let b: i16;
-let c: u32;
-let d: i64;
-<span class="boring">}
-</span></code></pre></pre>
-<h3><a class="header" href="#浮動小数点数型" id="浮動小数点数型">浮動小数点数型</a></h3>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let a: f32;
-let b: f64;
-<span class="boring">}
-</span></code></pre></pre>
-<h3><a class="header" href="#論理値型" id="論理値型">論理値型</a></h3>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let t = true;
+<h2><a class="header" href="#データ型" id="データ型">データ型</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 整数型 [i]:符号付き [u]:符号なし
+let a: i8 = -128; // i8, i16, i32, i64, isize
+let b: u8 =  255; // u8, u16, u32, u64, usize
+<span class="boring">println!(&quot;a = {}&quot;,a);
+</span><span class="boring">println!(&quot;b = {}&quot;,b);
+</span>
+// 浮動小数点型
+let c      = 2.0; // f64
+let d: f32 = 3.0; // f32
+<span class="boring">println!(&quot;c = {}&quot;,c);
+</span><span class="boring">println!(&quot;d = {}&quot;,d);
+</span>
+// 論理値型
+let e       = true;
 let f: bool = false;
-<span class="boring">}
+<span class="boring">println!(&quot;e = {}&quot;,e);
+</span><span class="boring">println!(&quot;f = {}&quot;,f);
+</span>
+// 文字型
+let g = 'z';
+let h = 'π';
+let i = '燐';
+<span class="boring">println!(&quot;g = {}&quot;,g);
+</span><span class="boring">println!(&quot;h = {}&quot;,h);
+</span><span class="boring">println!(&quot;i = {}&quot;,i);
+</span>
+// タプル型
+let j = (1, 2.3, 3);
+let k:(i8, f32) = (124, 4.1);
+<span class="boring">println!(&quot;j.0 = {}&quot;,j.0);
+</span><span class="boring">println!(&quot;j.1 = {}&quot;,j.1);
+</span><span class="boring">println!(&quot;j.2 = {}&quot;,j.2);
+</span><span class="boring">println!(&quot;k.0 = {}&quot;,k.0);
+</span><span class="boring">println!(&quot;k.1 = {}&quot;,k.1);
+</span>
+// 配列型
+let l = [1, 2, 3, 4, 5];
+<span class="boring">println!(&quot;l[0] = {}&quot;,l[0]);
+</span><span class="boring">println!(&quot;l[1] = {}&quot;,l[1]);
+</span><span class="boring">println!(&quot;l[2] = {}&quot;,l[2]);
+</span><span class="boring">println!(&quot;l[3] = {}&quot;,l[3]);
+</span><span class="boring">println!(&quot;l[4] = {}&quot;,l[4]);
+</span><span class="boring">}
 </span></code></pre></pre>
-<h3><a class="header" href="#文字型" id="文字型">文字型</a></h3>
-<ul>
-<li>Rustの<code>char</code>型は、UNICODEのスカラー値を表す
-<ul>
-<li>中国語や日本語、ハングル、絵文字、ゼロ幅スペースなどにも対応している</li>
-</ul>
-</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let c = 'z';
-<span class="boring">}
-</span></code></pre></pre>
-<h3><a class="header" href="#タプル型" id="タプル型">タプル型</a></h3>
-<ul>
-<li>
-<p>タプル型は複合型に分類される</p>
-<ul>
-<li>複合型は複数の値を一つの型にまとめることができる</li>
-</ul>
-</li>
-<li>
-<p>タプルは位置毎に型が存在し、それぞれすべてが同じ型である必要はない</p>
-</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let tup: (i32, f64, u8) = (500, 6.4, 1);
-<span class="boring">}
-</span></code></pre></pre>
-<ul>
-<li>下記コードの変数<code>tup</code>タプル全体に束縛されている</li>
-<li>タプルから個々の値を取り出すには、パターンマッチングを使用して分解を行う</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let tup = (500, 6.4, 1);
-let (x, y, z) = tup;
-println!(&quot;y = {}&quot;, y);
-<span class="boring">}
-</span></code></pre></pre>
-<ul>
-<li>下記コードのように、ピリオドを使って、添え字アクセスすることもできる</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let x: (i32, f64, u8) = (500, 6.4, 1);
-
-let five_hundred = x.0;
-let six_point_four = x.1;
-let one = x.2;
-
-println!(&quot;x.0 = {}&quot;,five_hundred);
-println!(&quot;x.1 = {}&quot;,six_point_four);
-println!(&quot;x.2 = {}&quot;,one);
-<span class="boring">}
-</span></code></pre></pre>
-<h3><a class="header" href="#配列型" id="配列型">配列型</a></h3>
-<ul>
-<li>タプルとは異なり、配列の全要素は同じ型でなければならない</li>
-<li>Rustの配列は、ほかの言語と異なり、固定長でなければならない
-<ul>
-<li>サイズを伸ばすことも、縮めることもできない</li>
-</ul>
-</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main () {
-</span>let a = [1, 2, 3, 4, 5];
-<span class="boring">}
-</span></code></pre></pre>
-<ul>
-<li>配列は、添え字によって各要素にアクセスすることができます</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let a = [1, 2, 3, 4, 5];
-
-let first = a[0];
-let second = a[1];
-
-println!(&quot;a[0] = {}&quot;, a[0]);
-println!(&quot;a[1] = {}&quot;, a[1]);
-<span class="boring">}
-</span></code></pre></pre>
-<ul>
-<li>下記コードのように、配列の終端を超えてアクセスしようとした場合、コンパイルは通るが実行するとエラーで終了する。</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let a = [1, 2, 3, 4, 5];
-let index = 10;
-let element = a[index];
-println!(&quot;element = {}&quot;, element);
-<span class="boring">}
-</span></code></pre></pre>
-<h1><a class="header" href="#function" id="function">Function</a></h1>
-<ul>
-<li><code>main</code>関数は基本的にプログラム実行時、最初に走る関数となる</li>
-<li><code>fn</code>キーワードによって新しい関数を宣言することができる</li>
-<li>Rustの関数と変数の命名規則は、スネークケース（単語区切りにアンダースコア、全小文字）を使うのが慣習</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        println!(&quot;Hello, World!&quot;);
-        another_function();
-}
-
-fn another_function() {
-        println!(&quot;Another function.&quot;);
-}
-</code></pre></pre>
-<h2><a class="header" href="#関数の引数" id="関数の引数">関数の引数</a></h2>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        another_function(5,7);
-}
-
-fn another_function(x: i32, y:i32) {
-        println!(&quot;x + y = {}&quot;,x + y);
-}
-</code></pre></pre>
-<h2><a class="header" href="#文と式" id="文と式">文と式</a></h2>
-<ul>
-<li>文はなんらかの動作をして、値を返さない命令</li>
-<li>式は結果式に評価される</li>
-<li>下記のようなコードはRuby言語では動作するが、Rustでは<code>()</code>内のコードは文とされるため、エラーとなる</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let x = (let y = 6);
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#戻り値のある関数" id="戻り値のある関数">戻り値のある関数</a></h2>
-<ul>
-<li>関数は、呼び出したコードに値を返すことができる</li>
-<li>戻り値に名前を付けなくても、矢印<code>-&gt;</code>の後に型を書いて宣言することができる</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">fn five() -&gt; i32 {
-        5
-}
-
+<h2><a class="header" href="#関数" id="関数">関数</a></h2>
+<pre><pre class="playground"><code class="language-rust">// 一番最初に実行される関数
 fn main() {
-        let x = five();
-        println!(&quot;x = {}&quot;,x);
+        another_function();
+        sum(237,167);
+        println!(&quot;multiplication = {}&quot;,multiplication(2, 6));
+}
+
+// 返り値を持たない関数
+fn another_function() {
+        println!(&quot;Another Function&quot;);
+}
+
+// 実引数を受け取り、それを出力する関数 
+fn sum(x: i32, y: i32) {
+        println!(&quot;sum = {}&quot;,x + y);
+}
+
+// 実引数を受け取り、それを処理して返す関数(return は省略できる)
+fn multiplication(x: i32, y: i32) -&gt; i32 {
+        x * y // println!()の、パラメータへ設定するように、セミコロンをつけてはいけない。
 }
 </code></pre></pre>
-<h1><a class="header" href="#flow_control" id="flow_control">Flow_Control</a></h1>
-<h2><a class="header" href="#if式" id="if式"><code>if</code>式</a></h2>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let number = 3;
-if number &lt; 5 {
-    println!(&quot;true&quot;);
-} else {
-    println!(&quot;false&quot;);
-}
-<span class="boring">}
-</span></code></pre></pre>
-<ul>
-<li>Rustの<code>if式</code>は<code>bool</code>型でなければならない</li>
-<li>下記コードはRubyやJavaScriptといった言語とは異なり、Rustでは、論理値を与えなければならない</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main()
-</span>let number = 3;
-if number {
-    println!(&quot;true&quot;);
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#else-ifで複数の条件を扱う" id="else-ifで複数の条件を扱う"><code>else if</code>で複数の条件を扱う</a></h2>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let number = 6;
-if number % 4 == 0 {
-        println!(&quot;number % 4 == 0&quot;);
-}else if number % 3 == 0 {
-        println!(&quot;number % 3 == 0&quot;);
-}else if number % 2 == 0 {
-        println!(&quot;number % 2 == 0&quot;);
-} else {
-        println!(&quot;number (!= number % 2,3,4 == 0)&quot;);
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#let内でif式を使う" id="let内でif式を使う"><code>let</code>内で<code>if</code>式を使う</a></h2>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let condition = true;
-let number = if condition {
-        5
-} else {
-        6
-};
-
-println!(&quot;number = {}&quot;, number);
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#loopでコードを繰り返す" id="loopでコードを繰り返す"><code>loop</code>でコードを繰り返す</a></h2>
-<ul>
-<li><code>break</code>でループを抜けることができる</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>loop {
-        println!(&quot;again&quot;); // 無限ループ
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#whileで条件付きループ" id="whileで条件付きループ"><code>while</code>で条件付きループ</a></h2>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let mut number = 3;
-
-while number != 0 {
-        println!(&quot;{}!&quot;, number);
-
-        number = number - 1;
-}
-
-println!(&quot;LIFTOFF!!!&quot;);
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#forループ" id="forループ"><code>for</code>ループ</a></h2>
-<ul>
-<li>下記のようなコードの場合、<code>While</code>でループを回すよりも安全</li>
-<li>Rustでは<code>for</code>ループがよく使われる</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let a = [10, 20, 30, 40, 50];
-
-for element in a.iter() {
-        println!(&quot;element = {}&quot;,element);
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#forループでrange型を使う" id="forループでrange型を使う"><code>for</code>ループでRange型を使う</a></h2>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>for number in (1..4).rev() {
-        println!(&quot;{}&quot;,number);
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h1><a class="header" href="#what-is-ownership" id="what-is-ownership">What is OwnerShip</a></h1>
-<ul>
-<li>所有権とは、Rustの中心的な機能である</li>
-</ul>
-<h2><a class="header" href="#所有権規則" id="所有権規則">所有権規則</a></h2>
-<ul>
-<li>Rustの各値は、<code>所有者</code>と呼ばれる変数と対応している</li>
-<li>いかなる時も<code>所有者</code>はひとつである</li>
-<li><code>所有者</code>がスコープから外れたら、値は破棄される</li>
-</ul>
-<h2><a class="header" href="#変数スコープ" id="変数スコープ">変数スコープ</a></h2>
-<ul>
-<li>変数スコープとは、要素が有効になるプログラム内の範囲のこと</li>
-<li>例としては以下のような形</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>{                              // 変数sは有効になっていない
-        let s = &quot;hello&quot;;       // 変数sはここから有効になる
-        println!(&quot;s = {}&quot;,s);  // 変数sで作業
-}                              // 変数sは無効
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#string型で理解する所有権" id="string型で理解する所有権">String型で理解する所有権</a></h2>
-<ul>
-<li><code>String::from</code>はString型のfrom関数を使用して、文字リテラルから<code>String</code>型を生成している</li>
-<li><code>String</code>型はヒープにメモリを確保するため、コンパイル時にサイズが不明なテキストも保持することができる</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let mut s = String::from(&quot;String&quot;);
-let mut c = &quot;Char&quot;;
-
-s.push_str(&quot; World&quot;); // リテラルをsに付け加える
-c.push_str(&quot; World&quot;); // リテラルには付け加えられない、コンパイルエラー
-
-println!(&quot;s = {}&quot;, s);
-println!(&quot;c = {}&quot;, c);
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#メモリと確保" id="メモリと確保">メモリと確保</a></h2>
-<ul>
-<li>
-<p>文字列リテラルの場合、中身はコンパイル時に判明している</p>
-<ul>
-<li>最終的にバイナルファイルにいハードコードされる</li>
-<li>文字列リテラルは高速で効率的になる</li>
-</ul>
-</li>
-<li>
-<p><code>String</code>型では、伸縮可能なテキストをサポートするために、コンパイル時には不明な量のヒープを確保します。</p>
-<ul>
-<li>メモリは、実行時にOSに要求される</li>
-<li><code>String</code>型を使用し終わったら、OSniメモリを返還する方法が必要</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>メモリは実行時にOSに要求される</p>
-</blockquote>
-<p>この部分は<code>String::from</code>関数を呼ぶことで解決しています</p>
-<blockquote>
-<p><code>String</code>型を使用し終わったら、OSniメモリを返還する方法が必要</p>
-</blockquote>
-<p>この部分は少し異なります。</p>
-<ul>
-<li>
-<p><code>GC</code>付きの言語では、<code>GC</code>がこれ以上使用されないメモリを検知して片づけるため、プログラマがそのことを考慮する必要はない</p>
-</li>
-<li>
-<p><code>GC</code>がない言語では、プログラマが明示的に返還するコードを呼び出す必要があります</p>
-</li>
-<li>
-<p>Rustは上記２つとは異なった道を歩んでいます</p>
-<ul>
-<li>メモリを所有している変数がスコープを抜けたら、メモリは自動的に返還されます</li>
-<li>変数がスコープを抜けるとき、Rustは特別な関数を呼びます</li>
-<li>その関数は<code>drop</code>とよばれ、Rustは<code>}</code>で自動的に<code>drop</code>関数を呼び出します</li>
-<li>これらはRustコードの書き方に甚大な影響をもたらします</li>
-</ul>
-</li>
-</ul>
-<h2><a class="header" href="#変数とデータの相互作用" id="変数とデータの相互作用">変数とデータの相互作用</a></h2>
-<ul>
-<li>以下のコードは値<code>5</code>を変数<code>x</code>に束縛する。</li>
-<li>それから変数<code>x</code>の値をコピーし、<code>y</code>に束縛する</li>
-<li>これらの値は既知の固定サイズのため、スタックに積まれる</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let x = 5;
-let y = x;
-
-println!(&quot;x = {}&quot;, x);
-println!(&quot;y = {}&quot;, y);
-<span class="boring">}
-</span></code></pre></pre>
-<ul>
-<li>下記コードは、上記の<code>String</code>バージョンです</li>
-<li><code>s1</code>を<code>s2</code>に代入すると、<code>String型</code>のデータがコピーされます</li>
-<li>つまり、String型はヒープに確保されるため、<code>pointer</code>,<code>length</code>,<code>capacity</code>のデータをコピーすることになります。</li>
-<li>&quot;hello&quot;というリテラルはコピーされません</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let s1 = String::from(&quot;hello&quot;);
-let s2 = s1;
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#二重開放エラー" id="二重開放エラー">二重開放エラー</a></h2>
-<ul>
-<li>変数がスコープを抜けた場合、Rustは自動的に<code>drop</code>関数を呼びだし、その変数が使っていたヒープメモリを片付けると記載しました</li>
-<li>しかし、上記のようなコードの場合、<code>s1</code>と<code>s2</code>はポインタが同じ場所を指しています</li>
-<li>この場合、<code>s1</code>と<code>s2</code>がスコープを抜けたら、両方とも同じヒープメモリを解放しようとします。</li>
-<li>このことを、<code>二重開放エラー</code>と呼びます</li>
-<li>Rustにおいては、二重開放エラーを事前に防ぐため、確保されたメモリをコピーしようとする代わりに、コンパイラはもはや‘<code>s1</code>は有効ではないと考えます</li>
-<li>つまり、所有権が<code>s2</code>に移った辞典でs1ののデータは無効になり、<code>drop</code>が呼ばれたとき、<code>s2</code>だけがメモリを解放することになります</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let s1 = String::from(&quot;hello&quot;); // String型のデータ、ヒープメモリのデータの所有権:s1
-let s2 = s1;                    // 所有権がs2に移る
-
-println!(&quot;{}, world!&quot;, s1);     // s1に所有権がないため、コンパイルエラー
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#cloneメソッド" id="cloneメソッド"><code>clone</code>メソッド</a></h2>
-<ul>
-<li>もし、本当にヒープメモリ上のデータをコピーしたい場合、<code>clone</code>メソッドを使用します</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let s1 = String::from(&quot;hello&quot;); 
-let s2 = s1.clone();
-
-println!(&quot;{}, world s1!&quot;, s1);
-println!(&quot;{}, world s2!&quot;, s2);
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#スタックの場合" id="スタックの場合">スタックの場合</a></h2>
-<ul>
-<li><code>clone</code>メソッドは無いですが、うまく動作します</li>
-<li>理由として、整数のようなコンパイル時に既知のサイズを持つ型はスタックに保持され、コピー動作も高速だからです
-<ul>
-<li>これは、変数<code>y</code>を生成した後も、<code>x</code>を無効化する理由が特にないことを示します</li>
-</ul>
-</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let x = 5;
-let y = x;
-
-println!(&quot;x = {}&quot;, x);
-println!(&quot;y = {}&quot;, y);
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#copyトレイトに適合する型" id="copyトレイトに適合する型"><code>copy</code>トレイトに適合する型</a></h2>
-<ul>
-<li>上記コードのように、<code>clone</code>を使わずにコピーできる型は、<code>copy</code>トレイトに適合する型です</li>
-<li>下記コード<code>char</code>型も、<code>copy</code>トレイトに適合するため、うまく動作します</li>
-<li>適合する型の特徴としては、スカラー値の集合<code>u32</code>,<code>bool</code>,<code>f64</code>,<code>char</code>など</li>
-<li>適合しない型の特徴としては、メモリの確保が必要であったり何らかの形態のリソースだったりするものは<code>copy</code>ではない</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let s = &quot;HELLO&quot;;
-let d = s;
-
-println!(&quot;s = {}&quot;,s);
-println!(&quot;d = {}&quot;,d);
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#所有権と関数" id="所有権と関数">所有権と関数</a></h2>
-<ul>
-<li>関数に値を渡すことと、値を変数に代入することは意味論的に似ている</li>
-<li>関数に変数を渡すと、代入のようにムーブ、コピーされます。</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let s = String::from(&quot;hello&quot;);  // sがString型とヒープメモリデータの所有権を持つ
-        takes_ownership(s);             // sを引数として関数を呼ぶ、所有権が移り、sは無効となる
-        let x = 5;                      // xがスタックに保持される
-        makes_copy(x);                  // xをスタック方取り出して、それを引数として関数を呼ぶ
-        println!(&quot;x = {}&quot;, x);          // xはムーブされていないため、使用可能
-}
-
-fn takes_ownership(some_string: String) { // some_Stringが変数sのデータを受け取り、所有権を持つ
-        println!(&quot;{}&quot;, some_string);
-} // dropが呼ばれ、ヒープに確保されていたメモリが解放される
-
-fn makes_copy(some_integer: i32) {
-        println!(&quot;{}&quot;,some_integer);
-}
-</code></pre></pre>
-<h2><a class="header" href="#戻り値とスコープ" id="戻り値とスコープ">戻り値とスコープ</a></h2>
-<ul>
-<li>値を返すことでも所有権は移動します</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let s1 = gives_ownership();        // 関数を呼び出し、戻り値をs1にムーブする
-        let s2 = String::from(&quot;s2&quot;);       // s2がスコープに入る。ヒープメモリ上にデータを格納する 
-        println!(&quot;s2 = {}&quot;, s2);           // 所有権はここまで
-        let s3 = takes_and_gives_back(s2); // s2のデータを引数として関数を呼び出す 戻り値をs3にムーブする s2は所有権を失う 
-        println!(&quot;s3 = {}&quot;, s3);
-        println!(&quot;s1 = {}&quot;, s1);
-} // s1:drop, s3:drop s2:所有権がないため、何も起きない
-
-fn gives_ownership() -&gt; String {
-        let some_string = String::from(&quot;gives_ownership&quot;);
-        some_string                        // 呼び出し元関数にデータの所有権をムーブし、所有権を失う
-}
-
-
-// s2のデータをa_stringとして受け取り、すぐに呼び出し元へ返す
-fn takes_and_gives_back(a_string: String) -&gt; String {
-        a_string
-}
-</code></pre></pre>
-<h1><a class="header" href="#references_and_borrowing" id="references_and_borrowing">References_And_Borrowing</a></h1>
-<h2><a class="header" href="#参照" id="参照">参照</a></h2>
-<ul>
-<li>
-<p>所有権をより、またその所有権を戻す。ということをすべて関数でしていたら、面倒です。</p>
-</li>
-<li>
-<p>関数に値を使わせたいけど、所有権を渡したくない</p>
-</li>
-<li>
-<p>Rustには、この問題を解決するために、<code>参照</code>という機能があります。</p>
-</li>
-<li>
-<p>以下のコードは、タプルを使って複数の所有権を移すコードです</p>
-</li>
-<li>
-<p>文字列の長さを調べる関数がありますが、この関数に所有権を渡してしまうと、再度返さなければなりません</p>
-</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let s1 = String::from(&quot;hello&quot;);       // s1を生成
-        let (s2, len) = calculate_length(s1); // s1の所有権をcaluculate_length()に渡し、s1の所有権と文字列長を取得
-
-        println!(&quot;The length of '{}' is {}.&quot;, s2, len);
-}
-
-fn calculate_length(s: String) -&gt; (String, usize) {
-        let length = s.len();
-        
-        (s, length)
-}
-</code></pre></pre>
-<ul>
-<li>そこで、所有権をもらう代わりに、引数としてオブジェクトへの参照をとる方法を見てみましょう</li>
-<li>以下の、<code>s1</code>という記法により、値を参照することができますが、これを所有することはありません</li>
-<li>caluculate_lengthの変数<code>s</code>に参照をとることを<code>借用</code>と呼びます</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let s1 = String::from(&quot;hello&quot;);
-        let len = calculate_length(&amp;s1); // 参照を渡すことで、所有権を渡さずに実現できる
-        println!(&quot;The length of '{}' is {}.&quot;, s1, len);
-}
-
-fn calculate_length(s: &amp;String) -&gt; usize { // 借用 
-  s.len()
-}
-</code></pre></pre>
-<ul>
-<li>借用した値を変更しようとすると、コンパイルエラーになります。</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let s = String::from(&quot;hello&quot;); // string型sを生成
-        change(&amp;s);                    // change関数へ参照渡し
-}
-
-fn change(some_string: &amp;String) {      // 借用
-        some_string.push_str(&quot;,world&quot;);
-}
-</code></pre></pre>
-<ul>
-<li>上記のコードに一ひねり加えると、実行可能なコードとなります</li>
-<li>可変な参照コードにすることが可能です。</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let mut s = String::from(&quot;hello&quot;);
-        change(&amp;mut s);
-        println!(&quot;s = {}&quot;,s);
-} 
-
-fn change(some_string: &amp;mut String) {
-        some_string.push_str(&quot;, world&quot;);
-}
-</code></pre></pre>
+<h2><a class="header" href="#if式" id="if式">if式</a></h2>
 
                     </main>
 

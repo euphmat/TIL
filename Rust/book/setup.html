@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>DataType - RustBook</title>
+        <title>セットアップ - RustBook</title>
         
         
 
@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Summary</a></li><li class="chapter-item expanded "><a href="01.Install.html"><strong aria-hidden="true">2.</strong> Install</a></li><li class="chapter-item expanded "><a href="02.Variable.html"><strong aria-hidden="true">3.</strong> Variable</a></li><li class="chapter-item expanded "><a href="03.Datatype.html" class="active"><strong aria-hidden="true">4.</strong> DataType</a></li><li class="chapter-item expanded "><a href="04.Function.html"><strong aria-hidden="true">5.</strong> Function</a></li><li class="chapter-item expanded "><a href="05.Flow_Control.html"><strong aria-hidden="true">6.</strong> Flow Control</a></li><li class="chapter-item expanded "><a href="06.What_is_OwnerShip.html"><strong aria-hidden="true">7.</strong> What is OwnerShip</a></li><li class="chapter-item expanded "><a href="07.References_And_Borrowing.html"><strong aria-hidden="true">8.</strong> References And Borrowing</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="summary.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="setup.html" class="active"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="common-programming-concepts.html"><strong aria-hidden="true">4.</strong> 基本的な文法と概念</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -159,146 +159,53 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#datatype" id="datatype">DataType</a></h1>
-<ul>
-<li>Rustは静的型付き言語である
-<ul>
-<li>コンパイル時にすべての変数の型が判明している必要がある</li>
-</ul>
-</li>
-</ul>
-<h2><a class="header" href="#スカラー型" id="スカラー型">スカラー型</a></h2>
-<ul>
-<li>スカラー型は単独の値を表す</li>
-<li>主に4つのスカラー型が存在する</li>
-<li><code>整数</code>,<code>浮動小数点数</code>,<code>論理値</code>,<code>文字</code></li>
-</ul>
-<h3><a class="header" href="#整数型" id="整数型">整数型</a></h3>
-<ul>
-<li>小数部分のない数値</li>
-<li>符号付きの整数には<code>i</code>が付き、符号なしの整数には<code>u</code>が付く。</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let a: u8;
-let b: i16;
-let c: u32;
-let d: i64;
-<span class="boring">}
-</span></code></pre></pre>
-<h3><a class="header" href="#浮動小数点数型" id="浮動小数点数型">浮動小数点数型</a></h3>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let a: f32;
-let b: f64;
-<span class="boring">}
-</span></code></pre></pre>
-<h3><a class="header" href="#論理値型" id="論理値型">論理値型</a></h3>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let t = true;
-let f: bool = false;
-<span class="boring">}
-</span></code></pre></pre>
-<h3><a class="header" href="#文字型" id="文字型">文字型</a></h3>
-<ul>
-<li>Rustの<code>char</code>型は、UNICODEのスカラー値を表す
-<ul>
-<li>中国語や日本語、ハングル、絵文字、ゼロ幅スペースなどにも対応している</li>
-</ul>
-</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let c = 'z';
-<span class="boring">}
-</span></code></pre></pre>
-<h3><a class="header" href="#タプル型" id="タプル型">タプル型</a></h3>
-<ul>
-<li>
-<p>タプル型は複合型に分類される</p>
-<ul>
-<li>複合型は複数の値を一つの型にまとめることができる</li>
-</ul>
-</li>
-<li>
-<p>タプルは位置毎に型が存在し、それぞれすべてが同じ型である必要はない</p>
-</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let tup: (i32, f64, u8) = (500, 6.4, 1);
-<span class="boring">}
-</span></code></pre></pre>
-<ul>
-<li>下記コードの変数<code>tup</code>タプル全体に束縛されている</li>
-<li>タプルから個々の値を取り出すには、パターンマッチングを使用して分解を行う</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let tup = (500, 6.4, 1);
-let (x, y, z) = tup;
-println!(&quot;y = {}&quot;, y);
-<span class="boring">}
-</span></code></pre></pre>
-<ul>
-<li>下記コードのように、ピリオドを使って、添え字アクセスすることもできる</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let x: (i32, f64, u8) = (500, 6.4, 1);
-
-let five_hundred = x.0;
-let six_point_four = x.1;
-let one = x.2;
-
-println!(&quot;x.0 = {}&quot;,five_hundred);
-println!(&quot;x.1 = {}&quot;,six_point_four);
-println!(&quot;x.2 = {}&quot;,one);
-<span class="boring">}
-</span></code></pre></pre>
-<h3><a class="header" href="#配列型" id="配列型">配列型</a></h3>
-<ul>
-<li>タプルとは異なり、配列の全要素は同じ型でなければならない</li>
-<li>Rustの配列は、ほかの言語と異なり、固定長でなければならない
-<ul>
-<li>サイズを伸ばすことも、縮めることもできない</li>
-</ul>
-</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main () {
-</span>let a = [1, 2, 3, 4, 5];
-<span class="boring">}
-</span></code></pre></pre>
-<ul>
-<li>配列は、添え字によって各要素にアクセスすることができます</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let a = [1, 2, 3, 4, 5];
-
-let first = a[0];
-let second = a[1];
-
-println!(&quot;a[0] = {}&quot;, a[0]);
-println!(&quot;a[1] = {}&quot;, a[1]);
-<span class="boring">}
-</span></code></pre></pre>
-<ul>
-<li>下記コードのように、配列の終端を超えてアクセスしようとした場合、コンパイルは通るが実行するとエラーで終了する。</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
-</span>let a = [1, 2, 3, 4, 5];
-let index = 10;
-let element = a[index];
-println!(&quot;element = {}&quot;, element);
-<span class="boring">}
-</span></code></pre></pre>
+                        <h1><a class="header" href="#セットアップ" id="セットアップ">セットアップ</a></h1>
+<h2><a class="header" href="#インストール" id="インストール">インストール</a></h2>
+<pre><code class="language-shell">$ scoop install rust # Windows
+$ brew install rust  # MacOS
+$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh # Linux
+</code></pre>
+<h2><a class="header" href="#アンインストール" id="アンインストール">アンインストール</a></h2>
+<pre><code class="language-shell">$ scoop uninstall rust  # Windows
+$ brew uninstall rust   # MacOS
+$ rustup self uninstall # Linux
+</code></pre>
+<h2><a class="header" href="#rustcのインストールが成功したかどうかを確認" id="rustcのインストールが成功したかどうかを確認"><code>rustc</code>のインストールが成功したかどうかを確認</a></h2>
+<pre><code class="language-shell">$ rustc --version
+</code></pre>
+<blockquote>
+<p><strong>実行結果</strong></p>
+<pre><code class="language-shell">rustc 1.46.0 (04488afe3 2020-08-24)
+</code></pre>
+</blockquote>
+<h2><a class="header" href="#cargo" id="cargo">Cargo</a></h2>
+<h2><a class="header" href="#cargoのインストールが成功したかどうかを確認" id="cargoのインストールが成功したかどうかを確認"><code>Cargo</code>のインストールが成功したかどうかを確認</a></h2>
+<pre><code class="language-shell">$ cargo --version
+</code></pre>
+<blockquote>
+<p><strong>実行結果</strong></p>
+<pre><code class="language-shell">$ cargo 1.46.0 (149022b1d 2020-07-17)
+</code></pre>
+</blockquote>
+<h2><a class="header" href="#ビルド" id="ビルド">ビルド</a></h2>
+<pre><code class="language-shell">$ cargo build           # ビルド
+$ cargo run             # 実行
+$ cargo check           # コンパイルが通るか確認
+$ cargo build --releace # リリース用実行ファイルの作成
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="02.Variable.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="summary.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="04.Function.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="common-programming-concepts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -310,13 +217,13 @@ println!(&quot;element = {}&quot;, element);
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="02.Variable.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="summary.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="04.Function.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="common-programming-concepts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
