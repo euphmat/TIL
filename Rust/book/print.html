@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="summary.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="common-programming-concepts.html"><strong aria-hidden="true">4.</strong> 基本的な文法と概念</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="summary.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="common-programming-concepts.html"><strong aria-hidden="true">4.</strong> 基本的な文法と概念</a></li><li class="chapter-item expanded "><a href="what-is-ownership.html"><strong aria-hidden="true">5.</strong> 所有権とは？</a></li><li class="chapter-item expanded "><a href="references-and-borrowing.html"><strong aria-hidden="true">6.</strong> 参照と借用</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -162,12 +162,59 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#rust言語-研修記録" id="rust言語-研修記録">Rust言語 研修記録</a></h1>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/144px-Rust_programming_language_black_logo.svg.png" alt="" /></p>
+<h2><a class="header" href="#rust言語とは" id="rust言語とは">Rust言語とは？</a></h2>
+<ul>
+<li>
+<p>Rust言語は、2010年頃にMozilla社の<code>Mozilla Summit</code>で公開されたプログラミング言語</p>
+</li>
+<li>
+<p>C言語や、C++のような言語と同じく、コンパイル型の言語</p>
+</li>
+<li>
+<p>マルチプラットフォームに対応</p>
+<ul>
+<li><code>Windows</code>,<code>Linux</code>,<code>MacOS</code></li>
+<li><code>各種インターネットブラウザ</code></li>
+<li><code>Raspberry Pi</code>や<code>Arudino</code>といった組み込み環境</li>
+<li><code>RISC-V</code></li>
+</ul>
+</li>
+<li>
+<p>他にもいろいろな特徴が</p>
+<ul>
+<li>NullPointerExceptionが発生しない。</li>
+<li>GCがないため、手動でメモリ管理をする必要がある。</li>
+<li>パッケージマネージャやビルドツールが標準で存在</li>
+<li>オブジェクト指向でもなく、関数型言語でもない。</li>
+<li>C言語/C++と同等の速度で動き、きわめて安全性が高い。</li>
+<li>C言語との相互運用が可能で、多くの既存ライブラリを使用することができる。</li>
+<li><code>所有権</code>,<code>借用</code>,<code>ライフタイム</code>などといった特殊な概念がある。</li>
+<li>2020年現在、StackOverflowの調査で、開発者から愛されている言語1位を5年連続獲得している。</li>
+<li>習得難易度は高いとされている。</li>
+</ul>
+</li>
+</ul>
+<h2><a class="header" href="#背景と目的" id="背景と目的">背景と目的</a></h2>
+<ul>
+<li>ここ数年で、Rust言語について良いうわさをたくさん聞くようになりました。</li>
+<li>Rust言語はコンパイラがとても厳しい言語なようです。
+<ul>
+<li>言語仕様から、速度、並行性、安全性を保障している。</li>
+<li>危険なコードはそもそもコンパイルが通らないようになっている。</li>
+<li>つまり、優れたコード設計を強制される。</li>
+</ul>
+</li>
+<li>この言語の概念を学ぶことで、設計能力、プログラム品質の向上を図ります。</li>
+</ul>
 <h1><a class="header" href="#summary" id="summary">Summary</a></h1>
 <ul>
 <li><a href="index.html">Rust言語 研修記録</a></li>
 <li><a href="summary.html">目次</a></li>
 <li><a href="setup.html">セットアップ</a></li>
 <li><a href="common-programming-concepts.html">基本的な文法と概念</a></li>
+<li><a href="what-is-ownership.html">所有権とは？</a></li>
+<li><a href="references-and-borrowing.html">参照と借用</a></li>
 </ul>
 <h1><a class="header" href="#セットアップ" id="セットアップ">セットアップ</a></h1>
 <h2><a class="header" href="#インストール" id="インストール">インストール</a></h2>
@@ -229,13 +276,13 @@ const Z: u32 = 100_000; // 型注釈が必要
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let x = 5;      // 5
-let x = x + 1;  // 6 
+</span>let x = 5;      // 不変変数を生成 
+let x = x + 1;  // 変数を再度生成する 
 let x = x * 2;  // 12
 <span class="boring">println!(&quot;x = {}&quot;,x);
 </span>
 let space = &quot;   &quot;;       // 文字列型
-let space = space.len(); // 整数型 3
+let space = space.len(); // 整数型
 <span class="boring">println!(&quot;space = {}&quot;,space);
 </span><span class="boring">}
 </span></code></pre></pre>
@@ -311,6 +358,183 @@ fn multiplication(x: i32, y: i32) -&gt; i32 {
 }
 </code></pre></pre>
 <h2><a class="header" href="#if式" id="if式">if式</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let number = 15;
+
+if number &lt; 15 { // 式の結果をbool型にする必要がある
+        println!(&quot;number &lt; 15&quot;);
+} else if number &lt; 10 {
+        println!(&quot;number &lt; 10&quot;);
+} else {
+        println!(&quot;number &gt;= 15&quot;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#loop" id="loop">loop</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut number = 0;
+// 無限ループ
+loop {
+        if number &lt; 5 {
+                number = number + 1;
+                println!(&quot;loop&quot;); 
+        }else{
+                break; // ループを抜ける
+        }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#while" id="while">while</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut number = 5;
+while number != 0 {
+        println!(&quot;{}&quot;, number);
+        number = number - 1;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#for" id="for">for</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 配列に対してループ
+let a = [1, 2, 3, 4, 5];
+for b in a.iter() {
+        println!(&quot;b = {}&quot;, b);
+}
+
+// 指定回数ループ
+for c in (1..5) {
+        println!(&quot;c = {}&quot;, c);
+}
+
+// 範囲を逆順にしてループ
+for d in (1..5).rev() {
+        println!(&quot;d = {}&quot;, d);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h1><a class="header" href="#所有権とは" id="所有権とは">所有権とは？</a></h1>
+<h2><a class="header" href="#所有権の目的" id="所有権の目的">所有権の目的</a></h2>
+<ul>
+<li>安全なメモリ管理を実現するのが目的</li>
+</ul>
+<h2><a class="header" href="#所有権のルール" id="所有権のルール">所有権のルール</a></h2>
+<ul>
+<li>Rustの各値は<code>所有者</code>と呼ばれる変数と対応している。</li>
+<li>いかなる時も所有者は一つである。</li>
+<li>所有者がスコープから外れたら、値は破棄される。</li>
+</ul>
+<h2><a class="header" href="#所有権" id="所有権">所有権</a></h2>
+<ul>
+<li>各値は一つの変数に所有され、その変数からしか読み込み、書き込みを行わない</li>
+<li>変数が宣言されたブロックでの処理が終了すると、変数が所有していた値は破棄される
+<ul>
+<li>これにより、メモリの確保、解放のタイミングがコンパイル時に決定されるため、GCが不要。</li>
+</ul>
+</li>
+<li>以上のルールから、「値が複数の変数から同時更新されて壊れること」や、「値を解放し忘れてメモリリーク」することを防ぐことができる。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let a = 10;      // a は 10を所有する
+        let b = &quot;hello&quot;; // b は &quot;hello&quot;を所有する
+<span class="boring">println!(a = {}, a);
+</span><span class="boring">println!(b = {}, b);
+</span>} // スコープが終了。aとbは無効になり、所有していた値は破棄される。
+
+</code></pre></pre>
+<h2><a class="header" href="#所有権の移動--スタック" id="所有権の移動--スタック">所有権の移動 : スタック</a></h2>
+<ul>
+<li>所有権の移動とは「変数A」から「変数B」へ値を代入するとき、「変数A」の所有権を「変数B」に移動させ、「変数A」を無効化すること。</li>
+<li>整数など、既知の固定サイズの値はスタックにつまれます。</li>
+<li>スタック上のデータはすべて既知のサイズでなければなりません。</li>
+<li>スタックは高速なので、変数に対して代入を行っても、所有権の移動は発生せず、単純に値がコピーされます。</li>
+<li>スタックに積まれるものは、<code>copy</code>トレイトに適合しているもの。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let a = 5; // 5 の所有権:a
+        let b = a; // a のデータはスタックにつまれているため、bにコピーされる
+<span class="boring">println!(&quot;a = {}&quot;, a);
+</span><span class="boring">println!(&quot;b = {}&quot;, b);
+</span>}
+</code></pre></pre>
+<ul>
+<li>コンパイル時にサイズが不明であったり、サイズが可変のデータについては、ヒープに格納されます。</li>
+<li>OSはヒープ上に十分な大きさの空の領域を見つけ、使用中にし、ポインタを返します。</li>
+<li>ヒープへのアクセスは、ポインタを追って目的の場所へ到達しなければならないため、スタックよりも低速です。</li>
+<li>そのため、ヒープに格納されたデータを持つ所有者を変更するとき、ヒープに格納されたデータではなく、ポインタのみをコピーします。</li>
+<li>また、コピーした後は、二重開放エラーを防ぐため、もともとデータを所有していた変数は無効化されます。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let a = String::from(&quot;hello&quot;); // Stringの所有権: a
+        let b = a;                     // Stringの所有権: b
+<span class="boring">println!(&quot;b = {}&quot;, b);
+</span>}
+</code></pre></pre>
+<h2><a class="header" href="#関数を呼ぶことで所有権は移動する" id="関数を呼ぶことで所有権は移動する">関数を呼ぶことで所有権は移動する</a></h2>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let a = String::from(&quot;hello&quot;);    // Stringの所有権:a
+        let result = print_string(a);     // Stringの所有権:print_string の s
+        println!(&quot;result = {}&quot;, result);
+}
+
+fn print_string(s: String) -&gt; String{
+        return s                          // Stringの所有権 main の result
+}
+</code></pre></pre>
+<h1><a class="header" href="#参照と借用" id="参照と借用">参照と借用</a></h1>
+<ul>
+<li>'&amp;'記号を使用することで、所有権を受け取ることなく、データを参照することができます。</li>
+<li>関数の引数に参照をとることを、借用といいます。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let a = String::from(&quot;hello&quot;); // a -&gt; &quot;hello&quot; 
+        let b = &amp;a;                    // b -&gt; a -&gt; &quot;hello&quot; 
+        let c = calc_length(b);        // c = calc_length(b -&gt; a -&gt; &quot;hello&quot;);
+<span class="boring">        println!(&quot;a = {}&quot;, a);
+</span><span class="boring">        println!(&quot;b = {}&quot;, b);
+</span><span class="boring">        println!(&quot;c = {}&quot;, c);
+</span>}
+
+// 借用
+fn calc_length(s: &amp;String) -&gt; usize {
+        return s.len()
+}
+</code></pre></pre>
+<h2><a class="header" href="#借用した値を変更しようとしたら" id="借用した値を変更しようとしたら">借用した値を変更しようとしたら？</a></h2>
+<ul>
+<li>変数が標準で不変なのと同じく、借用してきたものも不変となります。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let s = String::from(&quot;hello&quot;);
+        change(&amp;s);
+}
+
+fn change(s: &amp;String) {
+        s.push_str(&quot;, world&quot;); // コンパイルエラー
+}
+</code></pre></pre>
+<h2><a class="header" href="#可変な参照" id="可変な参照">可変な参照</a></h2>
+<ul>
+<li>可変な参照では、借用した先で値を変更することが可能です。</li>
+<li>可変な参照の制約として、特定のスコープ内では、ある特定のデータに対して、1つしか参照を持つことができません。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let mut s = String::from(&quot;hello&quot;);
+        change(&amp;mut s);
+        println!(&quot;s = {}&quot;, s);
+}
+
+fn change(s: &amp;mut String) {
+        s.push_str(&quot;, world&quot;);
+}
+</code></pre></pre>
 
                     </main>
 

@@ -21,13 +21,13 @@ const Z: u32 = 100_000; // 型注釈が必要
 + `mut`との違いは、新しい変数を生成しているか、そうでないか。
 + 変数を生成しなおすことで、値の加工や値の型を変えつつ、変数名を使いまわすことができる
 ```rust
-let x = 5;      // 5
-let x = x + 1;  // 6 
+let x = 5;      // 不変変数を生成 
+let x = x + 1;  // 変数を再度生成する 
 let x = x * 2;  // 12
 #println!("x = {}",x);
 
 let space = "   ";       // 文字列型
-let space = space.len(); // 整数型 3
+let space = space.len(); // 整数型
 #println!("space = {}",space);
 ```
 
@@ -105,4 +105,61 @@ fn multiplication(x: i32, y: i32) -> i32 {
 ```
 
 ## if式
+
+```rust
+let number = 15;
+
+if number < 15 { // 式の結果をbool型にする必要がある
+        println!("number < 15");
+} else if number < 10 {
+        println!("number < 10");
+} else {
+        println!("number >= 15");
+}
+```
+
+## loop
+
+```rust
+let mut number = 0;
+// 無限ループ
+loop {
+        if number < 5 {
+                number = number + 1;
+                println!("loop"); 
+        }else{
+                break; // ループを抜ける
+        }
+}
+```
+
+## while
+
+```rust
+let mut number = 5;
+while number != 0 {
+        println!("{}", number);
+        number = number - 1;
+}
+```
+
+## for
+
+```rust
+// 配列に対してループ
+let a = [1, 2, 3, 4, 5];
+for b in a.iter() {
+        println!("b = {}", b);
+}
+
+// 指定回数ループ
+for c in (1..5) {
+        println!("c = {}", c);
+}
+
+// 範囲を逆順にしてループ
+for d in (1..5).rev() {
+        println!("d = {}", d);
+}
+```
 
