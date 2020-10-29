@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>セットアップ - RustBook</title>
+        <title>スライス型 - RustBook</title>
         
         
 
@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="setup.html" class="active"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="common-programming-concepts.html"><strong aria-hidden="true">4.</strong> 基本的な文法と概念</a></li><li class="chapter-item expanded "><a href="what-is-ownership.html"><strong aria-hidden="true">5.</strong> 所有権とは？</a></li><li class="chapter-item expanded "><a href="references-and-borrowing.html"><strong aria-hidden="true">6.</strong> 参照と借用</a></li><li class="chapter-item expanded "><a href="slices.html"><strong aria-hidden="true">7.</strong> スライス型</a></li><li class="chapter-item expanded "><a href="defining_structs.html"><strong aria-hidden="true">8.</strong> 構造体</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="common-programming-concepts.html"><strong aria-hidden="true">4.</strong> 基本的な文法と概念</a></li><li class="chapter-item expanded "><a href="what-is-ownership.html"><strong aria-hidden="true">5.</strong> 所有権とは？</a></li><li class="chapter-item expanded "><a href="references-and-borrowing.html"><strong aria-hidden="true">6.</strong> 参照と借用</a></li><li class="chapter-item expanded "><a href="slices.html" class="active"><strong aria-hidden="true">7.</strong> スライス型</a></li><li class="chapter-item expanded "><a href="defining_structs.html"><strong aria-hidden="true">8.</strong> 構造体</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -159,53 +159,95 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#セットアップ" id="セットアップ">セットアップ</a></h1>
-<h2><a class="header" href="#インストール" id="インストール">インストール</a></h2>
-<pre><code class="language-shell">$ scoop install rust # Windows
-$ brew install rust  # MacOS
-$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh # Linux
-</code></pre>
-<h2><a class="header" href="#アンインストール" id="アンインストール">アンインストール</a></h2>
-<pre><code class="language-shell">$ scoop uninstall rust  # Windows
-$ brew uninstall rust   # MacOS
-$ rustup self uninstall # Linux
-</code></pre>
-<h2><a class="header" href="#rustcのインストールが成功したかどうかを確認" id="rustcのインストールが成功したかどうかを確認"><code>rustc</code>のインストールが成功したかどうかを確認</a></h2>
-<pre><code class="language-shell">$ rustc --version
-</code></pre>
-<blockquote>
-<p><strong>実行結果</strong></p>
-<pre><code class="language-shell">rustc 1.46.0 (04488afe3 2020-08-24)
-</code></pre>
-</blockquote>
-<h2><a class="header" href="#cargo" id="cargo">Cargo</a></h2>
-<h2><a class="header" href="#cargoのインストールが成功したかどうかを確認" id="cargoのインストールが成功したかどうかを確認"><code>Cargo</code>のインストールが成功したかどうかを確認</a></h2>
-<pre><code class="language-shell">$ cargo --version
-</code></pre>
-<blockquote>
-<p><strong>実行結果</strong></p>
-<pre><code class="language-shell">$ cargo 1.46.0 (149022b1d 2020-07-17)
-</code></pre>
-</blockquote>
-<h2><a class="header" href="#ビルド" id="ビルド">ビルド</a></h2>
-<pre><code class="language-shell">$ cargo build           # ビルド
-$ cargo run             # 実行
-$ cargo check           # コンパイルが通るか確認
-$ cargo build --releace # リリース用実行ファイルの作成
-</code></pre>
+                        <h1><a class="header" href="#スライス型" id="スライス型">スライス型</a></h1>
+<ul>
+<li>所有権のないデータ型として、<code>スライス型</code>があります。</li>
+<li>コレクション内の一連の要素を参照することができます。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = String::from(&quot;hello world&quot;);
+
+let hello = &amp;s[0..5];
+let world = &amp;s[6..11];
+
+<span class="boring">println!(&quot;s = {}&quot;, s);
+</span><span class="boring">println!(&quot;hello = {}&quot;, hello);
+</span><span class="boring">println!(&quot;world = {}&quot;, world);
+</span><span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#スライスの色々な書き方" id="スライスの色々な書き方">スライスの色々な書き方</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = String::from(&quot;hello world&quot;);
+
+let a = &amp;s[0..2];
+let b = &amp;s[..2];
+let c = &amp;s[3..];
+let d = &amp;s[..];
+
+<span class="boring">println!(&quot;a = {}&quot;, a);
+</span><span class="boring">println!(&quot;b = {}&quot;, b);
+</span><span class="boring">println!(&quot;c = {}&quot;, c);
+</span><span class="boring">println!(&quot;d = {}&quot;, d);
+</span><span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#実用的なスライスの使い方" id="実用的なスライスの使い方">実用的なスライスの使い方</a></h2>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let s = String::from(&quot;hello world&quot;);
+        let word = first_word(&amp;s);
+        println!(&quot;word = {}&quot;, word);
+}
+
+fn first_word(s: &amp;String) -&gt; &amp;str {
+        let bytes = s.as_bytes();                      // Stringをバイト配列に変換
+
+        for (i, &amp;item) in bytes.iter().enumerate() {   // iter()-&gt;各要素 enumerate()-&gt;(添え字, 要素の参照)
+                if item == b' ' {
+                        return &amp;s[0..i];               // スライス
+                }
+        }
+
+        &amp;s[..]                                         // スライス
+}
+</code></pre></pre>
+<h2><a class="header" href="#文字列リテラルはスライスである" id="文字列リテラルはスライスである">文字列リテラルはスライスである</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = &quot;Hello, world&quot;;
+let t = &amp;s[0..5];
+
+<span class="boring">println!(&quot;t = {}&quot;, t);
+</span><span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#配列の一部を参照するスライス" id="配列の一部を参照するスライス">配列の一部を参照するスライス</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = [1, 2, 3, 4, 5];
+let slice = &amp;a[1..3];
+
+for i in slice.iter() {
+<span class="boring">    println!(&quot;slice = {}&quot;, i);
+</span>}
+<span class="boring">}
+</span></code></pre></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="SUMMARY.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="references-and-borrowing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="common-programming-concepts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="defining_structs.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -217,13 +259,13 @@ $ cargo build --releace # リリース用実行ファイルの作成
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="SUMMARY.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="references-and-borrowing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="common-programming-concepts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="defining_structs.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

@@ -1,0 +1,37 @@
+# 構造体
+
++ 構造体はタプル同様、構造体の一部を異なる型に変更することができます。
++ 一方で、各データ片に名前をつけるので、値の意味を明確にすることができます。
++ 構造体はタプルと比べて、データの順番やインスタンスの値を指定してアクセスする必要がないため、より柔軟です。
+
+```rust
+struct User {
+        username: String,
+        email: String,
+        sign_in_count: u64,
+        active: bool,
+}
+
+fn main() {
+        // インスタンスの生成
+        let user1 = User {
+                email: String::from("user1@example.com"),
+                username: String::from("user1"),
+                active: true,
+                sign_in_count: 1,
+        };
+
+        // インスタンスへアクセスしフィールド値を出力
+        println!("user1.email = {}",user1.email);
+
+        // 可変なインスタンスの作成
+        let mut user2 = User {
+                email: String::from("user2@example.com"),
+                username: String::from("user2"),
+                active: true,
+                sign_in_count: 1,
+        }
+}
+```
+
+
