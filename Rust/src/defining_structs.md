@@ -100,3 +100,60 @@ fn main() {
 }
 ```
 
+
+## 構造体を使ったほうが良いプログラム例
+
++ 下記コードはうまく動作し、長方形の面積を求めることができます。
++ しかし、幾分かの改善点が見られます。
++ area関数には、引数が2つあります。引数には関連性がありますが、プログラム内ではそのことが説明されていません。
+
+### 1. 長方形の面積を計算するプログラム
+
+```rust
+fn main() {
+        let width1 = 30;
+        let height1 = 50;
+
+        println!("長方形の面積は、{} です",area(width1,height1));
+}
+
+fn area(width: u32, height: u32) -> u32 {
+        width * height
+}
+```
+### 2. タプルでリファクタリングする
+
++ 引数に関連性があるという意味では、先ほどのコードよりはマシになりました。
++ しかし、タプル要素には名前を付けられないため、なんの計算をしているか不明瞭になってしまいました。
+
+```rust
+fn main() {
+        let rect1 = (30, 50);
+        println!("長方形の面積は、{} です",area(rect1));
+}
+
+fn area(dimensions: (u32, u32)) -> u32 {
+        dimensions.0 * dimensions.1
+}
+```
+
+### 3. 構造体でリファクタリングする
+
++ 構造体を使用することで、area関数の引数は一つになりました。
++ かつ、それぞれの値に説明的な名前を付けくわえられたことで、プログラムの意図が明確になりました。
+
+```rust
+struct Rectangle {
+        width: u32,
+        height: u32,
+}
+
+fn main() {
+        let rect1 = Rectangle { width: 30, height: 50 };
+        println!("長方形の面積は、{} です",area(&rect1));
+}
+
+fn area(rect: &Rectangle) -> u32 {
+        rect.width * rect.height
+}
+```

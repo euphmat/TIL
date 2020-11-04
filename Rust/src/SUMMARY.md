@@ -8,3 +8,4 @@
 + [参照と借用](references-and-borrowing.md)
 + [スライス型](slices.md)
 + [構造体](defining_structs.md)
++ [メソッド記法](method-syntax.md)

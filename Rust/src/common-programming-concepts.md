@@ -151,12 +151,16 @@ let a = [1, 2, 3, 4, 5];
 for b in a.iter() {
         println!("b = {}", b);
 }
+```
 
+```rust
 // 指定回数ループ
 for c in (1..5) {
         println!("c = {}", c);
 }
+```
 
+```rust
 // 範囲を逆順にしてループ
 for d in (1..5).rev() {
         println!("d = {}", d);
