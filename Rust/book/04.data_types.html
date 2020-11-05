@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>構造体 - RustBook</title>
+        <title>データ型 - RustBook</title>
         
         
 
@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="common-programming-concepts.html"><strong aria-hidden="true">4.</strong> 基本的な文法と概念</a></li><li class="chapter-item expanded "><a href="what-is-ownership.html"><strong aria-hidden="true">5.</strong> 所有権とは？</a></li><li class="chapter-item expanded "><a href="references-and-borrowing.html"><strong aria-hidden="true">6.</strong> 参照と借用</a></li><li class="chapter-item expanded "><a href="slices.html"><strong aria-hidden="true">7.</strong> スライス型</a></li><li class="chapter-item expanded "><a href="defining_structs.html" class="active"><strong aria-hidden="true">8.</strong> 構造体</a></li><li class="chapter-item expanded "><a href="method-syntax.html"><strong aria-hidden="true">9.</strong> メソッド記法</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="01.setup.html"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="02.cargo.html"><strong aria-hidden="true">4.</strong> Cargo</a></li><li class="chapter-item expanded "><a href="03.variables.html"><strong aria-hidden="true">5.</strong> 変数</a></li><li class="chapter-item expanded "><a href="04.data_types.html" class="active"><strong aria-hidden="true">6.</strong> データ型</a></li><li class="chapter-item expanded "><a href="05.functions.html"><strong aria-hidden="true">7.</strong> 関数</a></li><li class="chapter-item expanded "><a href="06.control_flow.html"><strong aria-hidden="true">8.</strong> フロー制御</a></li><li class="chapter-item expanded "><a href="07.what_is_ownership.html"><strong aria-hidden="true">9.</strong> 所有権</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -159,167 +159,142 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#構造体" id="構造体">構造体</a></h1>
+                        <h1><a class="header" href="#データ型" id="データ型">データ型</a></h1>
 <ul>
-<li>構造体はタプル同様、構造体の一部を異なる型に変更することができます。</li>
-<li>一方で、各データ片に名前をつけるので、値の意味を明確にすることができます。</li>
-<li>構造体はタプルと比べて、データの順番やインスタンスの値を指定してアクセスする必要がないため、より柔軟です。</li>
+<li>Rustにおける値は、すべて何らかのデータ型に当てはまり、コンパイラはそれを知っている必要がある。</li>
+<li>コンパイラは型推論を行いますが、複数の型が予測可能な場合には、型注釈をつける必要がある。</li>
 </ul>
-<pre><pre class="playground"><code class="language-rust">struct User {
-        username: String,
-        email: String,
-        sign_in_count: u64,
-        active: bool,
-}
+<h2><a class="header" href="#数値リテラル" id="数値リテラル">数値リテラル</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let binary   = 0b1001_1100;
+let octal    = 0o77;
+let dechimal = 98_222;
+let hexa     = 0xff;
+let byte     = b'A';
 
-fn main() {
-        // インスタンスの生成
-        let user1 = User {
-                email: String::from(&quot;user1@example.com&quot;),
-                username: String::from(&quot;user1&quot;),
-                active: true,
-                sign_in_count: 1,
-        };
-
-        // インスタンスへアクセスしフィールド値を出力
-        println!(&quot;user1.email = {}&quot;,user1.email);
-
-        // 可変なインスタンスの作成
-        let mut user2 = User {
-                email: String::from(&quot;user2@example.com&quot;),
-                username: String::from(&quot;user2&quot;),
-                active: true,
-                sign_in_count: 1,
-        };
-
-        user2.email = String::from(&quot;user2@example.co.jp&quot;);
-        println!(&quot;user2.email = {}&quot;,user2.email);
-}
-</code></pre></pre>
-<h2><a class="header" href="#構造体のフィールド値を受け取りインスタンスを返す関数" id="構造体のフィールド値を受け取りインスタンスを返す関数">構造体のフィールド値を受け取り、インスタンスを返す関数</a></h2>
-<pre><pre class="playground"><code class="language-rust">struct User {
-        username: String,
-        email: String,
-        sign_in_count: u64,
-        active: bool,
-}
-
-fn build_user(email: String, username: String) -&gt; User {
-        User {
-                email,            // フィールドと仮引数名が同じ場合、
-                username,         // フィールド初期化省略記法を使用することができる
-                active: true,
-                sign_in_count:1,
-        }
-}
-
-fn main() {
-        let address = String::from(&quot;user3@example.com&quot;);
-        let name = String::from(&quot;user3&quot;);
-        let user3 = build_user(address, name);
-
-        println!(&quot;user3.email = {}&quot;,user3.email);
-        
-
-}
-</code></pre></pre>
-<h2><a class="header" href="#タプル構造体" id="タプル構造体">タプル構造体</a></h2>
+<span class="boring">println!(&quot;binary = {}&quot;, binary);
+</span><span class="boring">println!(&quot;octal = {}&quot;, octal);
+</span><span class="boring">println!(&quot;decinal = {}&quot;, dechimal);
+</span><span class="boring">println!(&quot;hexa = {}&quot;, hexa);
+</span><span class="boring">println!(&quot;byte = {}&quot;, byte);
+</span><span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#整数型" id="整数型">整数型</a></h2>
 <ul>
-<li>構造体名を持つが、フィールドに紐づけられた名前がなく、フィールドの型だけが存在する構造体のこと。</li>
+<li>型注釈をつけなった場合、<code>i32</code>が基準となる。</li>
 </ul>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>struct Color(i32, i32, i32);
-let black= color(0, 0, 0);
-<span class="boring">}
+</span>let a: i8    = -128;
+let b: u8    = 255;
+let c: u16   = 65_535;
+let d: i16   = -32_768;
+let e: u32   = 4_294_967_295;
+let f: i32   = -2_147_483_647;
+let g: u64   = 18_446_744_073_709_551_615;
+let h: i64   = -9_223_372_036_854_775_808;
+let i: usize = 1; // アーキテクチャに依存
+let j: isize = 1; // アーキテクチャに依存
+
+<span class="boring">println!(&quot;a = {}&quot;, a);
+</span><span class="boring">println!(&quot;b = {}&quot;, b);
+</span><span class="boring">println!(&quot;c = {}&quot;, c);
+</span><span class="boring">println!(&quot;d = {}&quot;, d);
+</span><span class="boring">println!(&quot;e = {}&quot;, e);
+</span><span class="boring">println!(&quot;f = {}&quot;, f);
+</span><span class="boring">println!(&quot;g = {}&quot;, g);
+</span><span class="boring">println!(&quot;h = {}&quot;, h);
+</span><span class="boring">println!(&quot;i = {}&quot;, i);
+</span><span class="boring">println!(&quot;j = {}&quot;, j);
+</span><span class="boring">}
 </span></code></pre></pre>
-<h2><a class="header" href="#構造体データの所有権" id="構造体データの所有権">構造体データの所有権</a></h2>
+<h2><a class="header" href="#浮動小数点型" id="浮動小数点型">浮動小数点型</a></h2>
 <ul>
-<li>構造体のインスタンスには、全データを所有してもらう必要がある</li>
-<li>構造体には、ほかの何かが所有しているデータの参照を保持させることはできるが、<code>ライフタイム</code>という概念が必要になる。</li>
-<li>以下のコードのように、<code>ライフタイム</code>を指定せずに参照を持たせることはできない。</li>
+<li>型注釈をつけない場合、<code>f64</code>が基準となる。</li>
 </ul>
-<pre><pre class="playground"><code class="language-rust">struct User {
-        username: &amp;str,
-        email: &amp;str,
-        sign_in_count:u64,
-        active: bool,
-}
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a: f32 = 3.0; // 単精度浮動小数点数
+let b: f64 = 2.0; // 倍精度浮動小数点数 
 
-fn main() {
-        let user1 = User {
-                email:&quot;someone@example.com&quot;,
-                username: &quot;someusername123&quot;,
-                active: true,
-                sign_in_count: 1,
-        };
-}
-</code></pre></pre>
-<h2><a class="header" href="#構造体を使ったほうが良いプログラム例" id="構造体を使ったほうが良いプログラム例">構造体を使ったほうが良いプログラム例</a></h2>
+<span class="boring">println!(&quot;a = {}&quot;, a);
+</span><span class="boring">println!(&quot;b = {}&quot;, b);
+</span><span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#論理値型" id="論理値型">論理値型</a></h2>
 <ul>
-<li>下記コードはうまく動作し、長方形の面積を求めることができます。</li>
-<li>しかし、幾分かの改善点が見られます。</li>
-<li>area関数には、引数が2つあります。引数には関連性がありますが、プログラム内ではそのことが説明されていません。</li>
+<li>型注釈をつけなくても、自動的に型推論される。</li>
 </ul>
-<h3><a class="header" href="#1-長方形の面積を計算するプログラム" id="1-長方形の面積を計算するプログラム">1. 長方形の面積を計算するプログラム</a></h3>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let width1 = 30;
-        let height1 = 50;
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let t: bool = true;
+let f: bool = false;
 
-        println!(&quot;長方形の面積は、{} です&quot;,area(width1,height1));
-}
+<span class="boring">println!(&quot;t = {}&quot;, t);
+</span><span class="boring">println!(&quot;f = {}&quot;, f);
+</span><span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#文字型" id="文字型">文字型</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let c = 'z';
+let kanji = '漢';
+let emoji = '⚙';
 
-fn area(width: u32, height: u32) -&gt; u32 {
-        width * height
-}
-</code></pre></pre>
-<h3><a class="header" href="#2-タプルでリファクタリングする" id="2-タプルでリファクタリングする">2. タプルでリファクタリングする</a></h3>
+<span class="boring">println!(&quot;c = {}&quot;, c);
+</span><span class="boring">println!(&quot;kanji = {}&quot;, kanji);
+</span><span class="boring">println!(&quot;emoji = {}&quot;, emoji);
+</span><span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#タプル" id="タプル">タプル</a></h2>
 <ul>
-<li>引数に関連性があるという意味では、先ほどのコードよりはマシになりました。</li>
-<li>しかし、タプル要素には名前を付けられないため、なんの計算をしているか不明瞭になってしまいました。</li>
+<li>タプルは、複数の型の複数の値を一つの複合要素としてまとめあげるものです。</li>
+<li>タプル内の値はそれぞれ、同じ型である必要はない。</li>
+<li><code>タプル名.添え字</code>でアクセスすることができます。</li>
 </ul>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let rect1 = (30, 50);
-        println!(&quot;長方形の面積は、{} です&quot;,area(rect1));
-}
-
-fn area(dimensions: (u32, u32)) -&gt; u32 {
-        dimensions.0 * dimensions.1
-}
-</code></pre></pre>
-<h3><a class="header" href="#3-構造体でリファクタリングする" id="3-構造体でリファクタリングする">3. 構造体でリファクタリングする</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let tup: (i32, f64, u8) = (500, 6.4, 1);
+<span class="boring">println!(&quot;tup = ({}, {}, {})&quot;,tup.0, tup.1, tup.2);
+</span><span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#配列" id="配列">配列</a></h2>
 <ul>
-<li>構造体を使用することで、area関数の引数は一つになりました。</li>
-<li>かつ、それぞれの値に説明的な名前を付けくわえられたことで、プログラムの意図が明確になりました。</li>
+<li>タプルとは異なり、配列の全要素は同じ型でなければならない。</li>
+<li>Rustの配列は固定長なので、サイズを伸縮することはできません。</li>
+<li><code>配列名[添え字]</code>でアクセスすることができます。</li>
 </ul>
-<pre><pre class="playground"><code class="language-rust">struct Rectangle {
-        width: u32,
-        height: u32,
-}
-
-fn main() {
-        let rect1 = Rectangle { width: 30, height: 50 };
-        println!(&quot;長方形の面積は、{} です&quot;,area(&amp;rect1));
-}
-
-fn area(rect: &amp;Rectangle) -&gt; u32 {
-        rect.width * rect.height
-}
-</code></pre></pre>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = [1, 2, 3, 4, 5];
+<span class="boring">println!(&quot;a[0] = {}&quot;, a[0]);
+</span><span class="boring">println!(&quot;a[1] = {}&quot;, a[1]);
+</span><span class="boring">println!(&quot;a[2] = {}&quot;, a[2]);
+</span><span class="boring">println!(&quot;a[3] = {}&quot;, a[3]);
+</span><span class="boring">println!(&quot;a[4] = {}&quot;, a[4]);
+</span><span class="boring">}
+</span></code></pre></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="slices.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="03.variables.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="method-syntax.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="05.functions.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -331,13 +306,13 @@ fn area(rect: &amp;Rectangle) -&gt; u32 {
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="slices.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="03.variables.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="method-syntax.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="05.functions.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>メソッド記法 - RustBook</title>
+        <title>関数 - RustBook</title>
         
         
 
@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="common-programming-concepts.html"><strong aria-hidden="true">4.</strong> 基本的な文法と概念</a></li><li class="chapter-item expanded "><a href="what-is-ownership.html"><strong aria-hidden="true">5.</strong> 所有権とは？</a></li><li class="chapter-item expanded "><a href="references-and-borrowing.html"><strong aria-hidden="true">6.</strong> 参照と借用</a></li><li class="chapter-item expanded "><a href="slices.html"><strong aria-hidden="true">7.</strong> スライス型</a></li><li class="chapter-item expanded "><a href="defining_structs.html"><strong aria-hidden="true">8.</strong> 構造体</a></li><li class="chapter-item expanded "><a href="method-syntax.html" class="active"><strong aria-hidden="true">9.</strong> メソッド記法</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="01.setup.html"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="02.cargo.html"><strong aria-hidden="true">4.</strong> Cargo</a></li><li class="chapter-item expanded "><a href="03.variables.html"><strong aria-hidden="true">5.</strong> 変数</a></li><li class="chapter-item expanded "><a href="04.data_types.html"><strong aria-hidden="true">6.</strong> データ型</a></li><li class="chapter-item expanded "><a href="05.functions.html" class="active"><strong aria-hidden="true">7.</strong> 関数</a></li><li class="chapter-item expanded "><a href="06.control_flow.html"><strong aria-hidden="true">8.</strong> フロー制御</a></li><li class="chapter-item expanded "><a href="07.what_is_ownership.html"><strong aria-hidden="true">9.</strong> 所有権</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -159,58 +159,48 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#メソッド記法" id="メソッド記法">メソッド記法</a></h1>
+                        <h1><a class="header" href="#関数" id="関数">関数</a></h1>
 <ul>
-<li>
-<p>メソッドは関数ににています。</p>
-<ul>
-<li><code>fn</code>キーワードで宣言される</li>
-<li>引数と返り値がある</li>
-<li>どこか別の場所で呼びだれたときに実行されるコードを含みます。</li>
+<li><code>main</code>関数はプログラム実行時、一番最初に走ります。</li>
+<li><code>fn</code>キーワードによって、新しい関数を宣言することができます。</li>
+<li>Rustの慣習として、関数と変数の命名規則はスネークケースを使用します。</li>
 </ul>
-</li>
-<li>
-<p>ただし、メソッドは構造体の文脈、enum、トレイトオブジェクトで定義されるという点で関数とは異なる。</p>
-</li>
-<li>
-<p>また、最初の引数は必ず<code>self</code>となり、メソッドが呼び出されている構造体インスタンスを表す。</p>
-</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">// デバッグ出力を有効化 構造体に使用可能 使用時は{:?}
-#[derive(Debug)]
-
-// 構造体
-struct Rectangle { width: u32, height: u32, }
-
-// メソッドを定義 impl (implementation:実装)
-impl Rectangle {
-        // 引数は、(rect: &amp;Rectamgle)ではなく、(&amp;self)を使用する。
-        // impl Rectangle内に存在するため、(&amp;self)の型はRecatangleであると把握されている。
-        // (&amp;self)に&amp;が付いていることにも注目。selfはほかの引数同様、所有権を奪ったり借用することができる。
-        // 読み込み専用(&amp;self) 書き込みもする(&amp;self) 所有権を奪う(self)
-        fn area(&amp;self) -&gt; u32 { self.width * self.height }
-}
-
-fn main() {
-        let rect1 = Rectangle { width: 30, height: 50 };
-        println!(&quot;長方形の面積は {} です。&quot;,rect1.area());  // メソッド記法
-}
-</code></pre></pre>
-<h2><a class="header" href="#より引数の多いメソッド" id="より引数の多いメソッド">より引数の多いメソッド</a></h2>
-<pre><pre class="playground"><code class="language-rust">// 構造体
-struct Rectangle { width: u32, height: u32, }
-
-fn main() {
-        let rect1 = Rectangle { width: , height: };
-        let rect2 = Rectangle { width: , height: };
-        let rect3 = Rectangle { width: , height: };
-}
-
-</code></pre></pre>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-        let a = 5;
-        a = 6;
-        println!(&quot;a = {}&quot;, a);
+        println!(&quot;main&quot;);
+        another_function();
+}
+
+fn anotehr_function() {
+        println!(&quot;another function&quot;);
+}
+</code></pre></pre>
+<h2><a class="header" href="#引数がある関数" id="引数がある関数">引数がある関数</a></h2>
+<ul>
+<li>関数は、引数を持つように定義することができます。</li>
+<li>引数を設定する場合、型を明示しなければなりません。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        print_xy(5, 10);
+}
+
+fn print_xy(x: i32, y: i32) {
+        println!(&quot;x = {}, y = {}&quot;,x ,y);
+}
+</code></pre></pre>
+<h2><a class="header" href="#戻り値のある関数" id="戻り値のある関数">戻り値のある関数</a></h2>
+<ul>
+<li>関数が戻り値を返す場合、<code>-&gt;</code>を使って、戻り値の型を明示する必要があります。</li>
+<li>関数の戻り値は、関数本体ブロック最後の「式」の値になります。</li>
+<li>「式」には、基本的にセミコロンを付与しません。</li>
+<li><code>return</code>キーワードは省略が可能です。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let a = return_six();
+        println!(&quot;a = {}&quot;,a);
+}
+
+fn return_six() -&gt; u32 {
+        return 6
 }
 </code></pre></pre>
 
@@ -219,11 +209,15 @@ fn main() {
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="defining_structs.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="04.data_types.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
+                        
+                            <a rel="next" href="06.control_flow.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -233,11 +227,15 @@ fn main() {
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="defining_structs.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="04.data_types.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
+                
+                    <a rel="next" href="06.control_flow.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             </nav>
 

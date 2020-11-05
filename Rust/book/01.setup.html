@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>基本的な文法と概念 - RustBook</title>
+        <title>セットアップ - RustBook</title>
         
         
 
@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="common-programming-concepts.html" class="active"><strong aria-hidden="true">4.</strong> 基本的な文法と概念</a></li><li class="chapter-item expanded "><a href="what-is-ownership.html"><strong aria-hidden="true">5.</strong> 所有権とは？</a></li><li class="chapter-item expanded "><a href="references-and-borrowing.html"><strong aria-hidden="true">6.</strong> 参照と借用</a></li><li class="chapter-item expanded "><a href="slices.html"><strong aria-hidden="true">7.</strong> スライス型</a></li><li class="chapter-item expanded "><a href="defining_structs.html"><strong aria-hidden="true">8.</strong> 構造体</a></li><li class="chapter-item expanded "><a href="method-syntax.html"><strong aria-hidden="true">9.</strong> メソッド記法</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="01.setup.html" class="active"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="02.cargo.html"><strong aria-hidden="true">4.</strong> Cargo</a></li><li class="chapter-item expanded "><a href="03.variables.html"><strong aria-hidden="true">5.</strong> 変数</a></li><li class="chapter-item expanded "><a href="04.data_types.html"><strong aria-hidden="true">6.</strong> データ型</a></li><li class="chapter-item expanded "><a href="05.functions.html"><strong aria-hidden="true">7.</strong> 関数</a></li><li class="chapter-item expanded "><a href="06.control_flow.html"><strong aria-hidden="true">8.</strong> フロー制御</a></li><li class="chapter-item expanded "><a href="07.what_is_ownership.html"><strong aria-hidden="true">9.</strong> 所有権</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -159,197 +159,37 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#基本的な文法と概念" id="基本的な文法と概念">基本的な文法と概念</a></h1>
-<h2><a class="header" href="#変数宣言" id="変数宣言">変数宣言</a></h2>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// 不変変数の宣言
-let x = 5;
-<span class="boring">println!(&quot;x = {}&quot;,x);
-</span>
-// 可変変数の宣言
-let mut y = 5;
-<span class="boring">println!(&quot;y = {}&quot;,y);
-</span>
-// 定数の宣言
-const Z: u32 = 100_000; // 型注釈が必要
-<span class="boring">println!(&quot;Z = {}&quot;,Z);
-</span><span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#シャドーイング" id="シャドーイング">シャドーイング</a></h2>
+                        <h1><a class="header" href="#インストール" id="インストール">インストール</a></h1>
+<h2><a class="header" href="#各osのパッケージマネージャを使ってインストール" id="各osのパッケージマネージャを使ってインストール">各OSのパッケージマネージャを使ってインストール</a></h2>
+<pre><code class="language-shell">$ scoop install rust     # Windows
+$ brew install rust      # MacOS
+$ sudo apt install rustc # Ubuntu
+</code></pre>
+<h2><a class="header" href="#hello-world" id="hello-world">Hello, World!</a></h2>
 <ul>
-<li><code>mut</code>との違いは、新しい変数を生成しているか、そうでないか。</li>
-<li>変数を生成しなおすことで、値の加工や値の型を変えつつ、変数名を使いまわすことができる</li>
+<li>拡張子は<code>.rs</code></li>
 </ul>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let x = 5;      // 不変変数を生成 
-let x = x + 1;  // 変数を再度生成する 
-let x = x * 2;  // 12
-<span class="boring">println!(&quot;x = {}&quot;,x);
-</span>
-let space = &quot;   &quot;;       // 文字列型
-let space = space.len(); // 整数型
-<span class="boring">println!(&quot;space = {}&quot;,space);
-</span><span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#データ型" id="データ型">データ型</a></h2>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// 整数型 [i]:符号付き [u]:符号なし
-let a: i8 = -128; // i8, i16, i32, i64, isize
-let b: u8 =  255; // u8, u16, u32, u64, usize
-<span class="boring">println!(&quot;a = {}&quot;,a);
-</span><span class="boring">println!(&quot;b = {}&quot;,b);
-</span>
-// 浮動小数点型
-let c      = 2.0; // f64
-let d: f32 = 3.0; // f32
-<span class="boring">println!(&quot;c = {}&quot;,c);
-</span><span class="boring">println!(&quot;d = {}&quot;,d);
-</span>
-// 論理値型
-let e       = true;
-let f: bool = false;
-<span class="boring">println!(&quot;e = {}&quot;,e);
-</span><span class="boring">println!(&quot;f = {}&quot;,f);
-</span>
-// 文字型
-let g = 'z';
-let h = 'π';
-let i = '燐';
-<span class="boring">println!(&quot;g = {}&quot;,g);
-</span><span class="boring">println!(&quot;h = {}&quot;,h);
-</span><span class="boring">println!(&quot;i = {}&quot;,i);
-</span>
-// タプル型
-let j = (1, 2.3, 3);
-let k:(i8, f32) = (124, 4.1);
-<span class="boring">println!(&quot;j.0 = {}&quot;,j.0);
-</span><span class="boring">println!(&quot;j.1 = {}&quot;,j.1);
-</span><span class="boring">println!(&quot;j.2 = {}&quot;,j.2);
-</span><span class="boring">println!(&quot;k.0 = {}&quot;,k.0);
-</span><span class="boring">println!(&quot;k.1 = {}&quot;,k.1);
-</span>
-// 配列型
-let l = [1, 2, 3, 4, 5];
-<span class="boring">println!(&quot;l[0] = {}&quot;,l[0]);
-</span><span class="boring">println!(&quot;l[1] = {}&quot;,l[1]);
-</span><span class="boring">println!(&quot;l[2] = {}&quot;,l[2]);
-</span><span class="boring">println!(&quot;l[3] = {}&quot;,l[3]);
-</span><span class="boring">println!(&quot;l[4] = {}&quot;,l[4]);
-</span><span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#関数" id="関数">関数</a></h2>
-<pre><pre class="playground"><code class="language-rust">// 一番最初に実行される関数
-fn main() {
-        another_function();
-        sum(237,167);
-        println!(&quot;multiplication = {}&quot;,multiplication(2, 6));
-}
-
-// 返り値を持たない関数
-fn another_function() {
-        println!(&quot;Another Function&quot;);
-}
-
-// 実引数を受け取り、それを出力する関数 
-fn sum(x: i32, y: i32) {
-        println!(&quot;sum = {}&quot;,x + y);
-}
-
-// 実引数を受け取り、それを処理して返す関数(return は省略できる)
-fn multiplication(x: i32, y: i32) -&gt; i32 {
-        x * y // println!()の、パラメータへ設定するように、セミコロンをつけてはいけない。
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        println!(&quot;Hello, World!&quot;);
 }
 </code></pre></pre>
-<h2><a class="header" href="#if式" id="if式">if式</a></h2>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let number = 15;
-
-if number &lt; 15 { // 式の結果をbool型にする必要がある
-        println!(&quot;number &lt; 15&quot;);
-} else if number &lt; 10 {
-        println!(&quot;number &lt; 10&quot;);
-} else {
-        println!(&quot;number &gt;= 15&quot;);
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#loop" id="loop">loop</a></h2>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let mut number = 0;
-// 無限ループ
-loop {
-        if number &lt; 5 {
-                number = number + 1;
-                println!(&quot;loop&quot;); 
-        }else{
-                break; // ループを抜ける
-        }
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#while" id="while">while</a></h2>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let mut number = 5;
-while number != 0 {
-        println!(&quot;{}&quot;, number);
-        number = number - 1;
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#for" id="for">for</a></h2>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// 配列に対してループ
-let a = [1, 2, 3, 4, 5];
-for b in a.iter() {
-        println!(&quot;b = {}&quot;, b);
-}
-<span class="boring">}
-</span></code></pre></pre>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// 指定回数ループ
-for c in (1..5) {
-        println!(&quot;c = {}&quot;, c);
-}
-<span class="boring">}
-</span></code></pre></pre>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// 範囲を逆順にしてループ
-for d in (1..5).rev() {
-        println!(&quot;d = {}&quot;, d);
-}
-<span class="boring">}
-</span></code></pre></pre>
+<h2><a class="header" href="#コンパイル--実行" id="コンパイル--実行">コンパイル ～ 実行</a></h2>
+<pre><code class="language-shell">$ rustc main.rs
+$ ./main
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="setup.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="SUMMARY.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="what-is-ownership.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="02.cargo.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -361,13 +201,13 @@ for d in (1..5).rev() {
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="setup.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="SUMMARY.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="what-is-ownership.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="02.cargo.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

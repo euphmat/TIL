@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="common-programming-concepts.html"><strong aria-hidden="true">4.</strong> 基本的な文法と概念</a></li><li class="chapter-item expanded "><a href="what-is-ownership.html"><strong aria-hidden="true">5.</strong> 所有権とは？</a></li><li class="chapter-item expanded "><a href="references-and-borrowing.html"><strong aria-hidden="true">6.</strong> 参照と借用</a></li><li class="chapter-item expanded "><a href="slices.html"><strong aria-hidden="true">7.</strong> スライス型</a></li><li class="chapter-item expanded "><a href="defining_structs.html"><strong aria-hidden="true">8.</strong> 構造体</a></li><li class="chapter-item expanded "><a href="method-syntax.html"><strong aria-hidden="true">9.</strong> メソッド記法</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="01.setup.html"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="02.cargo.html"><strong aria-hidden="true">4.</strong> Cargo</a></li><li class="chapter-item expanded "><a href="03.variables.html"><strong aria-hidden="true">5.</strong> 変数</a></li><li class="chapter-item expanded "><a href="04.data_types.html"><strong aria-hidden="true">6.</strong> データ型</a></li><li class="chapter-item expanded "><a href="05.functions.html"><strong aria-hidden="true">7.</strong> 関数</a></li><li class="chapter-item expanded "><a href="06.control_flow.html"><strong aria-hidden="true">8.</strong> フロー制御</a></li><li class="chapter-item expanded "><a href="07.what_is_ownership.html"><strong aria-hidden="true">9.</strong> 所有権</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -185,7 +185,7 @@
 <ul>
 <li>NullPointerExceptionが発生しない。</li>
 <li>GCがないため、手動でメモリ管理をする必要がある。</li>
-<li>パッケージマネージャやビルドツールが標準で存在</li>
+<li>パッケージマネージャやビルドツールが標準で搭載</li>
 <li>オブジェクト指向でもなく、関数型言語でもない。</li>
 <li>C言語/C++と同等の速度で動き、きわめて安全性が高い。</li>
 <li>C言語との相互運用が可能で、多くの既存ライブラリを使用することができる。</li>
@@ -197,7 +197,11 @@
 </ul>
 <h2><a class="header" href="#背景と目的" id="背景と目的">背景と目的</a></h2>
 <ul>
-<li>ここ数年で、Rust言語について良いうわさをたくさん聞くようになりました。</li>
+<li>ここ数年で、「Rust」という言葉をたくさん聞くようになりました。
+<ul>
+<li>時期的には、「Kotolin」や「Swift」、「Flutter」</li>
+</ul>
+</li>
 <li>Rust言語はコンパイラがとても厳しい言語なようです。
 <ul>
 <li>言語仕様から、速度、並行性、安全性を保障している。</li>
@@ -205,625 +209,402 @@
 <li>つまり、優れたコード設計を強制される。</li>
 </ul>
 </li>
-<li>この言語の概念を学ぶことで、設計能力、プログラム品質の向上を図ります。</li>
+<li>この言語の概念を学ぶことで、コード設計能力、プログラム品質の向上を図ります。</li>
 </ul>
 <h1><a class="header" href="#summary" id="summary">Summary</a></h1>
 <ul>
 <li><a href="index.html">Rust言語 研修記録</a></li>
 <li><a href="SUMMARY.html">目次</a></li>
-<li><a href="setup.html">セットアップ</a></li>
-<li><a href="common-programming-concepts.html">基本的な文法と概念</a></li>
-<li><a href="what-is-ownership.html">所有権とは？</a></li>
-<li><a href="references-and-borrowing.html">参照と借用</a></li>
-<li><a href="slices.html">スライス型</a></li>
-<li><a href="defining_structs.html">構造体</a></li>
-<li><a href="method-syntax.html">メソッド記法</a></li>
+<li><a href="01.setup.html">セットアップ</a></li>
+<li><a href="02.cargo.html">Cargo</a></li>
+<li><a href="03.variables.html">変数</a></li>
+<li><a href="04.data_types.html">データ型</a></li>
+<li><a href="05.functions.html">関数</a></li>
+<li><a href="06.control_flow.html">フロー制御</a></li>
+<li><a href="07.what_is_ownership.html">所有権</a></li>
 </ul>
-<h1><a class="header" href="#セットアップ" id="セットアップ">セットアップ</a></h1>
-<h2><a class="header" href="#インストール" id="インストール">インストール</a></h2>
-<pre><code class="language-shell">$ scoop install rust # Windows
-$ brew install rust  # MacOS
-$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh # Linux
+<h1><a class="header" href="#インストール" id="インストール">インストール</a></h1>
+<h2><a class="header" href="#各osのパッケージマネージャを使ってインストール" id="各osのパッケージマネージャを使ってインストール">各OSのパッケージマネージャを使ってインストール</a></h2>
+<pre><code class="language-shell">$ scoop install rust     # Windows
+$ brew install rust      # MacOS
+$ sudo apt install rustc # Ubuntu
 </code></pre>
-<h2><a class="header" href="#アンインストール" id="アンインストール">アンインストール</a></h2>
-<pre><code class="language-shell">$ scoop uninstall rust  # Windows
-$ brew uninstall rust   # MacOS
-$ rustup self uninstall # Linux
+<h2><a class="header" href="#hello-world" id="hello-world">Hello, World!</a></h2>
+<ul>
+<li>拡張子は<code>.rs</code></li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        println!(&quot;Hello, World!&quot;);
+}
+</code></pre></pre>
+<h2><a class="header" href="#コンパイル--実行" id="コンパイル--実行">コンパイル ～ 実行</a></h2>
+<pre><code class="language-shell">$ rustc main.rs
+$ ./main
 </code></pre>
-<h2><a class="header" href="#rustcのインストールが成功したかどうかを確認" id="rustcのインストールが成功したかどうかを確認"><code>rustc</code>のインストールが成功したかどうかを確認</a></h2>
-<pre><code class="language-shell">$ rustc --version
+<h1><a class="header" href="#cargo" id="cargo">Cargo</a></h1>
+<h2><a class="header" href="#プロジェクトの作成" id="プロジェクトの作成">プロジェクトの作成</a></h2>
+<pre><code class="language-shell">$ cargo new [Project_Name] --bin
 </code></pre>
-<blockquote>
-<p><strong>実行結果</strong></p>
-<pre><code class="language-shell">rustc 1.46.0 (04488afe3 2020-08-24)
-</code></pre>
-</blockquote>
-<h2><a class="header" href="#cargo" id="cargo">Cargo</a></h2>
-<h2><a class="header" href="#cargoのインストールが成功したかどうかを確認" id="cargoのインストールが成功したかどうかを確認"><code>Cargo</code>のインストールが成功したかどうかを確認</a></h2>
-<pre><code class="language-shell">$ cargo --version
-</code></pre>
-<blockquote>
-<p><strong>実行結果</strong></p>
-<pre><code class="language-shell">$ cargo 1.46.0 (149022b1d 2020-07-17)
-</code></pre>
-</blockquote>
 <h2><a class="header" href="#ビルド" id="ビルド">ビルド</a></h2>
-<pre><code class="language-shell">$ cargo build           # ビルド
-$ cargo run             # 実行
-$ cargo check           # コンパイルが通るか確認
-$ cargo build --releace # リリース用実行ファイルの作成
+<pre><code class="language-shell">$ cargo build
+$ cargo build --release # リリース用実行ファイルの作成
+$ cargo check           # 実行用ファイルを生成しない
 </code></pre>
-<h1><a class="header" href="#基本的な文法と概念" id="基本的な文法と概念">基本的な文法と概念</a></h1>
-<h2><a class="header" href="#変数宣言" id="変数宣言">変数宣言</a></h2>
+<h2><a class="header" href="#実行" id="実行">実行</a></h2>
+<pre><code class="language-shell">$ cargo run
+</code></pre>
+<h1><a class="header" href="#変数" id="変数">変数</a></h1>
+<h2><a class="header" href="#変数束縛" id="変数束縛">変数束縛</a></h2>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// 不変変数の宣言
-let x = 5;
-<span class="boring">println!(&quot;x = {}&quot;,x);
-</span>
-// 可変変数の宣言
-let mut y = 5;
-<span class="boring">println!(&quot;y = {}&quot;,y);
-</span>
-// 定数の宣言
-const Z: u32 = 100_000; // 型注釈が必要
-<span class="boring">println!(&quot;Z = {}&quot;,Z);
-</span><span class="boring">}
+</span>let a = 5;
+println!(&quot;a = {}&quot;, a);
+<span class="boring">}
 </span></code></pre></pre>
+<h2><a class="header" href="#変数は標準で不変である" id="変数は標準で不変である">変数は標準で不変である</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = 5;
+println!(&quot;a = {}&quot;, a);
+
+a = 10;
+println!(&quot;a = {}&quot;, a);
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#可変な変数束縛" id="可変な変数束縛">可変な変数束縛</a></h2>
+<ul>
+<li><code>mut</code>キーワードを使用することで、可変な変数束縛を実現できる。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut a = 5;
+println!(&quot;a = {}&quot;, a);
+
+a = 10;
+println!(&quot;a = {}&quot;, a);
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#定数" id="定数">定数</a></h2>
+<ul>
+<li>不変変数とは、いくつかの違いがある。</li>
+<li><code>mut</code>キーワードを使うことはできない。</li>
+<li>値の型を必ず定義する必要がある</li>
+<li>定数式に使うことしかできず、関数の呼び出し結果や、実行時に評価される値に使うことはできない。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const YEAR: u32 = 2020;
+println!(&quot;YEAR = {}&quot;, YEAR);
+<span class="boring">}
+</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let a = 4;
+        const B: u32 = a; // 実行時に評価される値 
+        println!(&quot;B = {}&quot;, B);
+}
+</code></pre></pre>
 <h2><a class="header" href="#シャドーイング" id="シャドーイング">シャドーイング</a></h2>
 <ul>
-<li><code>mut</code>との違いは、新しい変数を生成しているか、そうでないか。</li>
-<li>変数を生成しなおすことで、値の加工や値の型を変えつつ、変数名を使いまわすことができる</li>
+<li>変数を再度束縛すると、変数を<strong>覆い隠す</strong>ことができる</li>
 </ul>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let x = 5;      // 不変変数を生成 
-let x = x + 1;  // 変数を再度生成する 
-let x = x * 2;  // 12
-<span class="boring">println!(&quot;x = {}&quot;,x);
-</span>
-let space = &quot;   &quot;;       // 文字列型
-let space = space.len(); // 整数型
-<span class="boring">println!(&quot;space = {}&quot;,space);
+</span>let a = 5;
+println!(&quot;a = {}&quot;, a);
+let a = 10;
+println!(&quot;a = {}&quot;, a);
+let a = a * a;
+println!(&quot;a = {}&quot;, a);
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li><code>mut</code>キーワードを使って、可変変数にすることと意味は異なります。</li>
+<li>シャドーイングを行って値を加工したあと、すぐに不変変数になります。</li>
+<li>また、値の型を変えることもできます。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let count = &quot;hello&quot;;           // リテラル
+let count = count.len();       // usize
+println!(&quot;count = {}&quot;, count);
+<span class="boring">}
+</span></code></pre></pre>
+<h1><a class="header" href="#データ型" id="データ型">データ型</a></h1>
+<ul>
+<li>Rustにおける値は、すべて何らかのデータ型に当てはまり、コンパイラはそれを知っている必要がある。</li>
+<li>コンパイラは型推論を行いますが、複数の型が予測可能な場合には、型注釈をつける必要がある。</li>
+</ul>
+<h2><a class="header" href="#数値リテラル" id="数値リテラル">数値リテラル</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let binary   = 0b1001_1100;
+let octal    = 0o77;
+let dechimal = 98_222;
+let hexa     = 0xff;
+let byte     = b'A';
+
+<span class="boring">println!(&quot;binary = {}&quot;, binary);
+</span><span class="boring">println!(&quot;octal = {}&quot;, octal);
+</span><span class="boring">println!(&quot;decinal = {}&quot;, dechimal);
+</span><span class="boring">println!(&quot;hexa = {}&quot;, hexa);
+</span><span class="boring">println!(&quot;byte = {}&quot;, byte);
 </span><span class="boring">}
 </span></code></pre></pre>
-<h2><a class="header" href="#データ型" id="データ型">データ型</a></h2>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// 整数型 [i]:符号付き [u]:符号なし
-let a: i8 = -128; // i8, i16, i32, i64, isize
-let b: u8 =  255; // u8, u16, u32, u64, usize
-<span class="boring">println!(&quot;a = {}&quot;,a);
-</span><span class="boring">println!(&quot;b = {}&quot;,b);
-</span>
-// 浮動小数点型
-let c      = 2.0; // f64
-let d: f32 = 3.0; // f32
-<span class="boring">println!(&quot;c = {}&quot;,c);
-</span><span class="boring">println!(&quot;d = {}&quot;,d);
-</span>
-// 論理値型
-let e       = true;
-let f: bool = false;
-<span class="boring">println!(&quot;e = {}&quot;,e);
-</span><span class="boring">println!(&quot;f = {}&quot;,f);
-</span>
-// 文字型
-let g = 'z';
-let h = 'π';
-let i = '燐';
-<span class="boring">println!(&quot;g = {}&quot;,g);
-</span><span class="boring">println!(&quot;h = {}&quot;,h);
-</span><span class="boring">println!(&quot;i = {}&quot;,i);
-</span>
-// タプル型
-let j = (1, 2.3, 3);
-let k:(i8, f32) = (124, 4.1);
-<span class="boring">println!(&quot;j.0 = {}&quot;,j.0);
-</span><span class="boring">println!(&quot;j.1 = {}&quot;,j.1);
-</span><span class="boring">println!(&quot;j.2 = {}&quot;,j.2);
-</span><span class="boring">println!(&quot;k.0 = {}&quot;,k.0);
-</span><span class="boring">println!(&quot;k.1 = {}&quot;,k.1);
-</span>
-// 配列型
-let l = [1, 2, 3, 4, 5];
-<span class="boring">println!(&quot;l[0] = {}&quot;,l[0]);
-</span><span class="boring">println!(&quot;l[1] = {}&quot;,l[1]);
-</span><span class="boring">println!(&quot;l[2] = {}&quot;,l[2]);
-</span><span class="boring">println!(&quot;l[3] = {}&quot;,l[3]);
-</span><span class="boring">println!(&quot;l[4] = {}&quot;,l[4]);
-</span><span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#関数" id="関数">関数</a></h2>
-<pre><pre class="playground"><code class="language-rust">// 一番最初に実行される関数
-fn main() {
-        another_function();
-        sum(237,167);
-        println!(&quot;multiplication = {}&quot;,multiplication(2, 6));
-}
-
-// 返り値を持たない関数
-fn another_function() {
-        println!(&quot;Another Function&quot;);
-}
-
-// 実引数を受け取り、それを出力する関数 
-fn sum(x: i32, y: i32) {
-        println!(&quot;sum = {}&quot;,x + y);
-}
-
-// 実引数を受け取り、それを処理して返す関数(return は省略できる)
-fn multiplication(x: i32, y: i32) -&gt; i32 {
-        x * y // println!()の、パラメータへ設定するように、セミコロンをつけてはいけない。
-}
-</code></pre></pre>
-<h2><a class="header" href="#if式" id="if式">if式</a></h2>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let number = 15;
-
-if number &lt; 15 { // 式の結果をbool型にする必要がある
-        println!(&quot;number &lt; 15&quot;);
-} else if number &lt; 10 {
-        println!(&quot;number &lt; 10&quot;);
-} else {
-        println!(&quot;number &gt;= 15&quot;);
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#loop" id="loop">loop</a></h2>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let mut number = 0;
-// 無限ループ
-loop {
-        if number &lt; 5 {
-                number = number + 1;
-                println!(&quot;loop&quot;); 
-        }else{
-                break; // ループを抜ける
-        }
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#while" id="while">while</a></h2>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let mut number = 5;
-while number != 0 {
-        println!(&quot;{}&quot;, number);
-        number = number - 1;
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#for" id="for">for</a></h2>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// 配列に対してループ
-let a = [1, 2, 3, 4, 5];
-for b in a.iter() {
-        println!(&quot;b = {}&quot;, b);
-}
-<span class="boring">}
-</span></code></pre></pre>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// 指定回数ループ
-for c in (1..5) {
-        println!(&quot;c = {}&quot;, c);
-}
-<span class="boring">}
-</span></code></pre></pre>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// 範囲を逆順にしてループ
-for d in (1..5).rev() {
-        println!(&quot;d = {}&quot;, d);
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h1><a class="header" href="#所有権とは" id="所有権とは">所有権とは？</a></h1>
-<h2><a class="header" href="#所有権の目的" id="所有権の目的">所有権の目的</a></h2>
+<h2><a class="header" href="#整数型" id="整数型">整数型</a></h2>
 <ul>
-<li>安全なメモリ管理を実現するのが目的</li>
-</ul>
-<h2><a class="header" href="#所有権のルール" id="所有権のルール">所有権のルール</a></h2>
-<ul>
-<li>Rustの各値は<code>所有者</code>と呼ばれる変数と対応している。</li>
-<li>いかなる時も所有者は一つである。</li>
-<li>所有者がスコープから外れたら、値は破棄される。</li>
-</ul>
-<h2><a class="header" href="#所有権" id="所有権">所有権</a></h2>
-<ul>
-<li>各値は一つの変数に所有され、その変数からしか読み込み、書き込みを行わない</li>
-<li>変数が宣言されたブロックでの処理が終了すると、変数が所有していた値は破棄される
-<ul>
-<li>これにより、メモリの確保、解放のタイミングがコンパイル時に決定されるため、GCが不要。</li>
-</ul>
-</li>
-<li>以上のルールから、「値が複数の変数から同時更新されて壊れること」や、「値を解放し忘れてメモリリーク」することを防ぐことができる。</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let a = 10;      // a は 10を所有する
-        let b = &quot;hello&quot;; // b は &quot;hello&quot;を所有する
-<span class="boring">println!(a = {}, a);
-</span><span class="boring">println!(b = {}, b);
-</span>} // スコープが終了。aとbは無効になり、所有していた値は破棄される。
-
-</code></pre></pre>
-<h2><a class="header" href="#所有権の移動--スタック" id="所有権の移動--スタック">所有権の移動 : スタック</a></h2>
-<ul>
-<li>所有権の移動とは「変数A」から「変数B」へ値を代入するとき、「変数A」の所有権を「変数B」に移動させ、「変数A」を無効化すること。</li>
-<li>整数など、既知の固定サイズの値はスタックにつまれます。</li>
-<li>スタック上のデータはすべて既知のサイズでなければなりません。</li>
-<li>スタックは高速なので、変数に対して代入を行っても、所有権の移動は発生せず、単純に値がコピーされます。</li>
-<li>スタックに積まれるものは、<code>copy</code>トレイトに適合しているもの。</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let a = 5; // 5 の所有権:a
-        let b = a; // a のデータはスタックにつまれているため、bにコピーされる
-<span class="boring">println!(&quot;a = {}&quot;, a);
-</span><span class="boring">println!(&quot;b = {}&quot;, b);
-</span>}
-</code></pre></pre>
-<h2><a class="header" href="#所有権の移動--ヒープ" id="所有権の移動--ヒープ">所有権の移動 : ヒープ</a></h2>
-<ul>
-<li>コンパイル時にサイズが不明であったり、サイズが可変のデータについては、ヒープに格納されます。</li>
-<li>OSはヒープ上に十分な大きさの空の領域を見つけ、使用中にし、ポインタを返します。</li>
-<li>ヒープへのアクセスは、ポインタを追って目的の場所へ到達しなければならないため、スタックよりも低速です。</li>
-<li>そのため、ヒープに格納されたデータを持つ所有者を変更するとき、ヒープに格納されたデータではなく、ポインタのみをコピーします。</li>
-<li>また、コピーした後は、二重開放エラーを防ぐため、もともとデータを所有していた変数は無効化されます。</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let a = String::from(&quot;hello&quot;); // Stringの所有権: a
-        let b = a;                     // Stringの所有権: b
-<span class="boring">println!(&quot;b = {}&quot;, b);
-</span>}
-</code></pre></pre>
-<h2><a class="header" href="#関数を呼ぶことで所有権は移動する" id="関数を呼ぶことで所有権は移動する">関数を呼ぶことで所有権は移動する</a></h2>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let a = String::from(&quot;hello&quot;);    // Stringの所有権:a
-        let result = print_string(a);     // Stringの所有権:print_string の s
-        println!(&quot;result = {}&quot;, result);
-}
-
-fn print_string(s: String) -&gt; String{
-        return s                          // Stringの所有権 main の result
-}
-</code></pre></pre>
-<h1><a class="header" href="#参照と借用" id="参照と借用">参照と借用</a></h1>
-<ul>
-<li>'&amp;'記号を使用することで、所有権を受け取ることなく、データを参照することができます。</li>
-<li>関数の引数に参照をとることを、借用といいます。</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let a = String::from(&quot;hello&quot;); // a -&gt; &quot;hello&quot; 
-        let b = &amp;a;                    // b -&gt; a -&gt; &quot;hello&quot; 
-        let c = calc_length(b);        // c = calc_length(b -&gt; a -&gt; &quot;hello&quot;);
-<span class="boring">        println!(&quot;a = {}&quot;, a);
-</span><span class="boring">        println!(&quot;b = {}&quot;, b);
-</span><span class="boring">        println!(&quot;c = {}&quot;, c);
-</span>}
-
-// 借用
-fn calc_length(s: &amp;String) -&gt; usize {
-        return s.len()
-}
-</code></pre></pre>
-<h2><a class="header" href="#借用した値を変更しようとしたら" id="借用した値を変更しようとしたら">借用した値を変更しようとしたら？</a></h2>
-<ul>
-<li>変数が標準で不変なのと同じく、借用してきたものも不変となります。</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let s = String::from(&quot;hello&quot;);
-        change(&amp;s);
-}
-
-fn change(s: &amp;String) {
-        s.push_str(&quot;, world&quot;); // コンパイルエラー
-}
-</code></pre></pre>
-<h2><a class="header" href="#可変な参照" id="可変な参照">可変な参照</a></h2>
-<ul>
-<li>可変な参照では、借用した先で値を変更することが可能です。</li>
-<li>可変な参照の制約として、特定のスコープ内では、ある特定のデータに対して、1つしか参照を持つことができません。</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let mut s = String::from(&quot;hello&quot;);
-        change(&amp;mut s);
-        println!(&quot;s = {}&quot;, s);
-}
-
-fn change(s: &amp;mut String) {
-        s.push_str(&quot;, world&quot;);
-}
-</code></pre></pre>
-<h1><a class="header" href="#スライス型" id="スライス型">スライス型</a></h1>
-<ul>
-<li>所有権のないデータ型として、<code>スライス型</code>があります。</li>
-<li>コレクション内の一連の要素を参照することができます。</li>
+<li>型注釈をつけなった場合、<code>i32</code>が基準となる。</li>
 </ul>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let s = String::from(&quot;hello world&quot;);
-
-let hello = &amp;s[0..5];
-let world = &amp;s[6..11];
-
-<span class="boring">println!(&quot;s = {}&quot;, s);
-</span><span class="boring">println!(&quot;hello = {}&quot;, hello);
-</span><span class="boring">println!(&quot;world = {}&quot;, world);
-</span><span class="boring">}
-</span></code></pre></pre>
-<h2><a class="header" href="#スライスの色々な書き方" id="スライスの色々な書き方">スライスの色々な書き方</a></h2>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let s = String::from(&quot;hello world&quot;);
-
-let a = &amp;s[0..2];
-let b = &amp;s[..2];
-let c = &amp;s[3..];
-let d = &amp;s[..];
+</span>let a: i8    = -128;
+let b: u8    = 255;
+let c: u16   = 65_535;
+let d: i16   = -32_768;
+let e: u32   = 4_294_967_295;
+let f: i32   = -2_147_483_647;
+let g: u64   = 18_446_744_073_709_551_615;
+let h: i64   = -9_223_372_036_854_775_808;
+let i: usize = 1; // アーキテクチャに依存
+let j: isize = 1; // アーキテクチャに依存
 
 <span class="boring">println!(&quot;a = {}&quot;, a);
 </span><span class="boring">println!(&quot;b = {}&quot;, b);
 </span><span class="boring">println!(&quot;c = {}&quot;, c);
 </span><span class="boring">println!(&quot;d = {}&quot;, d);
+</span><span class="boring">println!(&quot;e = {}&quot;, e);
+</span><span class="boring">println!(&quot;f = {}&quot;, f);
+</span><span class="boring">println!(&quot;g = {}&quot;, g);
+</span><span class="boring">println!(&quot;h = {}&quot;, h);
+</span><span class="boring">println!(&quot;i = {}&quot;, i);
+</span><span class="boring">println!(&quot;j = {}&quot;, j);
 </span><span class="boring">}
 </span></code></pre></pre>
-<h2><a class="header" href="#実用的なスライスの使い方" id="実用的なスライスの使い方">実用的なスライスの使い方</a></h2>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let s = String::from(&quot;hello world&quot;);
-        let word = first_word(&amp;s);
-        println!(&quot;word = {}&quot;, word);
-}
-
-fn first_word(s: &amp;String) -&gt; &amp;str {
-        let bytes = s.as_bytes();                      // Stringをバイト配列に変換
-
-        for (i, &amp;item) in bytes.iter().enumerate() {   // iter()-&gt;各要素 enumerate()-&gt;(添え字, 要素の参照)
-                if item == b' ' {
-                        return &amp;s[0..i];               // スライス
-                }
-        }
-
-        &amp;s[..]                                         // スライス
-}
-</code></pre></pre>
-<h2><a class="header" href="#文字列リテラルはスライスである" id="文字列リテラルはスライスである">文字列リテラルはスライスである</a></h2>
+<h2><a class="header" href="#浮動小数点型" id="浮動小数点型">浮動小数点型</a></h2>
+<ul>
+<li>型注釈をつけない場合、<code>f64</code>が基準となる。</li>
+</ul>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let s = &quot;Hello, world&quot;;
-let t = &amp;s[0..5];
+</span>let a: f32 = 3.0; // 単精度浮動小数点数
+let b: f64 = 2.0; // 倍精度浮動小数点数 
 
-<span class="boring">println!(&quot;t = {}&quot;, t);
+<span class="boring">println!(&quot;a = {}&quot;, a);
+</span><span class="boring">println!(&quot;b = {}&quot;, b);
 </span><span class="boring">}
 </span></code></pre></pre>
-<h2><a class="header" href="#配列の一部を参照するスライス" id="配列の一部を参照するスライス">配列の一部を参照するスライス</a></h2>
+<h2><a class="header" href="#論理値型" id="論理値型">論理値型</a></h2>
+<ul>
+<li>型注釈をつけなくても、自動的に型推論される。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let t: bool = true;
+let f: bool = false;
+
+<span class="boring">println!(&quot;t = {}&quot;, t);
+</span><span class="boring">println!(&quot;f = {}&quot;, f);
+</span><span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#文字型" id="文字型">文字型</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let c = 'z';
+let kanji = '漢';
+let emoji = '⚙';
+
+<span class="boring">println!(&quot;c = {}&quot;, c);
+</span><span class="boring">println!(&quot;kanji = {}&quot;, kanji);
+</span><span class="boring">println!(&quot;emoji = {}&quot;, emoji);
+</span><span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#タプル" id="タプル">タプル</a></h2>
+<ul>
+<li>タプルは、複数の型の複数の値を一つの複合要素としてまとめあげるものです。</li>
+<li>タプル内の値はそれぞれ、同じ型である必要はない。</li>
+<li><code>タプル名.添え字</code>でアクセスすることができます。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let tup: (i32, f64, u8) = (500, 6.4, 1);
+<span class="boring">println!(&quot;tup = ({}, {}, {})&quot;,tup.0, tup.1, tup.2);
+</span><span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#配列" id="配列">配列</a></h2>
+<ul>
+<li>タプルとは異なり、配列の全要素は同じ型でなければならない。</li>
+<li>Rustの配列は固定長なので、サイズを伸縮することはできません。</li>
+<li><code>配列名[添え字]</code>でアクセスすることができます。</li>
+</ul>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let a = [1, 2, 3, 4, 5];
-let slice = &amp;a[1..3];
-
-for i in slice.iter() {
-<span class="boring">    println!(&quot;slice = {}&quot;, i);
-</span>}
-<span class="boring">}
+<span class="boring">println!(&quot;a[0] = {}&quot;, a[0]);
+</span><span class="boring">println!(&quot;a[1] = {}&quot;, a[1]);
+</span><span class="boring">println!(&quot;a[2] = {}&quot;, a[2]);
+</span><span class="boring">println!(&quot;a[3] = {}&quot;, a[3]);
+</span><span class="boring">println!(&quot;a[4] = {}&quot;, a[4]);
+</span><span class="boring">}
 </span></code></pre></pre>
-<h1><a class="header" href="#構造体" id="構造体">構造体</a></h1>
+<h1><a class="header" href="#関数" id="関数">関数</a></h1>
 <ul>
-<li>構造体はタプル同様、構造体の一部を異なる型に変更することができます。</li>
-<li>一方で、各データ片に名前をつけるので、値の意味を明確にすることができます。</li>
-<li>構造体はタプルと比べて、データの順番やインスタンスの値を指定してアクセスする必要がないため、より柔軟です。</li>
+<li><code>main</code>関数はプログラム実行時、一番最初に走ります。</li>
+<li><code>fn</code>キーワードによって、新しい関数を宣言することができます。</li>
+<li>Rustの慣習として、関数と変数の命名規則はスネークケースを使用します。</li>
 </ul>
-<pre><pre class="playground"><code class="language-rust">struct User {
-        username: String,
-        email: String,
-        sign_in_count: u64,
-        active: bool,
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        println!(&quot;main&quot;);
+        another_function();
 }
 
-fn main() {
-        // インスタンスの生成
-        let user1 = User {
-                email: String::from(&quot;user1@example.com&quot;),
-                username: String::from(&quot;user1&quot;),
-                active: true,
-                sign_in_count: 1,
-        };
-
-        // インスタンスへアクセスしフィールド値を出力
-        println!(&quot;user1.email = {}&quot;,user1.email);
-
-        // 可変なインスタンスの作成
-        let mut user2 = User {
-                email: String::from(&quot;user2@example.com&quot;),
-                username: String::from(&quot;user2&quot;),
-                active: true,
-                sign_in_count: 1,
-        };
-
-        user2.email = String::from(&quot;user2@example.co.jp&quot;);
-        println!(&quot;user2.email = {}&quot;,user2.email);
+fn anotehr_function() {
+        println!(&quot;another function&quot;);
 }
 </code></pre></pre>
-<h2><a class="header" href="#構造体のフィールド値を受け取りインスタンスを返す関数" id="構造体のフィールド値を受け取りインスタンスを返す関数">構造体のフィールド値を受け取り、インスタンスを返す関数</a></h2>
-<pre><pre class="playground"><code class="language-rust">struct User {
-        username: String,
-        email: String,
-        sign_in_count: u64,
-        active: bool,
+<h2><a class="header" href="#引数がある関数" id="引数がある関数">引数がある関数</a></h2>
+<ul>
+<li>関数は、引数を持つように定義することができます。</li>
+<li>引数を設定する場合、型を明示しなければなりません。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        print_xy(5, 10);
 }
 
-fn build_user(email: String, username: String) -&gt; User {
-        User {
-                email,            // フィールドと仮引数名が同じ場合、
-                username,         // フィールド初期化省略記法を使用することができる
-                active: true,
-                sign_in_count:1,
+fn print_xy(x: i32, y: i32) {
+        println!(&quot;x = {}, y = {}&quot;,x ,y);
+}
+</code></pre></pre>
+<h2><a class="header" href="#戻り値のある関数" id="戻り値のある関数">戻り値のある関数</a></h2>
+<ul>
+<li>関数が戻り値を返す場合、<code>-&gt;</code>を使って、戻り値の型を明示する必要があります。</li>
+<li>関数の戻り値は、関数本体ブロック最後の「式」の値になります。</li>
+<li>「式」には、基本的にセミコロンを付与しません。</li>
+<li><code>return</code>キーワードは省略が可能です。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let a = return_six();
+        println!(&quot;a = {}&quot;,a);
+}
+
+fn return_six() -&gt; u32 {
+        return 6
+}
+</code></pre></pre>
+<h1><a class="header" href="#フロー制御" id="フロー制御">フロー制御</a></h1>
+<h2><a class="header" href="#if" id="if">if</a></h2>
+<ul>
+<li>条件を与え、処理を分岐させることができます。</li>
+<li>条件式は、<code>bool</code>型である必要があります。つまり、「0」や「1」といった条件を使うことはできません。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let number = 6;
+
+        if number % 4 == 0 {
+                println!(&quot;number % 4 == 0&quot;);
+        } else if number % 3 == 0 {
+                println!(&quot;number % 3 == 0&quot;);
+        } else if number % 2 == 0 {
+                println!(&quot;number % 2 == 0&quot;);
+        } else {
+                println!(&quot;else&quot;);
         }
 }
-
-fn main() {
-        let address = String::from(&quot;user3@example.com&quot;);
-        let name = String::from(&quot;user3&quot;);
-        let user3 = build_user(address, name);
-
-        println!(&quot;user3.email = {}&quot;,user3.email);
-        
-
+</code></pre></pre>
+<h2><a class="header" href="#loop" id="loop">loop</a></h2>
+<ul>
+<li><code>loop</code>キーワードを使用すると、明示的に停止させない限り、無限にループを実行します。</li>
+<li><code>break</code>キーワードを使用することで、ループを停止することができます。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let mut count = 0;
+        loop {
+                if count == 5 {
+                        println!(&quot;finish!&quot;);
+                        break;
+                } else {
+                        println!(&quot;again!&quot;);
+                        count += 1;
+                }
+        }
 }
 </code></pre></pre>
-<h2><a class="header" href="#タプル構造体" id="タプル構造体">タプル構造体</a></h2>
+<h2><a class="header" href="#while" id="while">while</a></h2>
 <ul>
-<li>構造体名を持つが、フィールドに紐づけられた名前がなく、フィールドの型だけが存在する構造体のこと。</li>
+<li>whileループには、条件式を設定することができます。</li>
+<li>条件式を設定できるため、ループ回数が明確になります。</li>
 </ul>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>struct Color(i32, i32, i32);
-let black= color(0, 0, 0);
+</span>let mut count = 0;
+while count != 5 {
+        println!(&quot;again!&quot;);
+        count += 1;
+}
+println!(&quot;finish!&quot;);
 <span class="boring">}
 </span></code></pre></pre>
-<h2><a class="header" href="#構造体データの所有権" id="構造体データの所有権">構造体データの所有権</a></h2>
+<h2><a class="header" href="#for" id="for">for</a></h2>
 <ul>
-<li>構造体のインスタンスには、全データを所有してもらう必要がある</li>
-<li>構造体には、ほかの何かが所有しているデータの参照を保持させることはできるが、<code>ライフタイム</code>という概念が必要になる。</li>
-<li>以下のコードのように、<code>ライフタイム</code>を指定せずに参照を持たせることはできない。</li>
+<li>Rustでは最も使用頻度が高いループで、一定回数ループを繰り返したり、コレクションの中身を覗き見ることが可能。</li>
 </ul>
-<pre><pre class="playground"><code class="language-rust">struct User {
-        username: &amp;str,
-        email: &amp;str,
-        sign_in_count:u64,
-        active: bool,
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = [10, 20, 30, 40, 50];
+
+for element in a.iter() {
+        println!(&quot;a = {}&quot;, element);
 }
 
-fn main() {
-        let user1 = User {
-                email:&quot;someone@example.com&quot;,
-                username: &quot;someusername123&quot;,
-                active: true,
-                sign_in_count: 1,
-        };
+for i in (0..5) {
+        println!(&quot;a[{}] = {}&quot;,i ,a[i]);
 }
-</code></pre></pre>
-<h2><a class="header" href="#構造体を使ったほうが良いプログラム例" id="構造体を使ったほうが良いプログラム例">構造体を使ったほうが良いプログラム例</a></h2>
+<span class="boring">}
+</span></code></pre></pre>
+<h1><a class="header" href="#所有権" id="所有権">所有権</a></h1>
 <ul>
-<li>下記コードはうまく動作し、長方形の面積を求めることができます。</li>
-<li>しかし、幾分かの改善点が見られます。</li>
-<li>area関数には、引数が2つあります。引数には関連性がありますが、プログラム内ではそのことが説明されていません。</li>
-</ul>
-<h3><a class="header" href="#1-長方形の面積を計算するプログラム" id="1-長方形の面積を計算するプログラム">1. 長方形の面積を計算するプログラム</a></h3>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-        let width1 = 30;
-        let height1 = 50;
-
-        println!(&quot;長方形の面積は、{} です&quot;,area(width1,height1));
-}
-
-fn area(width: u32, height: u32) -&gt; u32 {
-        width * height
-}
-</code></pre></pre>
-<h3><a class="header" href="#2-タプルでリファクタリングする" id="2-タプルでリファクタリングする">2. タプルでリファクタリングする</a></h3>
-<ul>
-<li>引数に関連性があるという意味では、先ほどのコードよりはマシになりました。</li>
-<li>しかし、タプル要素には名前を付けられないため、なんの計算をしているか不明瞭になってしまいました。</li>
+<li>Rustでは、変数束縛を行うと、その変数が関連付けられた値の所有権を持つ。と表現されます。</li>
+<li>以下の場合、スコープ内では<code>tom</code>という変数が<code>5</code>の値を所有し、束縛していることになります。</li>
+<li>その後、スコープを抜けるときに<code>tom</code>が束縛していた<code>5</code>の値は解放され、破棄されます。</li>
 </ul>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-        let rect1 = (30, 50);
-        println!(&quot;長方形の面積は、{} です&quot;,area(rect1));
-}
-
-fn area(dimensions: (u32, u32)) -&gt; u32 {
-        dimensions.0 * dimensions.1
+        let tom = 5;
 }
 </code></pre></pre>
-<h3><a class="header" href="#3-構造体でリファクタリングする" id="3-構造体でリファクタリングする">3. 構造体でリファクタリングする</a></h3>
+<h2><a class="header" href="#所有権は移る" id="所有権は移る">所有権は移る</a></h2>
 <ul>
-<li>構造体を使用することで、area関数の引数は一つになりました。</li>
-<li>かつ、それぞれの値に説明的な名前を付けくわえられたことで、プログラムの意図が明確になりました。</li>
+<li>以下の例では、はじめに変数<code>a</code>がString型の文字列<code>&quot;Hello&quot;</code>を束縛しています。</li>
+<li>次に、変数<code>b</code>が変数<code>a</code>を代入しています。</li>
+<li>C言語やJavaなどの別の言語では、変数<code>a</code>の内容が<code>b</code>にコピーされますが、Rustでは、違う動きをします。</li>
+<li>代入が発生したことにより、文字列<code>&quot;Hello&quot;</code>の所有権が変数<code>a</code>から変数<code>b</code>に移動しました。</li>
+<li>つまり、変数<code>a</code>は所有権を失い、束縛するものがなくなったため、無効となります。</li>
 </ul>
-<pre><pre class="playground"><code class="language-rust">struct Rectangle {
-        width: u32,
-        height: u32,
-}
-
-fn main() {
-        let rect1 = Rectangle { width: 30, height: 50 };
-        println!(&quot;長方形の面積は、{} です&quot;,area(&amp;rect1));
-}
-
-fn area(rect: &amp;Rectangle) -&gt; u32 {
-        rect.width * rect.height
-}
-</code></pre></pre>
-<h1><a class="header" href="#メソッド記法" id="メソッド記法">メソッド記法</a></h1>
-<ul>
-<li>
-<p>メソッドは関数ににています。</p>
-<ul>
-<li><code>fn</code>キーワードで宣言される</li>
-<li>引数と返り値がある</li>
-<li>どこか別の場所で呼びだれたときに実行されるコードを含みます。</li>
-</ul>
-</li>
-<li>
-<p>ただし、メソッドは構造体の文脈、enum、トレイトオブジェクトで定義されるという点で関数とは異なる。</p>
-</li>
-<li>
-<p>また、最初の引数は必ず<code>self</code>となり、メソッドが呼び出されている構造体インスタンスを表す。</p>
-</li>
-</ul>
-<pre><pre class="playground"><code class="language-rust">// デバッグ出力を有効化 構造体に使用可能 使用時は{:?}
-#[derive(Debug)]
-
-// 構造体
-struct Rectangle { width: u32, height: u32, }
-
-// メソッドを定義 impl (implementation:実装)
-impl Rectangle {
-        // 引数は、(rect: &amp;Rectamgle)ではなく、(&amp;self)を使用する。
-        // impl Rectangle内に存在するため、(&amp;self)の型はRecatangleであると把握されている。
-        // (&amp;self)に&amp;が付いていることにも注目。selfはほかの引数同様、所有権を奪ったり借用することができる。
-        // 読み込み専用(&amp;self) 書き込みもする(&amp;self) 所有権を奪う(self)
-        fn area(&amp;self) -&gt; u32 { self.width * self.height }
-}
-
-fn main() {
-        let rect1 = Rectangle { width: 30, height: 50 };
-        println!(&quot;長方形の面積は {} です。&quot;,rect1.area());  // メソッド記法
-}
-</code></pre></pre>
-<h2><a class="header" href="#より引数の多いメソッド" id="より引数の多いメソッド">より引数の多いメソッド</a></h2>
-<pre><pre class="playground"><code class="language-rust">// 構造体
-struct Rectangle { width: u32, height: u32, }
-
-fn main() {
-        let rect1 = Rectangle { width: , height: };
-        let rect2 = Rectangle { width: , height: };
-        let rect3 = Rectangle { width: , height: };
-}
-
-</code></pre></pre>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-        let a = 5;
-        a = 6;
+        let a = String::from(&quot;Hello&quot;);
+        let b = &amp;a;
         println!(&quot;a = {}&quot;, a);
+        println!(&quot;b = {}&quot;, b);
 }
+
+# 所有権は移動しない場合がある 
+
++ 気を付けたいこととして、代入が発生したとき、必ず所有権の移動が発生するわけではありません。
++ Rustには、`Copyトレイト`と呼ばれる特別な注釈があります。
+  + `整数型`,`bool`,`浮動小数点型`,`char型`,`タプル(Copyを含むもののみ)`等
++ 
 </code></pre></pre>
 
                     </main>

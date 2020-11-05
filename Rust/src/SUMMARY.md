@@ -2,10 +2,11 @@
 
 + [Rust言語 研修記録](index.md)
 + [目次](SUMMARY.md)
-+ [セットアップ](setup.md)
-+ [基本的な文法と概念](common-programming-concepts.md)
-+ [所有権とは？](what-is-ownership.md)
-+ [参照と借用](references-and-borrowing.md)
-+ [スライス型](slices.md)
-+ [構造体](defining_structs.md)
-+ [メソッド記法](method-syntax.md)
++ [セットアップ](01.setup.md)
++ [Cargo](02.cargo.md)
++ [変数](03.variables.md)
++ [データ型](04.data_types.md)
++ [関数](05.functions.md)
++ [フロー制御](06.control_flow.md)
++ [所有権](07.what_is_ownership.md)
+

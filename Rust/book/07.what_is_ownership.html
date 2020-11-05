@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>セットアップ - RustBook</title>
+        <title>所有権 - RustBook</title>
         
         
 
@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="setup.html" class="active"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="common-programming-concepts.html"><strong aria-hidden="true">4.</strong> 基本的な文法と概念</a></li><li class="chapter-item expanded "><a href="what-is-ownership.html"><strong aria-hidden="true">5.</strong> 所有権とは？</a></li><li class="chapter-item expanded "><a href="references-and-borrowing.html"><strong aria-hidden="true">6.</strong> 参照と借用</a></li><li class="chapter-item expanded "><a href="slices.html"><strong aria-hidden="true">7.</strong> スライス型</a></li><li class="chapter-item expanded "><a href="defining_structs.html"><strong aria-hidden="true">8.</strong> 構造体</a></li><li class="chapter-item expanded "><a href="method-syntax.html"><strong aria-hidden="true">9.</strong> メソッド記法</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Rust言語 研修記録</a></li><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> 目次</a></li><li class="chapter-item expanded "><a href="01.setup.html"><strong aria-hidden="true">3.</strong> セットアップ</a></li><li class="chapter-item expanded "><a href="02.cargo.html"><strong aria-hidden="true">4.</strong> Cargo</a></li><li class="chapter-item expanded "><a href="03.variables.html"><strong aria-hidden="true">5.</strong> 変数</a></li><li class="chapter-item expanded "><a href="04.data_types.html"><strong aria-hidden="true">6.</strong> データ型</a></li><li class="chapter-item expanded "><a href="05.functions.html"><strong aria-hidden="true">7.</strong> 関数</a></li><li class="chapter-item expanded "><a href="06.control_flow.html"><strong aria-hidden="true">8.</strong> フロー制御</a></li><li class="chapter-item expanded "><a href="07.what_is_ownership.html" class="active"><strong aria-hidden="true">9.</strong> 所有権</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -159,55 +159,49 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#セットアップ" id="セットアップ">セットアップ</a></h1>
-<h2><a class="header" href="#インストール" id="インストール">インストール</a></h2>
-<pre><code class="language-shell">$ scoop install rust # Windows
-$ brew install rust  # MacOS
-$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh # Linux
-</code></pre>
-<h2><a class="header" href="#アンインストール" id="アンインストール">アンインストール</a></h2>
-<pre><code class="language-shell">$ scoop uninstall rust  # Windows
-$ brew uninstall rust   # MacOS
-$ rustup self uninstall # Linux
-</code></pre>
-<h2><a class="header" href="#rustcのインストールが成功したかどうかを確認" id="rustcのインストールが成功したかどうかを確認"><code>rustc</code>のインストールが成功したかどうかを確認</a></h2>
-<pre><code class="language-shell">$ rustc --version
-</code></pre>
-<blockquote>
-<p><strong>実行結果</strong></p>
-<pre><code class="language-shell">rustc 1.46.0 (04488afe3 2020-08-24)
-</code></pre>
-</blockquote>
-<h2><a class="header" href="#cargo" id="cargo">Cargo</a></h2>
-<h2><a class="header" href="#cargoのインストールが成功したかどうかを確認" id="cargoのインストールが成功したかどうかを確認"><code>Cargo</code>のインストールが成功したかどうかを確認</a></h2>
-<pre><code class="language-shell">$ cargo --version
-</code></pre>
-<blockquote>
-<p><strong>実行結果</strong></p>
-<pre><code class="language-shell">$ cargo 1.46.0 (149022b1d 2020-07-17)
-</code></pre>
-</blockquote>
-<h2><a class="header" href="#ビルド" id="ビルド">ビルド</a></h2>
-<pre><code class="language-shell">$ cargo build           # ビルド
-$ cargo run             # 実行
-$ cargo check           # コンパイルが通るか確認
-$ cargo build --releace # リリース用実行ファイルの作成
-</code></pre>
+                        <h1><a class="header" href="#所有権" id="所有権">所有権</a></h1>
+<ul>
+<li>Rustでは、変数束縛を行うと、その変数が関連付けられた値の所有権を持つ。と表現されます。</li>
+<li>以下の場合、スコープ内では<code>tom</code>という変数が<code>5</code>の値を所有し、束縛していることになります。</li>
+<li>その後、スコープを抜けるときに<code>tom</code>が束縛していた<code>5</code>の値は解放され、破棄されます。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let tom = 5;
+}
+</code></pre></pre>
+<h2><a class="header" href="#所有権は移る" id="所有権は移る">所有権は移る</a></h2>
+<ul>
+<li>以下の例では、はじめに変数<code>a</code>がString型の文字列<code>&quot;Hello&quot;</code>を束縛しています。</li>
+<li>次に、変数<code>b</code>が変数<code>a</code>を代入しています。</li>
+<li>C言語やJavaなどの別の言語では、変数<code>a</code>の内容が<code>b</code>にコピーされますが、Rustでは、違う動きをします。</li>
+<li>代入が発生したことにより、文字列<code>&quot;Hello&quot;</code>の所有権が変数<code>a</code>から変数<code>b</code>に移動しました。</li>
+<li>つまり、変数<code>a</code>は所有権を失い、束縛するものがなくなったため、無効となります。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let a = String::from(&quot;Hello&quot;);
+        let b = &amp;a;
+        println!(&quot;a = {}&quot;, a);
+        println!(&quot;b = {}&quot;, b);
+}
+
+# 所有権は移動しない場合がある 
+
++ 気を付けたいこととして、代入が発生したとき、必ず所有権の移動が発生するわけではありません。
++ Rustには、`Copyトレイト`と呼ばれる特別な注釈があります。
+  + `整数型`,`bool`,`浮動小数点型`,`char型`,`タプル(Copyを含むもののみ)`等
++ 
+</code></pre></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="SUMMARY.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="06.control_flow.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
-                        
-                            <a rel="next" href="common-programming-concepts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -217,15 +211,11 @@ $ cargo build --releace # リリース用実行ファイルの作成
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="SUMMARY.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="06.control_flow.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
-                
-                    <a rel="next" href="common-programming-concepts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             </nav>
 
