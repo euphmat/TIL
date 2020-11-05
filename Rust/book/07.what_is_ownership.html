@@ -163,7 +163,11 @@
 <ul>
 <li>Rustでは、変数束縛を行うと、その変数が関連付けられた値の所有権を持つ。と表現されます。</li>
 <li>以下の場合、スコープ内では<code>tom</code>という変数が<code>5</code>の値を所有し、束縛していることになります。</li>
-<li>その後、スコープを抜けるときに<code>tom</code>が束縛していた<code>5</code>の値は解放され、破棄されます。</li>
+<li>その後、スコープを抜けるときに<code>tom</code>が束縛していた<code>5</code>の値は解放され、破棄されます。
+<ul>
+<li>このことを、Rustでは<code>drop</code>と呼びます。</li>
+</ul>
+</li>
 </ul>
 <pre><pre class="playground"><code class="language-rust">fn main() {
         let tom = 5;
@@ -179,17 +183,27 @@
 </ul>
 <pre><pre class="playground"><code class="language-rust">fn main() {
         let a = String::from(&quot;Hello&quot;);
-        let b = &amp;a;
-        println!(&quot;a = {}&quot;, a);
+        let b = a;
+        
+        println!(&quot;a = {}&quot;, a); // 既にaは無効なため、コンパイルエラー
         println!(&quot;b = {}&quot;, b);
 }
 
 # 所有権は移動しない場合がある 
 
 + 気を付けたいこととして、代入が発生したとき、必ず所有権の移動が発生するわけではありません。
-+ Rustには、`Copyトレイト`と呼ばれる特別な注釈があります。
-  + `整数型`,`bool`,`浮動小数点型`,`char型`,`タプル(Copyを含むもののみ)`等
-+ 
++ 上記のコードで所有権の移動が発生した原因は、`変数束縛値のサイズが変わる型を用いた`から
++ つまり、整数のような、コンパイル時に既知のサイズを持つ型は、動作が高速なため、
+
+```rust
+fn main() {
+        let a = 5;
+        let b = a;
+
+        println!(&quot;a = {}&quot;, a);
+        println!(&quot;b = {}&quot;, b);
+
+}
 </code></pre></pre>
 
                     </main>
