@@ -3,4 +3,4 @@ authors = ["euphmat"]
 language = "ja"
 multilingual = false
 src = "src"
-title = "RustBook"
+title = "Rust"

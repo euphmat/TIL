@@ -1,6 +1,8 @@
 # Summary 
 
-+ [Rust言語 研修記録](index.md)
+## Rust入門
+
++ [Index](index.md)
 + [目次](SUMMARY.md)
 + [セットアップ](01.setup.md)
 + [Cargo](02.cargo.md)
