@@ -15,7 +15,6 @@ function main(){
                 fi
                 cd ..
         done
-
 }
 
 main
