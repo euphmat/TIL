@@ -4,3 +4,7 @@ language = "en"
 multilingual = false
 src = "src"
 title = "CLI_Tool"
+
+[output.html.fold]
+enable = true
+evel = 0

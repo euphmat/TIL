@@ -4,3 +4,7 @@ language = "ja"
 multilingual = false
 src = "src"
 title = "Rust"
+
+[output.html.fold]
+enable = true
+evel = 0

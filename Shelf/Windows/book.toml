@@ -4,3 +4,7 @@ language = "en"
 multilingual = false
 src = "src"
 title = "Windows"
+
+[output.html.fold]
+enable = true
+evel = 0

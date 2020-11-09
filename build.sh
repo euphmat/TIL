@@ -3,7 +3,7 @@ set -Ceuo pipefail
 
 function main(){
         script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
-        cd $script_dir/BookShelf
+        cd $script_dir/Shelf
         dirs=`ls -l | awk '$1 ~ /d/ {print $9 }'`
         for dir in $dirs;
         do

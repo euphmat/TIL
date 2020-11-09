@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Summary - CLI_Tool</title>
+        <title>mdbook - CLI_Tool</title>
         
         
 
@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Summary</a></li><li class="chapter-item expanded "><a href="mdbook.html"><strong aria-hidden="true">2.</strong> mdbook</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="mdbook.html"><strong aria-hidden="true">1.</strong> mdbook</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -159,11 +159,29 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#summary" id="summary">Summary</a></h1>
-<ul>
-<li><a href="./SUMMARY.html">Summary</a></li>
-<li><a href="./mdbook.html">mdbook</a></li>
-</ul>
+                        <h1><a class="header" href="#mdbook" id="mdbook">mdbook</a></h1>
+<h2><a class="header" href="#website" id="website">WebSite</a></h2>
+<p><a href="https://github.com/rust-lang/mdBook">https://github.com/rust-lang/mdBook</a></p>
+<h2><a class="header" href="#install" id="install">Install</a></h2>
+<pre><code class="language-shell">$ cargo install mdbook
+$ brew install mdbook
+</code></pre>
+<h2><a class="header" href="#usage" id="usage">Usage</a></h2>
+<pre><code class="language-shell">$ mdbook init  # 新規Bookを作成
+$ mdbook build # Bookをビルド
+$ mdbook watch # Bookが更新されるたびにビルドを実行
+$ mdbook serve # Bookを更新するたびにビルトを実行し、ブラウザを更新する (http://localhost:3000)
+</code></pre>
+<h2><a class="header" href="#directory" id="directory">Directory</a></h2>
+<pre><code class="language-shell">BookShelf/               # Bookを格納
+└┬[Book_Name]/         # Bookを構成するファイルを格納。build init 時に生成される
+ ├─book/               # mdbook build 時に生成されるフォルダ
+ ├─book.toml           # 設定ファイル
+ └─src/
+     ├─index.md        # 表紙ページ
+     ├─SUMMARY.md      # 目次の設定ファイル
+     └─[page_name].md  # ページコンテンツ
+</code></pre>
 
                     </main>
 
@@ -171,10 +189,6 @@
                         <!-- Mobile navigation buttons -->
                         
 
-                        
-                            <a rel="next" href="mdbook.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -185,10 +199,6 @@
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
 
-                
-                    <a rel="next" href="mdbook.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             </nav>
 

@@ -1,14 +1,10 @@
-# Summary 
+# Rust
 
-## Rust入門
-
-+ [Summary](SUMMARY.md)
-+ [目次](SUMMARY.md)
-+ [セットアップ](01.setup.md)
-+ [Cargo](02.cargo.md)
-+ [変数](03.variables.md)
-+ [データ型](04.data_types.md)
-+ [関数](05.functions.md)
-+ [フロー制御](06.control_flow.md)
-+ [所有権](07.what_is_ownership.md)
-
++ [Rust入門](SUMMARY.md)
+  + [セットアップ](./Rust入門/01.setup.md)
+  + [Cargo](./Rust入門/02.cargo.md)
+  + [変数](./Rust入門/03.variables.md)
+  + [データ型](./Rust入門/04.data_types.md)
+  + [関数](./Rust入門/05.functions.md)
+  + [フロー制御](./Rust入門/06.control_flow.md)
+  + [所有権](./Rust入門/07.what_is_ownership.md)

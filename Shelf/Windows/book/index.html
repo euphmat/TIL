@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Summary - Windows</title>
+        <title>Scoop - Windows</title>
         
         
 
@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Summary</a></li><li class="chapter-item expanded "><a href="scoop.html"><strong aria-hidden="true">2.</strong> Scoop</a></li><li class="chapter-item expanded "><a href="cmder.html"><strong aria-hidden="true">3.</strong> Cmder</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="scoop.html"><strong aria-hidden="true">1.</strong> Scoop</a></li><li class="chapter-item "><a href="cmder.html"><strong aria-hidden="true">2.</strong> Cmder</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -159,12 +159,24 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#summary" id="summary">Summary</a></h1>
+                        <h1><a class="header" href="#scoop" id="scoop">Scoop</a></h1>
+<h2><a class="header" href="#公式サイト" id="公式サイト">公式サイト</a></h2>
 <ul>
-<li><a href="SUMMARY.html">Summary</a></li>
-<li><a href="scoop.html">Scoop</a></li>
-<li><a href="cmder.html">Cmder</a></li>
+<li><a href="https://scoop.sh/">scoop</a></li>
+<li><a href="https://github.com/lukesampson/scoop">scoop - Github</a></li>
 </ul>
+<h2><a class="header" href="#インストール" id="インストール">インストール</a></h2>
+<pre><code class="language-shell">&gt; Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+&gt; [environment]::setEnvironmentVariable('SCOOP','D:\Scoop','User')
+&gt; $env:SCOOP='D:\Scoop'
+&gt; iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+</code></pre>
+<h2><a class="header" href="#gitのインストール" id="gitのインストール">Gitのインストール</a></h2>
+<pre><code>$ scoop install Git
+</code></pre>
+<h2><a class="header" href="#extras-bucketの追加" id="extras-bucketの追加">Extras Bucketの追加</a></h2>
+<pre><code>$ scoop bucket add extras
+</code></pre>
 
                     </main>
 
@@ -173,7 +185,7 @@
                         
 
                         
-                            <a rel="next" href="scoop.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="cmder.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -187,7 +199,7 @@
                 
 
                 
-                    <a rel="next" href="scoop.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="cmder.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
