@@ -1,8 +1,8 @@
 # mdbook
 
-## mdbook
+## WebSite
 
-https://github.com/rust-lang/mdBook
+[https://github.com/rust-lang/mdBook](https://github.com/rust-lang/mdBook)
 
 ## Install
 
@@ -23,12 +23,12 @@ $ mdbook serve # Bookを更新するたびにビルトを実行し、ブラウ�
 ## Directory
 
 ```shell
-BookShelf/                 # Bookを格納
-└┬[Book_Name]/           # Bookを構成するファイルを格納。build init 時に生成される
-  ├─book/                # mdbook build 時に生成されるフォルダ
-  ├─book.toml            # 設定ファイル
-  └─src/
-       ├─index.md        # 表紙ページ
-       ├─SUMMARY.md      # 目次の設定ファイル
-       └─[page_name].md  # ページコンテンツ
+BookShelf/               # Bookを格納
+└┬[Book_Name]/         # Bookを構成するファイルを格納。build init 時に生成される
+ ├─book/               # mdbook build 時に生成されるフォルダ
+ ├─book.toml           # 設定ファイル
+ └─src/
+     ├─index.md        # 表紙ページ
+     ├─SUMMARY.md      # 目次の設定ファイル
+     └─[page_name].md  # ページコンテンツ
 ```
