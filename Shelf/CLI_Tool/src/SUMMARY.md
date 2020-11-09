@@ -1,4 +1,6 @@
 # Summary
 
-- [mdbook](./mdbook.md)
+
+- [Documentation](./SUMMARY.md)
+  - [mdbook](./mdbook.md)
 

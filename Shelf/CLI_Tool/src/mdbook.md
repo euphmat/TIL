@@ -32,3 +32,13 @@ BookShelf/               # Bookを格納
      ├─SUMMARY.md      # 目次の設定ファイル
      └─[page_name].md  # ページコンテンツ
 ```
+
+## Config
+
+### Summaryの折り畳みを有効にする
+
+```toml
+[output.html.fold]
+enable = true
+eval = 0
+```

@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="mdbook.html" class="active"><strong aria-hidden="true">1.</strong> mdbook</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Documentation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="mdbook.html" class="active"><strong aria-hidden="true">1.1.</strong> mdbook</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -182,11 +182,21 @@ $ mdbook serve # Bookを更新するたびにビルトを実行し、ブラウ�
      ├─SUMMARY.md      # 目次の設定ファイル
      └─[page_name].md  # ページコンテンツ
 </code></pre>
+<h2><a class="header" href="#config" id="config">Config</a></h2>
+<h3><a class="header" href="#summaryの折り畳みを有効にする" id="summaryの折り畳みを有効にする">Summaryの折り畳みを有効にする</a></h3>
+<pre><code class="language-toml">[output.html.fold]
+enable = true
+eval = 0
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="SUMMARY.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
                         
 
                         
@@ -197,6 +207,10 @@ $ mdbook serve # Bookを更新するたびにビルトを実行し、ブラウ�
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="SUMMARY.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
                 
 
                 

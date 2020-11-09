@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Shebang - ShellScript</title>
+        <title>スクリプトがある場所に移動する - ShellScript</title>
         
         
 
@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="shebang.html" class="active"><strong aria-hidden="true">1.</strong> Shebang</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="1.html"><strong aria-hidden="true">1.</strong> Shebang</a></li><li class="chapter-item expanded "><a href="2.html" class="active"><strong aria-hidden="true">2.</strong> スクリプトがある場所に移動する</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -159,12 +159,18 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#shebang" id="shebang">Shebang</a></h1>
+                        <h1><a class="header" href="#実行したスクリプトがある場所に移動する" id="実行したスクリプトがある場所に移動する">実行したスクリプトがある場所に移動する</a></h1>
+<pre><code class="language-shell">cd &quot;$(cd &quot;$(dirname &quot;${BASH_SOURCE[0]}&quot;)&quot; &amp;&amp; pwd)&quot;
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
                         
 
                         
@@ -175,6 +181,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
                 
 
                 
