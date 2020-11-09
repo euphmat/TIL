@@ -1,4 +1,4 @@
 # Summary
 
-- [Index](./index.md)
+- [Summary](./SUMMARY.md)
 - [mdbook](./mdbook.md)

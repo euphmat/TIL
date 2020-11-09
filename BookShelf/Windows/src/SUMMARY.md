@@ -1,5 +1,5 @@
 # Summary
 
-- [Index](index.md)
+- [Summary](SUMMARY.md)
 - [Scoop](scoop.md)
 - [Cmder](cmder.md)

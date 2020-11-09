@@ -2,8 +2,8 @@
 
 ## 公式サイト
 
-[scoop](https://scoop.sh/)
-[scoop - Github](https://github.com/lukesampson/scoop)
++ [scoop](https://scoop.sh/)  
++ [scoop - Github](https://github.com/lukesampson/scoop)
 
 ## インストール
 
