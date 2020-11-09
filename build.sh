@@ -7,12 +7,13 @@ function main(){
         for dir in $dirs;
         do
                 cd $dir
-                echo -en "\033[0;34m[$dir]:\033[0;39m"
+                echo -en "\033[0;34m$dir [\033[0;39m"
                 if [[ `mdbook build > /dev/null 2>&1 ; echo $?` = 0 ]]; then
-                        echo -e " \033[0;32m✔\033[0;39m"
+                        echo -en "\033[0;32m✔\033[0;39m"
                 else
-                        echo -e " \033[0;31m×\033[0;39m"
+                        echo -en "\033[0;31m×\033[0;39m"
                 fi
+                echo -e "\033[0;34m]\033[0;39m"
                 cd ..
         done
 }

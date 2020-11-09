@@ -8,3 +8,4 @@
   + [関数](./Rust入門/05.functions.md)
   + [フロー制御](./Rust入門/06.control_flow.md)
   + [所有権](./Rust入門/07.what_is_ownership.md)
+  + [参照と借用](./Rust入門/08.references-and-borrowing.md)
