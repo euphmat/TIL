@@ -9,3 +9,7 @@
   + [フロー制御](./Rust入門/06.control_flow.md)
   + [所有権](./Rust入門/07.what_is_ownership.md)
   + [参照と借用](./Rust入門/08.references-and-borrowing.md)
+  + [スライス](./Rust入門/09.slices.md)
+  + [構造体](./Rust入門/10.structs.md)
+  + [メソッド記法](./Rust入門/11.method-syntax.md)
+  + [Enum](./Rust入門/12.enums.md)

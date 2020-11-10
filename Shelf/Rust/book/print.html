@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Rust入門</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Rust入門/01.setup.html"><strong aria-hidden="true">1.1.</strong> セットアップ</a></li><li class="chapter-item "><a href="Rust入門/02.cargo.html"><strong aria-hidden="true">1.2.</strong> Cargo</a></li><li class="chapter-item "><a href="Rust入門/03.variables.html"><strong aria-hidden="true">1.3.</strong> 変数</a></li><li class="chapter-item "><a href="Rust入門/04.data_types.html"><strong aria-hidden="true">1.4.</strong> データ型</a></li><li class="chapter-item "><a href="Rust入門/05.functions.html"><strong aria-hidden="true">1.5.</strong> 関数</a></li><li class="chapter-item "><a href="Rust入門/06.control_flow.html"><strong aria-hidden="true">1.6.</strong> フロー制御</a></li><li class="chapter-item "><a href="Rust入門/07.what_is_ownership.html"><strong aria-hidden="true">1.7.</strong> 所有権</a></li><li class="chapter-item "><a href="Rust入門/08.references-and-borrowing.html"><strong aria-hidden="true">1.8.</strong> 参照と借用</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Rust入門</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Rust入門/01.setup.html"><strong aria-hidden="true">1.1.</strong> セットアップ</a></li><li class="chapter-item "><a href="Rust入門/02.cargo.html"><strong aria-hidden="true">1.2.</strong> Cargo</a></li><li class="chapter-item "><a href="Rust入門/03.variables.html"><strong aria-hidden="true">1.3.</strong> 変数</a></li><li class="chapter-item "><a href="Rust入門/04.data_types.html"><strong aria-hidden="true">1.4.</strong> データ型</a></li><li class="chapter-item "><a href="Rust入門/05.functions.html"><strong aria-hidden="true">1.5.</strong> 関数</a></li><li class="chapter-item "><a href="Rust入門/06.control_flow.html"><strong aria-hidden="true">1.6.</strong> フロー制御</a></li><li class="chapter-item "><a href="Rust入門/07.what_is_ownership.html"><strong aria-hidden="true">1.7.</strong> 所有権</a></li><li class="chapter-item "><a href="Rust入門/08.references-and-borrowing.html"><strong aria-hidden="true">1.8.</strong> 参照と借用</a></li><li class="chapter-item "><a href="Rust入門/09.slices.html"><strong aria-hidden="true">1.9.</strong> スライス</a></li><li class="chapter-item "><a href="Rust入門/10.structs.html"><strong aria-hidden="true">1.10.</strong> 構造体</a></li><li class="chapter-item "><a href="Rust入門/11.method-syntax.html"><strong aria-hidden="true">1.11.</strong> メソッド記法</a></li><li class="chapter-item "><a href="Rust入門/12.enums.html"><strong aria-hidden="true">1.12.</strong> Enum</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -173,6 +173,10 @@
 <li><a href="./Rust%E5%85%A5%E9%96%80/06.control_flow.html">フロー制御</a></li>
 <li><a href="./Rust%E5%85%A5%E9%96%80/07.what_is_ownership.html">所有権</a></li>
 <li><a href="./Rust%E5%85%A5%E9%96%80/08.references-and-borrowing.html">参照と借用</a></li>
+<li><a href="./Rust%E5%85%A5%E9%96%80/09.slices.html">スライス</a></li>
+<li><a href="./Rust%E5%85%A5%E9%96%80/10.structs.html">構造体</a></li>
+<li><a href="./Rust%E5%85%A5%E9%96%80/11.method-syntax.html">メソッド記法</a></li>
+<li><a href="./Rust%E5%85%A5%E9%96%80/12.enums.html">Enum</a></li>
 </ul>
 </li>
 </ul>
@@ -584,19 +588,241 @@ for i in (0..5) {
 </ul>
 </li>
 </ul>
-<h1><a class="header" href="#参照と借用" id="参照と借用">参照と借用</a></h1>
+<p>参照と借用</p>
 <ul>
-<li>下記コードのように、別の関数で、main関数のデータを一時的に使用したいとき、</li>
+<li>以下のように、<code>calc_length</code>関数で、<code>main</code>関数のデータを一時的に使用したい時、値を引数として渡すことができますが、所有権が移動してしまうため、<code>main</code>関数で再度使用したい場合は、所有権を返却しなければなりません。</li>
 </ul>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-        let s1 = String::from(&quot;hello&quot;);
+        let str = String::from(&quot;hello&quot;);
+        lem len = calc_length(str);       // 所有権がcalc_lengthの変数sに移動する
+
+        println!(&quot;len = {}&quot;,len);
+        println!(&quot;str = {}&quot;,str);          // strはすでに無効のため、コンパイルエラー
 }
 
 fn calc_length(s: String) -&gt; usize {
         s.len()
 }
-
 </code></pre></pre>
+<h2><a class="header" href="#参照と借用の使用方法" id="参照と借用の使用方法">参照と借用の使用方法</a></h2>
+<ul>
+<li>上記の問題を解決するには、<code>参照</code>と<code>借用</code>を使用します。</li>
+<li><code>&amp;</code>記号を使用することで、<code>str</code>の参照を生成することができます。</li>
+<li>関数の引数にも<code>&amp;</code>をつけることで、借用を使用することができます。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let str = String::from(&quot;hello&quot;);
+        let len = calc_length(&amp;str);     // 参照の生成
+
+        println!(&quot;len = {}&quot;,len);
+        println!(&quot;str = {}&quot;,str);
+}
+
+fn calc_length(s: &amp;String) -&gt; usize {   // 借用
+        s.len()
+}
+</code></pre></pre>
+<h2><a class="header" href="#借用したデータの値を変えようとすると" id="借用したデータの値を変えようとすると">借用したデータの値を変えようとすると、、</a></h2>
+<ul>
+<li>借用してきた値を変更しようとすると、コンパイルエラーとなります。</li>
+<li>人のものをとって改変したらどろぼう！</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let str = String::from(&quot;hello&quot;);
+        add_world(&amp;s);
+}
+
+fn add_world(s: String) {
+        s.push_str(&quot;, world&quot;);  // コンパイルエラー
+}
+</code></pre></pre>
+<h2><a class="header" href="#可変な参照" id="可変な参照">可変な参照</a></h2>
+<ul>
+<li>もしも、借用してきた値を変更したいとき、可変な参照を生成することで、問題を解決できます。</li>
+<li>一つデータに対して、参照はいくつでも生成できるが、可変な参照は一つしか生成できない。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+        let mut str = String::from(&quot;hello&quot;);  // 1.可変な変数の生成
+        add_world(&amp;mut str);                  // 2.可変な参照の生成
+        println!(&quot;str = {}&quot;,str);
+}
+
+fn add_world(s: &amp;mut String) {                // 3.可変な参照の受け入れ/借用
+        s.push_str(&quot;, world&quot;);
+}
+</code></pre></pre>
+<h1><a class="header" href="#スライス" id="スライス">スライス</a></h1>
+<h2><a class="header" href="#文字列スライス" id="文字列スライス">文字列スライス</a></h2>
+<ul>
+<li>文字列スライスとは、<code>String</code>の一部への参照です。</li>
+<li>スライスは所有権を持ちません。</li>
+<li></li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = String::from(&quot;hello world&quot;);
+let hello = &amp;s[0..5];
+let world = &amp;s[6..]; 
+
+<span class="boring">println!(&quot;hello = \&quot;{}\&quot;&quot;, hello);
+</span><span class="boring">println!(&quot;world = \&quot;{}\&quot;&quot;, world);
+</span><span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#文字列リテラルもスライス" id="文字列リテラルもスライス">文字列リテラルもスライス</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = &quot;aaa bbb ccc&quot;;
+let bbb = &amp;s[4..7];
+<span class="boring">println!(&quot;bbb = \&quot;{}\&quot;&quot;, bbb);
+</span><span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#配列スライス" id="配列スライス">配列スライス</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = [1, 2, 3, 4, 5];
+let slice = &amp;a[1..3];
+
+<span class="boring">println!(&quot;slice[1] = {}&quot;,slice[1]);
+</span><span class="boring">}
+</span></code></pre></pre>
+<h1><a class="header" href="#構造体" id="構造体">構造体</a></h1>
+<ul>
+<li>構造体は、タプル同様、構造体の一部を異なる型にできます。</li>
+<li>構造体は、タプルとは違って、それぞれのデータに名前を付けることができます。</li>
+<li><code>struct</code>キーワードを使って、構造体全体に名前を付けます。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct User {
+        username: String,
+        email: String,
+        sign_in_count: u64,
+        active: bool,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#構造体のインスタンスを生成する" id="構造体のインスタンスを生成する">構造体のインスタンスを生成する</a></h2>
+<ul>
+<li>生成したインスタンスの値にアクセスするには、ドット記法を使用します。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct User {username: String, email: String, sign_in_count: u64, active: bool,}
+</span>let user1 = User {
+        email: String::from(&quot;someone@example.com&quot;),
+        username: String::from(&quot;user1&quot;),
+        active: true,
+        sign_in_count: 1,
+};
+
+println!(&quot;user1.username = {}&quot;,user1.username);
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#可変なインスタンスの生成" id="可変なインスタンスの生成">可変なインスタンスの生成</a></h2>
+<ul>
+<li>Rustでは、一部のフィールドのみを可変にすることはできず、インスタンス全体が可変となる。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct User {username: String, email: String, sign_in_count: u64, active: bool,}
+</span>let mut user1 = User {
+        email: String::from(&quot;someone@example.com&quot;),
+        username: String::from(&quot;user1&quot;),
+        active: true,
+        sign_in_count: 1,
+};
+
+user1.username = String::from(&quot;ooooooooooo&quot;);
+println!(&quot;user1.username = {}&quot;,user1.username);
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#受け取った引数からインスタンスを生成する" id="受け取った引数からインスタンスを生成する">受け取った引数からインスタンスを生成する</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct User {username: String, email: String, sign_in_count: u64, active: bool,}
+</span>fn main() {
+        let me = build_user(String::from(&quot;euphmat@example.com&quot;),String::from(&quot;euphmat&quot;));
+        println!(&quot;me.email = {}&quot;,me.email);
+        println!(&quot;me.username = {}&quot;,me.username);
+}
+fn build_user(email: String, username: String) -&gt; User {
+        User {
+                email,              // フィールド名と変数名が同じため、省略記法を使用できる
+                username: username, // 省略記法を使用しないパターン
+                active: true,
+                sign_in_count: 1,
+        }
+}
+</code></pre></pre>
+<h2><a class="header" href="#構造体更新記法-他のインスタンスからインスタンスを生成する" id="構造体更新記法-他のインスタンスからインスタンスを生成する">構造体更新記法 (他のインスタンスからインスタンスを生成する)</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">struct User {username: String, email: String, sign_in_count: u64, active: bool,}
+</span><span class="boring">fn build_user(email:String,username:String)-&gt;User{User{email,username:username,active:true,sign_in_count:1,}}
+</span>fn main() {
+        let me = build_user(String::from(&quot;euphmat@example.com&quot;),String::from(&quot;euphmat&quot;));
+        let fake = User {
+                email: String::from(&quot;enphmat@example.com&quot;),
+                ..me  // 構造体更新記法、残りの値は`me`と同じ値を使用する
+        };
+
+        println!(&quot;fake.email = {}&quot;,fake.email);
+        println!(&quot;fake.username = {}&quot;,fake.username);
+}
+</code></pre></pre>
+<h1><a class="header" href="#メソッド記法" id="メソッド記法">メソッド記法</a></h1>
+<ul>
+<li><code>impl</code>キーワードを使うことによって、構造体やenumに関連するメソッドを定義できます。</li>
+<li>メソッドの最初の引数は必ず<code>self</code>になり、これはメソッドを呼び出した構造体インスタンスのことを指します。</li>
+<li>さらに、<code>impl</code>内には、メソッドだけでなく、<code>関連関数</code>を定義することができます。
+<ul>
+<li>これは、<code>self</code>を引数に取らず、構造体に関連づけられているため、そう呼ばれます。</li>
+</ul>
+</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">// 構造体の生成
+struct User { name: String, age : u32, }
+
+//implブロック
+impl User {
+        // メソッドの定義
+        fn print_name(&amp;self) { println!(&quot;{}&quot;,self.name); }
+
+        // メソッドの定義 返り値あり
+        fn double_age(&amp;self) -&gt; u32 { self.age * 2 }
+
+        // 関連関数の定義 インスタンス生成関数
+        fn build_user(name: String, age: u32) -&gt; User { User { name, age, } }
+}
+
+fn main() {
+        let user1 = User { name: String::from(&quot;user1&quot;), age: 24, };
+        
+        // メソッドの呼び出し
+        user1.print_name();
+        println!(&quot;age * 2 = {}&quot;, user1.double_age());
+
+        // 関連関数へアクセス
+        let user2 = User::build_user(String::from(&quot;user2&quot;),35);
+        user2.print_name();
+}
+</code></pre></pre>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 列挙体
+enum IpAddrKind { V4, V6, }
+
+// 構造体 
+struct IpAddr {
+        kind: IpAddrKind::V4,
+        address: String::from(&quot;127.0.0.1&quot;),
+}
+
+<span class="boring">}
+</span></code></pre></pre>
 
                     </main>
 
