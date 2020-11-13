@@ -16,12 +16,23 @@
 
 ## Gitのインストール
 
-```
-$ scoop install Git
+```shell
+$ scoop install Git # Dependence 7zip
 ```
 
 ## Extras Bucketの追加
 
-```
+```shell
 $ scoop bucket add extras
 ```
+
+## 必要なソフトをインストール
+
+```shell
+$ scoop install bat
+$ scoop install cmder-full
+$ scoop install rust
+$ scoop install googlechrome
+$ scoop install mdbook
+```
+
