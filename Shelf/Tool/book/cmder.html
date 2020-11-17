@@ -3,9 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>C</title>
-        
-        <meta name="robots" content="noindex" />
+        <title>Cmder - Tool</title>
         
         
 
@@ -97,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> 基本文法</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="printf.html"><strong aria-hidden="true">1.1.</strong> printf</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Documentation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="mdbook.html"><strong aria-hidden="true">1.1.</strong> mdbook</a></li></ol></li><li class="chapter-item "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> Package Manager</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="scoop.html"><strong aria-hidden="true">2.1.</strong> scoop</a></li></ol></li><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">3.</strong> Terminal</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cmder.html" class="active"><strong aria-hidden="true">3.1.</strong> Cmder</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -129,7 +127,7 @@
                         
                     </div>
 
-                    <h1 class="menu-title">C</h1>
+                    <h1 class="menu-title">Tool</h1>
 
                     <div class="right-buttons">
                         
@@ -165,26 +163,106 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#summary" id="summary">Summary</a></h1>
+                        <h1><a class="header" href="#cmder" id="cmder">Cmder</a></h1>
+<h2><a class="header" href="#公式サイト" id="公式サイト">公式サイト</a></h2>
+<p><img src="https://cmder.net/" alt="Cmder" /></p>
+<h2><a class="header" href="#設定項目" id="設定項目">設定項目</a></h2>
 <ul>
-<li><a href="./SUMMARY.html">基本文法</a>
-<ul>
-<li><a href="./printf.html">printf</a></li>
+<li>Genaral-&gt;Interface language-&gt;<code>ja: 日本語</code></li>
+<li>一般-&gt;フォント-&gt;<code>Sarasa Term J</code></li>
+<li>一般-&gt;タブバー-&gt;表示しない</li>
+<li>起動-&gt;名前付きタスクの指定-&gt;<code>{bash::bash}</code></li>
+<li>フィーチャー-&gt;色-&gt;グラフィックの強化-&gt;非アクティブ時にフェードする</li>
 </ul>
-</li>
-</ul>
-<h1><a class="header" href="#printf" id="printf">printf</a></h1>
-<ul>
-<li>画面に指定した文字を書式付きで出力します。</li>
-</ul>
-<h2><a class="header" href="#書式" id="書式">書式</a></h2>
-<pre><code class="language-c">printf(書式文字列, 可変個引数);
+<h2><a class="header" href="#bashrc" id="bashrc">bashrc</a></h2>
+<pre><code class="language-shell"># ======================================================================
+# ls 
+# ======================================================================
+alias ls='ls -F --color=auto --show-control-chars'
+alias ll='ls -l' 
+alias la='ls -la'
+
+# ======================================================================
+# cd 
+# ======================================================================
+alias ..='cd ..'
+alias cdd='cd ~/Desktop/'
+alias cds='cd ~/Github/TIL/Shelf'
+
+# ======================================================================
+# Git
+# ======================================================================
+alias gs=&quot;git status&quot;
+alias gb=&quot;git branch&quot;
+alias ga=&quot;git add&quot;
+alias gc=&quot;git commit -m&quot;
+alias gp=&quot;git push&quot;
+alias gm=&quot;git merge&quot;
+alias gw=&quot;git switch&quot;
+alias gl=&quot;git pull&quot;
+
+function gh(){
+        local arg=$1
+        git checkout -b $arg
+        git push --set-upstream origin $arg
+}
+
+function gcl(){
+        local arg=$1
+        git clone https://github.com/euphmat/$arg
+}
+
+function got(){
+        git add -A
+        git commit -m &quot;$*&quot;
+        git push origin HEAD
+}
+
+# ======================================================================
+# mdbook
+# ======================================================================
+alias mdb='~/Github/TIL/build.sh'
+alias mdi='mdbook init'
+alias mds='mdbook serve'
+
+# ======================================================================
+# Other
+# ======================================================================
+alias reload='source ~/Desktop/Data/apps/cmder-full/current/vendor/git-for-windows/etc/profile.d/aliases.sh'
+alias bashrc='vi ~/Desktop/Data/apps/cmder-full/current/vendor/git-for-windows/etc/profile.d/aliases.sh'
+alias bashrcpath='explorer ~/Desktop/'
+alias vimrc='vi ~/_vimrc'
+alias bat='bat --paging=never'
+alias e='explorer'
+
+# ======================================================================
+# Cmder
+# ======================================================================
+
+case &quot;$TERM&quot; in
+xterm*)
+	# The following programs are known to require a Win32 Console
+	# for interactive usage, therefore let's launch them through winpty
+	# when run inside `mintty`.
+	for name in node ipython php php5 psql python2.7
+	do
+		case &quot;$(type -p &quot;$name&quot;.exe 2&gt;/dev/null)&quot; in
+		''|/usr/bin/*) continue;;
+		esac
+		alias $name=&quot;winpty $name.exe&quot;
+	done
+	;;
+esac
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="SUMMARY.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
                         
 
                         
@@ -195,6 +273,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="SUMMARY.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
                 
 
                 
@@ -229,14 +311,6 @@
         <!-- Custom JS scripts -->
         
 
-        
-        
-        <script type="text/javascript">
-        window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
-        });
-        </script>
-        
         
 
     </body>

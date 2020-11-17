@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>C</title>
+        <title>Tool</title>
         
         <meta name="robots" content="noindex" />
         
@@ -97,7 +97,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> 基本文法</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="printf.html"><strong aria-hidden="true">1.1.</strong> printf</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Documentation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="mdbook.html"><strong aria-hidden="true">1.1.</strong> mdbook</a></li></ol></li><li class="chapter-item "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> Package Manager</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="scoop.html"><strong aria-hidden="true">2.1.</strong> scoop</a></li></ol></li><li class="chapter-item "><a href="SUMMARY.html"><strong aria-hidden="true">3.</strong> Terminal</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="cmder.html"><strong aria-hidden="true">3.1.</strong> Cmder</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -129,7 +129,7 @@
                         
                     </div>
 
-                    <h1 class="menu-title">C</h1>
+                    <h1 class="menu-title">Tool</h1>
 
                     <div class="right-buttons">
                         
@@ -167,18 +167,211 @@
                     <main>
                         <h1><a class="header" href="#summary" id="summary">Summary</a></h1>
 <ul>
-<li><a href="./SUMMARY.html">基本文法</a>
+<li>
+<p><a href="./SUMMARY.html">Documentation</a></p>
 <ul>
-<li><a href="./printf.html">printf</a></li>
+<li><a href="./mdbook.html">mdbook</a></li>
+</ul>
+</li>
+<li>
+<p><a href="./SUMMARY.html">Package Manager</a></p>
+<ul>
+<li><a href="./scoop.html">scoop</a></li>
+</ul>
+</li>
+<li>
+<p><a href="./SUMMARY.html">Terminal</a></p>
+<ul>
+<li><a href="./cmder.html">Cmder</a></li>
 </ul>
 </li>
 </ul>
-<h1><a class="header" href="#printf" id="printf">printf</a></h1>
+<h1><a class="header" href="#mdbook" id="mdbook">mdbook</a></h1>
+<h2><a class="header" href="#website" id="website">WebSite</a></h2>
+<p><a href="https://github.com/rust-lang/mdBook">https://github.com/rust-lang/mdBook</a></p>
+<h2><a class="header" href="#install" id="install">Install</a></h2>
+<pre><code class="language-shell">$ cargo install mdbook
+$ brew install mdbook
+</code></pre>
+<h2><a class="header" href="#usage" id="usage">Usage</a></h2>
+<pre><code class="language-shell">$ mdbook init  # 新規Bookを作成
+$ mdbook build # Bookをビルド
+$ mdbook watch # Bookが更新されるたびにビルドを実行
+$ mdbook serve # Bookを更新するたびにビルトを実行し、ブラウザを更新する (http://localhost:3000)
+</code></pre>
+<h2><a class="header" href="#directory" id="directory">Directory</a></h2>
+<pre><code class="language-shell">BookShelf/               # Bookを格納
+└┬[Book_Name]/         # Bookを構成するファイルを格納。build init 時に生成される
+ ├─book/               # mdbook build 時に生成されるフォルダ
+ ├─book.toml           # 設定ファイル
+ └─src/
+     ├─index.md        # 表紙ページ
+     ├─SUMMARY.md      # 目次の設定ファイル
+     └─[page_name].md  # ページコンテンツ
+</code></pre>
+<h2><a class="header" href="#config" id="config">Config</a></h2>
+<h3><a class="header" href="#summaryの折り畳みを有効にする" id="summaryの折り畳みを有効にする">Summaryの折り畳みを有効にする</a></h3>
+<pre><code class="language-toml">[output.html.fold]
+enable = true
+eval = 0
+</code></pre>
+<h1><a class="header" href="#summary-1" id="summary-1">Summary</a></h1>
 <ul>
-<li>画面に指定した文字を書式付きで出力します。</li>
+<li>
+<p><a href="./SUMMARY.html">Documentation</a></p>
+<ul>
+<li><a href="./mdbook.html">mdbook</a></li>
 </ul>
-<h2><a class="header" href="#書式" id="書式">書式</a></h2>
-<pre><code class="language-c">printf(書式文字列, 可変個引数);
+</li>
+<li>
+<p><a href="./SUMMARY.html">Package Manager</a></p>
+<ul>
+<li><a href="./scoop.html">scoop</a></li>
+</ul>
+</li>
+<li>
+<p><a href="./SUMMARY.html">Terminal</a></p>
+<ul>
+<li><a href="./cmder.html">Cmder</a></li>
+</ul>
+</li>
+</ul>
+<h1><a class="header" href="#scoop" id="scoop">Scoop</a></h1>
+<h2><a class="header" href="#公式サイト" id="公式サイト">公式サイト</a></h2>
+<ul>
+<li><a href="https://scoop.sh/">scoop</a></li>
+<li><a href="https://github.com/lukesampson/scoop">scoop - Github</a></li>
+</ul>
+<h2><a class="header" href="#インストール" id="インストール">インストール</a></h2>
+<pre><code class="language-shell">&gt; Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+&gt; [environment]::setEnvironmentVariable('SCOOP','D:\Scoop','User')
+&gt; $env:SCOOP='D:\Scoop'
+&gt; iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+</code></pre>
+<h2><a class="header" href="#gitのインストール" id="gitのインストール">Gitのインストール</a></h2>
+<pre><code class="language-shell">$ scoop install Git # Dependence 7zip
+</code></pre>
+<h2><a class="header" href="#extras-bucketの追加" id="extras-bucketの追加">Extras Bucketの追加</a></h2>
+<pre><code class="language-shell">$ scoop bucket add extras
+</code></pre>
+<h2><a class="header" href="#必要なソフトをインストール" id="必要なソフトをインストール">必要なソフトをインストール</a></h2>
+<pre><code class="language-shell">$ scoop install bat
+$ scoop install cmder-full
+$ scoop install rust
+$ scoop install googlechrome
+$ scoop install mdbook
+</code></pre>
+<h1><a class="header" href="#summary-2" id="summary-2">Summary</a></h1>
+<ul>
+<li>
+<p><a href="./SUMMARY.html">Documentation</a></p>
+<ul>
+<li><a href="./mdbook.html">mdbook</a></li>
+</ul>
+</li>
+<li>
+<p><a href="./SUMMARY.html">Package Manager</a></p>
+<ul>
+<li><a href="./scoop.html">scoop</a></li>
+</ul>
+</li>
+<li>
+<p><a href="./SUMMARY.html">Terminal</a></p>
+<ul>
+<li><a href="./cmder.html">Cmder</a></li>
+</ul>
+</li>
+</ul>
+<h1><a class="header" href="#cmder" id="cmder">Cmder</a></h1>
+<h2><a class="header" href="#公式サイト-1" id="公式サイト-1">公式サイト</a></h2>
+<p><img src="https://cmder.net/" alt="Cmder" /></p>
+<h2><a class="header" href="#設定項目" id="設定項目">設定項目</a></h2>
+<ul>
+<li>Genaral-&gt;Interface language-&gt;<code>ja: 日本語</code></li>
+<li>一般-&gt;フォント-&gt;<code>Sarasa Term J</code></li>
+<li>一般-&gt;タブバー-&gt;表示しない</li>
+<li>起動-&gt;名前付きタスクの指定-&gt;<code>{bash::bash}</code></li>
+<li>フィーチャー-&gt;色-&gt;グラフィックの強化-&gt;非アクティブ時にフェードする</li>
+</ul>
+<h2><a class="header" href="#bashrc" id="bashrc">bashrc</a></h2>
+<pre><code class="language-shell"># ======================================================================
+# ls 
+# ======================================================================
+alias ls='ls -F --color=auto --show-control-chars'
+alias ll='ls -l' 
+alias la='ls -la'
+
+# ======================================================================
+# cd 
+# ======================================================================
+alias ..='cd ..'
+alias cdd='cd ~/Desktop/'
+alias cds='cd ~/Github/TIL/Shelf'
+
+# ======================================================================
+# Git
+# ======================================================================
+alias gs=&quot;git status&quot;
+alias gb=&quot;git branch&quot;
+alias ga=&quot;git add&quot;
+alias gc=&quot;git commit -m&quot;
+alias gp=&quot;git push&quot;
+alias gm=&quot;git merge&quot;
+alias gw=&quot;git switch&quot;
+alias gl=&quot;git pull&quot;
+
+function gh(){
+        local arg=$1
+        git checkout -b $arg
+        git push --set-upstream origin $arg
+}
+
+function gcl(){
+        local arg=$1
+        git clone https://github.com/euphmat/$arg
+}
+
+function got(){
+        git add -A
+        git commit -m &quot;$*&quot;
+        git push origin HEAD
+}
+
+# ======================================================================
+# mdbook
+# ======================================================================
+alias mdb='~/Github/TIL/build.sh'
+alias mdi='mdbook init'
+alias mds='mdbook serve'
+
+# ======================================================================
+# Other
+# ======================================================================
+alias reload='source ~/Desktop/Data/apps/cmder-full/current/vendor/git-for-windows/etc/profile.d/aliases.sh'
+alias bashrc='vi ~/Desktop/Data/apps/cmder-full/current/vendor/git-for-windows/etc/profile.d/aliases.sh'
+alias bashrcpath='explorer ~/Desktop/'
+alias vimrc='vi ~/_vimrc'
+alias bat='bat --paging=never'
+alias e='explorer'
+
+# ======================================================================
+# Cmder
+# ======================================================================
+
+case &quot;$TERM&quot; in
+xterm*)
+	# The following programs are known to require a Win32 Console
+	# for interactive usage, therefore let's launch them through winpty
+	# when run inside `mintty`.
+	for name in node ipython php php5 psql python2.7
+	do
+		case &quot;$(type -p &quot;$name&quot;.exe 2&gt;/dev/null)&quot; in
+		''|/usr/bin/*) continue;;
+		esac
+		alias $name=&quot;winpty $name.exe&quot;
+	done
+	;;
+esac
 </code></pre>
 
                     </main>

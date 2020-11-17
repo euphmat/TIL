@@ -1,0 +1,10 @@
+[book]
+authors = ["euphmat"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Tool"
+
+[output.html.fold]
+enable = true
+evel = 0

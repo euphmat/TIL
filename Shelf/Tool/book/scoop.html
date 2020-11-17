@@ -3,9 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>C</title>
-        
-        <meta name="robots" content="noindex" />
+        <title>scoop - Tool</title>
         
         
 
@@ -97,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> 基本文法</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="printf.html"><strong aria-hidden="true">1.1.</strong> printf</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Documentation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="mdbook.html"><strong aria-hidden="true">1.1.</strong> mdbook</a></li></ol></li><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">2.</strong> Package Manager</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="scoop.html" class="active"><strong aria-hidden="true">2.1.</strong> scoop</a></li></ol></li><li class="chapter-item "><a href="SUMMARY.html"><strong aria-hidden="true">3.</strong> Terminal</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="cmder.html"><strong aria-hidden="true">3.1.</strong> Cmder</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -129,7 +127,7 @@
                         
                     </div>
 
-                    <h1 class="menu-title">C</h1>
+                    <h1 class="menu-title">Tool</h1>
 
                     <div class="right-buttons">
                         
@@ -165,20 +163,30 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#summary" id="summary">Summary</a></h1>
+                        <h1><a class="header" href="#scoop" id="scoop">Scoop</a></h1>
+<h2><a class="header" href="#公式サイト" id="公式サイト">公式サイト</a></h2>
 <ul>
-<li><a href="./SUMMARY.html">基本文法</a>
-<ul>
-<li><a href="./printf.html">printf</a></li>
+<li><a href="https://scoop.sh/">scoop</a></li>
+<li><a href="https://github.com/lukesampson/scoop">scoop - Github</a></li>
 </ul>
-</li>
-</ul>
-<h1><a class="header" href="#printf" id="printf">printf</a></h1>
-<ul>
-<li>画面に指定した文字を書式付きで出力します。</li>
-</ul>
-<h2><a class="header" href="#書式" id="書式">書式</a></h2>
-<pre><code class="language-c">printf(書式文字列, 可変個引数);
+<h2><a class="header" href="#インストール" id="インストール">インストール</a></h2>
+<pre><code class="language-shell">&gt; Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+&gt; [environment]::setEnvironmentVariable('SCOOP','D:\Scoop','User')
+&gt; $env:SCOOP='D:\Scoop'
+&gt; iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+</code></pre>
+<h2><a class="header" href="#gitのインストール" id="gitのインストール">Gitのインストール</a></h2>
+<pre><code class="language-shell">$ scoop install Git # Dependence 7zip
+</code></pre>
+<h2><a class="header" href="#extras-bucketの追加" id="extras-bucketの追加">Extras Bucketの追加</a></h2>
+<pre><code class="language-shell">$ scoop bucket add extras
+</code></pre>
+<h2><a class="header" href="#必要なソフトをインストール" id="必要なソフトをインストール">必要なソフトをインストール</a></h2>
+<pre><code class="language-shell">$ scoop install bat
+$ scoop install cmder-full
+$ scoop install rust
+$ scoop install googlechrome
+$ scoop install mdbook
 </code></pre>
 
                     </main>
@@ -186,7 +194,15 @@
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
+                            <a rel="prev" href="SUMMARY.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
 
+                        
+                            <a rel="next" href="SUMMARY.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -196,7 +212,15 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
+                    <a rel="prev" href="SUMMARY.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
 
+                
+                    <a rel="next" href="SUMMARY.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             </nav>
 
@@ -229,14 +253,6 @@
         <!-- Custom JS scripts -->
         
 
-        
-        
-        <script type="text/javascript">
-        window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
-        });
-        </script>
-        
         
 
     </body>
