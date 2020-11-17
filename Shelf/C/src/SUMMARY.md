@@ -1,4 +1,3 @@
 # Summary
 
-- [基本文法](./SUMMARY.md)
-  - [printf](./printf.md)
+- [基本文法](00.beginnersbook.md)

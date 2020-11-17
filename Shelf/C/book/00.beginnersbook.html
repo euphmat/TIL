@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>printf - C</title>
+        <title>基本文法 - C</title>
         
         
 
@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> 基本文法</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="printf.html" class="active"><strong aria-hidden="true">1.1.</strong> printf</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="00.beginnersbook.html" class="active"><strong aria-hidden="true">1.</strong> 基本文法</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,22 +163,33 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#printf" id="printf">printf</a></h1>
-<ul>
-<li>画面に指定した文字を書式付きで出力します。</li>
-</ul>
-<h2><a class="header" href="#書式" id="書式">書式</a></h2>
-<pre><code class="language-c">printf(書式文字列, 可変個引数);
+                        <h1><a class="header" href="#基本文法" id="基本文法">基本文法</a></h1>
+<h2><a class="header" href="#hello-world" id="hello-world">Hello world</a></h2>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+int main(){
+        printlf(&quot;Hello,World&quot;);
+}
 </code></pre>
+<h2><a class="header" href="#printf関数" id="printf関数">printf関数</a></h2>
+<pre><code class="language-c">printf(&quot;%d\n&quot;,10);       // 10進数
+printf(&quot;%f\n&quot;,0.01);     // 浮動小数
+printf(&quot;%c\n&quot;,'a');      // 文字
+printf(&quot;%s\n&quot;, &quot;abc&quot;);   // 文字列
+
+## 変数
+
+```c
+int a = 6;
+char = 'a';
+double = 1.01;
+</code></pre>
+<h2><a class="header" href="#型変換" id="型変換">型変換</a></h2>
+<pre><code class="language-c"></code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
-                            <a rel="prev" href="SUMMARY.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
                         
 
                         
@@ -189,10 +200,6 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a rel="prev" href="SUMMARY.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
                 
 
                 
