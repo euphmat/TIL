@@ -184,6 +184,21 @@ set -Ceuo pipefail
 <pre><code class="language-shell">cd &quot;$(cd &quot;$(dirname &quot;${BASH_SOURCE[0]}&quot;)&quot; &amp;&amp; pwd)&quot;
 </code></pre>
 <h1><a class="header" href="#セレクトメニュー" id="セレクトメニュー">セレクトメニュー</a></h1>
+<h2><a class="header" href="#配列に格納した値をメニューとして表示する" id="配列に格納した値をメニューとして表示する">配列に格納した値をメニューとして表示する</a></h2>
+<pre><code class="language-sh">function select_menu(){
+        PS3=&quot;Message:&quot;
+
+        select i in ${array[@]}
+        do
+                case $i in
+                        $i)
+                                echo &quot;hoge&quot;;
+                                break;;
+                        *)
+                esac
+        done
+}
+</code></pre>
 
                     </main>
 
